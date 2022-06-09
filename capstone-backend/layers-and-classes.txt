@@ -1,0 +1,194 @@
+### Controllers
+    [] ErrorResponse
+        - private final LocalDateTime timestamp
+        - private final String messgae
+        - public LocalDateTime getTimestamp()
+        - public String getMessage()
+        - public ErrorResponse(String)
+        - public static <T> ResponseEntity<Object> build(Result<T> result)
+    [] GlobalExceptionHandler
+        - public ResponseEntity<ErrorResponse> handleException(DataAccessException)
+        - public ResponseEntity<ErrorResponse> handleException(IllegalArgumentException)
+        - public ResponseEntity<ErrorResponse> handleException(Exception)
+    [] Audition
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] User
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] Auditionee
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] Manager
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] Part
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+
+### Data Layer
+    [] Mappers
+        [] Audition
+        [] User
+        [] Auditionee
+        [] Manager
+        [] Part
+    [] Audition Repository
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] Audition JDBC Repository
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] User Repository
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] User JDBC Repository
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] Auditionee Repository
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] Auditionee JDBC Repository
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] Part Repository
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+    [] Part JDBC Repository
+        - findAll
+        - findById
+        - add
+        - update
+        - deleteById
+
+### Domain Layer
+    [] Result
+        - private final ArrayList<String> messages
+        - private ResultType type
+        - private T payload;
+        - public ResultType getType()
+        - public boolean isSuccess()
+        - public T getPayload()
+        - public void setPayload()
+        - public List<String> getMessages()
+        - public void addMessages()
+        - Overrides
+    [] Result Type
+        - public enum ResultType
+    [] Validations
+        - public static boolean isNullOrBlank(String value)
+    [] Audition Service
+        - private final AuditionRepository
+        - public AuditionService(AuditionRepository repository)
+        - public List<Audition> findAll()
+        - public Audition findById()
+        - public Result<Audition> add()
+        - public Result<Audition> update()
+        - public boolean deleteById()
+        - private Result<Audition> validate
+    [] User Service
+        - private final UserRepository
+        - public UserService(UserRepository repository)
+        - public List<User> findAll()
+        - public User findById()
+        - public Result<User> add()
+        - public Result<User> update()
+        - public boolean deleteById()
+        - private Result<User> validate
+    [] Manager Service
+        - private final ManagerRepository
+        - public UserService(ManagerRepository repository)
+        - public List<Manager> findAll()
+        - public Manager findById()
+        - public Result<Manager> add()
+        - public Result<Manager> update()
+        - public boolean deleteById()
+        - private Result<Manager> validate
+    [] Auditionee Service
+        - private final AuditioneeRepository
+        - public AuditioneeService(AuditioneeRepository repository)
+        - public List<Auditionee> findAll()
+        - public Auditionee findById()
+        - public Result<Auditionee> add()
+        - public Result<Auditionee> update()
+        - public boolean deleteById()
+        - private Result<Auditionee> validate
+    [] Part Service
+        - private final PartRepository
+        - public PartService(PartRepository repository)
+        - public List<Part> findAll()
+        - public Part findById()
+        - public Result<Part> add()
+        - public Result<Part> update()
+        - public boolean deleteById()
+        - private Result<Part> validate
+
+### Model Layer
+    [] Audition
+        - Id
+        - Auditionee Id
+        - Part Id
+    [] User
+        - Id
+        - AccessType
+        - First Name
+        - Last Name
+    [] Manager
+        - Id
+        - User Id
+    [] Auditionee
+        - Id
+        - User Id
+        - Part Id
+        - Date (ENUM)
+        - Selection
+    [] Part
+        - Id
+        - Role
+    [] AccessType ENUM
+        - Auditionee
+        - Manager
+    [] Role ENUM
+        - Acting
+        - Singing
+    [] (Date ENUM)
+        - Date 1
+        - Date 2
+        - Date 3
+
