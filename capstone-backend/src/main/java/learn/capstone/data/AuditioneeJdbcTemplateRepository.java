@@ -1,6 +1,8 @@
 package learn.capstone.data;
 
+import learn.capstone.data.mappers.AuditioneeMapper;
 import learn.capstone.models.Auditionee;
+import learn.capstone.models.Date;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -17,33 +19,23 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private RowMapper<Auditionee> auditioneeMapper = (rs, rowNum) -> {
-        Auditionee auditionee = new Auditionee();
-        auditionee.setAuditioneeId(rs.getInt("auditionee_id"));
-        auditionee.setUserId(rs.getInt("user_id"));
-        auditionee.setPartId(rs.getInt("part_id"));
-        auditionee.setSelection(rs.getString("selection"));
-        return auditionee;
-    };
-
     public AuditioneeJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public List<Auditionee> findAll() {
-        String sql = "select auditionee_id, user_id, part_id, date, selection from auditionee";
-        List<Auditionee> auditionees = jdbcTemplate.query(sql, auditioneeMapper);
-        return auditionees;
+        String sql = "select auditionee_id, user_id, part_id, `date`, selection from auditionee;";
+        return jdbcTemplate.query(sql, new AuditioneeMapper());
     }
 
     @Override
     public Auditionee findById(int auditioneeId) {
-        String sql = "select auditionee_id, user_id, part_id, date, selection "
+        String sql = "select auditionee_id, user_id, part_id, `date`, selection "
                 + "from auditionee "
                 + "where auditionee_id = ?;";
 
-        Auditionee auditionee = jdbcTemplate.query(sql, auditioneeMapper, auditioneeId).stream()
+        Auditionee auditionee = jdbcTemplate.query(sql, new AuditioneeMapper(), auditioneeId).stream()
                 .findFirst()
                 .orElse(null);
 
@@ -61,7 +53,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, auditionee.getUserId());
             statement.setInt(2, auditionee.getPartId());
-            statement.setString(3, auditionee.getDate().toString().toLowerCase(Locale.ROOT));
+            statement.setString(3, auditionee.getDate().name().toLowerCase(Locale.ROOT));
             statement.setString(4, auditionee.getSelection());
             return statement;
         }, keyHolder);
