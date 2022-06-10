@@ -46,7 +46,7 @@ class AuditionJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAddValid() {
-        Audition valid = TestHelper.makeAudition3();
+        Audition valid = TestHelper.makeAudition3Test();
 
         repository.add(valid);
 
@@ -87,7 +87,7 @@ class AuditionJdbcTemplateRepositoryTest {
 
     @Test
     void shouldUpdateExistingValid() {
-        Audition existing = TestHelper.makeAudition3();
+        Audition existing = TestHelper.makeAudition3Test();
         repository.add(existing);
 
         existing.setAuditioneeId(1);
@@ -99,7 +99,7 @@ class AuditionJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotUpdateInvalidRole() {
-        Audition existing = TestHelper.makeAudition3();
+        Audition existing = TestHelper.makeAudition3Test();
         repository.add(existing);
 
         existing.setAuditioneeId(1);
@@ -110,7 +110,7 @@ class AuditionJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotUpdateInvalidAuditionee() {
-        Audition existing = TestHelper.makeAudition3();
+        Audition existing = TestHelper.makeAudition3Test();
         repository.add(existing);
 
         existing.setAuditioneeId(0);
@@ -121,7 +121,7 @@ class AuditionJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotUpdateInvalidDuplicate() {
-        Audition existing = TestHelper.makeAudition3();
+        Audition existing = TestHelper.makeAudition3Test();
         repository.add(existing);
 
         existing.setAuditioneeId(2);

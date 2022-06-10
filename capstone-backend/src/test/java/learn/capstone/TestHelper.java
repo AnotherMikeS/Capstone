@@ -1,5 +1,7 @@
 package learn.capstone;
 
+import learn.capstone.domain.Result;
+import learn.capstone.domain.ResultType;
 import learn.capstone.models.AccessType;
 import learn.capstone.models.Audition;
 import learn.capstone.models.User;
@@ -11,7 +13,47 @@ public class TestHelper {
         return newUser;
     }
 
+    public static Result makeResult(String... messages) {
+        Result result = new Result();
+        for (String message : messages) {
+            result.addMessage(message, ResultType.INVALID);
+        }
+        return result;
+    }
+
+    public static Audition makeValidAudition(int auditionId) {
+        Audition audition = new Audition();
+        audition.setAuditionId(auditionId);
+        audition.setAuditioneeId(4);
+        audition.setPartId(1);
+        return audition;
+    }
+
+    public static Audition makeAudition1() {
+        Audition audition = new Audition();
+        audition.setAuditionId(1);
+        audition.setAuditioneeId(1);
+        audition.setPartId(1);
+        return audition;
+    }
+
+    public static Audition makeAudition2() {
+        Audition audition = new Audition();
+        audition.setAuditionId(2);
+        audition.setAuditioneeId(2);
+        audition.setPartId(2);
+        return audition;
+    }
+
     public static Audition makeAudition3() {
+        Audition audition = new Audition();
+        audition.setAuditionId(3);
+        audition.setAuditioneeId(3);
+        audition.setPartId(1);
+        return audition;
+    }
+
+    public static Audition makeAudition3Test() {
         Audition audition = new Audition();
         audition.setAuditionId(3);
         audition.setAuditioneeId(2);
