@@ -79,4 +79,13 @@ class AuditionServiceTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    void shouldNotAddInvalidPart() {
+        Audition bad = TestHelper.makeInvalidRole();
+        Result expected = TestHelper.makeResult("Auditions must have a valid part.");
+        Result actual = service.add(bad);
+        assertEquals(expected, actual);
+    }
+
+
 }
