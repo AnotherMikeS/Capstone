@@ -22,15 +22,35 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
 
     @Override
     public List<Audition> findAll() {
-        final String sql = "select audition_id, auditionee_id, part_id from auditions;";
+        final String sql = "select" +
+                " auditions.audition_id," +
+                " auditionee.auditionee_id," +
+                " user.first_name," +
+                " user.last_name," +
+                " part.part_id," +
+                " part.role" +
+                " from user" +
+                " inner join auditionee on user.user_id = auditionee.user_id" +
+                " inner join auditions on auditionee.auditionee_id = auditions.auditionee_id" +
+                " inner join part on auditions.part_id = part.part_id;";
 
         return jdbcTemplate.query(sql, new AuditionMapper());
     }
 
     @Override
     public Audition findById(int auditionId) {
-        final String sql = "select audition_id, auditionee_id, part_id" +
-                "from auditions where audition_id = ?;";
+        final String sql = "select" +
+                " auditions.audition_id," +
+                " auditionee.auditionee_id," +
+                " user.first_name," +
+                " user.last_name," +
+                " part.part_id," +
+                " part.role" +
+                " from user" +
+                " inner join auditionee on user.user_id = auditionee.user_id" +
+                " inner join auditions on auditionee.auditionee_id = auditions.auditionee_id" +
+                " inner join part on auditions.part_id = part.part_id" +
+                " where audition_id = ?;";
 
         return jdbcTemplate.query(sql, new AuditionMapper(), auditionId)
                 .stream().findFirst().orElse(null);
