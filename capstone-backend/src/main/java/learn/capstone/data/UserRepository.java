@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface UserRepository {
         List<User> findAll();
-        User findById();
+        User findById(int userId);
         User add(User user);
-        User update(User user);
+        boolean update(User user);
         boolean deleteById(int id);
 }

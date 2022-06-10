@@ -65,7 +65,8 @@ begin
     insert into `user` (user_id, access_type, first_name, last_name) values
 		(1, 'auditionee', 'Shelley', 'Nixon'),
 		(2, 'auditionee', 'Michael', 'Smith'),
-        (3, 'manager', 'Greg', 'Gennaro');
+        (3, 'manager', 'Greg', 'Gennaro'),
+        (4, 'auditionee', 'Mario', 'Mario');
     
     insert into part (part_id, `role`) values
         (1, 'singing'),
