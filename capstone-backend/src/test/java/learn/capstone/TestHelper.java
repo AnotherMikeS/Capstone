@@ -8,7 +8,7 @@ import learn.capstone.models.User;
 
 public class TestHelper {
 
-    public User makeUser() {
+    public static User makeUser() {
         User newUser = new User(5, "Lin-Manuel", "Miranda", AccessType.AUDITIONEE);
         return newUser;
     }

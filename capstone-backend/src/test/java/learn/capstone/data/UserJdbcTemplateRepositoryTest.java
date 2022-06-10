@@ -32,7 +32,7 @@ class UserJdbcTemplateRepositoryTest {
     void shouldFindAll() {
         List<User> users = repository.findAll();
         assertNotNull(users);
-        assertEquals(3, users.size());
+        assertEquals(4, users.size());
     }
 
     @Test
@@ -53,12 +53,26 @@ class UserJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAddValid() {
-        //Any data that makes it to this later should be valid, so only testing add
-        User expected = new TestHelper().makeUser();
-        User actual = repository.add(expected);
+        //Any data that makes it to this later should be valid, so only testing 'shouldAdd', not 'shouldNotAdd'
 
+        User expected = TestHelper.makeUser();
+        User actual = repository.add(expected);
         assertEquals(expected, actual);
     }
+
+    @Test
+    void shouldUpdate(){
+        //Same thing. Any data that makes it here should already be valid
+
+        User updated = new User(2, "John", "Smith", AccessType.AUDITIONEE);
+        assertTrue(repository.update(updated));
+        updated = new User(2, "John", "Jones", AccessType.AUDITIONEE);
+        assertTrue(repository.update(updated));
+        updated = new User(2, "Michael", "Smith", AccessType.MANAGER);
+        assertTrue(repository.update(updated));
+    }
+
+
     @Test
     void shouldDelete() {
         assertFalse(repository.deleteById(1000));

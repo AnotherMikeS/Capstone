@@ -62,16 +62,27 @@ public class UserJdbcTemplateRepository implements UserRepository{
     @Override
     public boolean update(User user) {
         final String sql = "update user set " +
-                "user_id = ?, access_type = ?, first_name = ?, last_name = ? " +
+                "user_id = ?, " +
+                "access_type = ?, " +
+                "first_name = ?, " +
+                "last_name = ? " +
                 "where user_id = ?;";
 
         return jdbcTemplate.update(sql,
-                user.getUserId(), user.getAccessType(), user.getFirstName(), user.getLastName(),
+                user.getUserId(),
+                user.getAccessType().toString().toLowerCase(Locale.ROOT),
+                user.getFirstName(),
+                user.getLastName(),
+
                 user.getUserId()) > 0;
     }
 
     @Override
-    public boolean deleteById(int id) {
-        return jdbcTemplate.update("delete from user where user_id = ?", id) > 0;
+    public boolean deleteById(int userId) {
+//        jdbcTemplate.update("delete from manager where user_id = ?", userId);
+        //delete from audition inner join audition to auditionee where auditionee.userid = ?
+//        jdbcTemplate.update("delete from auditionee where user_id = ?", userId);
+
+        return jdbcTemplate.update("delete from `user` where user_id = ?", userId) > 0;
     }
 }
