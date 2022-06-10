@@ -4,6 +4,7 @@ import learn.capstone.models.Auditionee;
 
 public class Result {
     public boolean isSuccess() {
+        return false;
     }
 
     public void setPayload(Auditionee withId) {
@@ -19,4 +20,5 @@ public class Result {
 //        - public List<String> getMessages()
 //        - public void addMessages()
 //        - Overrides
+
 }
