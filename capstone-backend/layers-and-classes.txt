@@ -10,6 +10,11 @@
         - public ResponseEntity<ErrorResponse> handleException(DataAccessException)
         - public ResponseEntity<ErrorResponse> handleException(IllegalArgumentException)
         - public ResponseEntity<ErrorResponse> handleException(Exception)
+    [] AuthController
+        - private final AuthenticationManager
+        - private final JwtConverter
+        - public AuthController(AuthenticationManager, JwtConverter)
+        - **see heroes-api**
     [] Audition
         - findAll
         - findById
@@ -122,15 +127,6 @@
         - public Result<Audition> update()
         - public boolean deleteById()
         - private Result<Audition> validate
-    [] User Service
-        - private final UserRepository
-        - public UserService(UserRepository repository)
-        - public List<User> findAll()
-        - public User findById()
-        - public Result<User> add()
-        - public Result<User> update()
-        - public boolean deleteById()
-        - private Result<User> validate
     [] Manager Service
         - private final ManagerRepository
         - public UserService(ManagerRepository repository)
@@ -191,4 +187,11 @@
         - Date 1
         - Date 2
         - Date 3
+
+### Security
+    [] UserService
+        - private final UserService implements
+        - private final UserRepository
+        - @override
+            public UserDetails loadUserByUsername(String)
 
