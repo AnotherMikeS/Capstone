@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class AuditionJdbcTemplateRepository implements AuditionRepository{
@@ -58,13 +59,29 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
 
     @Override
     public Audition add(Audition audition) {
-        final String sql = "insert into auditions (auditionee_id), (part_id)" +
-                "values (?);";
+        final String sql = "insert into auditions (auditionee_id, part_id)" +
+                " values (?, ?);";
+
+        if (audition.getAuditioneeId() <= 0) {
+            return null;
+        }
+
+        if (audition.getPartId() > 2) {
+            return null;
+        }
+
+        List<Audition> all = findAll();
+        for (Audition a : all) {
+            if ((a.getAuditioneeId() == audition.getAuditioneeId()) && (a.getPartId() == audition.getPartId())) {
+                return null;
+            }
+        }
 
         KeyHolder keyholder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, audition.getAuditioneeId());
+            ps.setInt(2, audition.getPartId());
             return ps;
         }, keyholder);
 
@@ -79,7 +96,23 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
     @Override
     public boolean update(Audition audition) {
         final String sql = "update auditions set" +
-                "auditionee_id = ?, part_id = ? where audition_id = ?;";
+                " auditionee_id = ?, part_id = ? where audition_id = ?;";
+
+        if (audition.getAuditioneeId() <= 0) {
+            return false;
+        }
+
+        if (audition.getPartId() > 2) {
+            return false;
+        }
+
+        List<Audition> all = findAll();
+        for (Audition a : all) {
+            if ((a.getAuditioneeId() == audition.getAuditioneeId()) && (a.getPartId() == audition.getPartId())) {
+                return false;
+            }
+        }
+
 
         return jdbcTemplate.update(sql, audition.getAuditioneeId(), audition.getPartId(),
                 audition.getAuditionId()) > 0;
