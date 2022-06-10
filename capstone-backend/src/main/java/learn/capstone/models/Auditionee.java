@@ -28,6 +28,10 @@ public class Auditionee {
         this.selection = selection;
     }
 
+    public Auditionee() {
+
+    }
+
     public int getAuditioneeId() {
         return auditioneeId;
     }

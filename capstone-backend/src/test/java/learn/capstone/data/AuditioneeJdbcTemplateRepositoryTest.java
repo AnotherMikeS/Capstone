@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataAccessException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static learn.capstone.models.Date.DATE_ONE;

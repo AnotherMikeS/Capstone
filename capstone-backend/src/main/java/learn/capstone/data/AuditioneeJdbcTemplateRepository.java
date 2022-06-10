@@ -25,13 +25,13 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 
     @Override
     public List<Auditionee> findAll() {
-        String sql = "select auditionee_id, user_id, part_id, date, selection from auditionee";
+        String sql = "select auditionee_id, user_id, part_id, `date`, selection from auditionee;";
         return jdbcTemplate.query(sql, new AuditioneeMapper());
     }
 
     @Override
     public Auditionee findById(int auditioneeId) {
-        String sql = "select auditionee_id, user_id, part_id, date, selection "
+        String sql = "select auditionee_id, user_id, part_id, `date`, selection "
                 + "from auditionee "
                 + "where auditionee_id = ?;";
 
@@ -53,7 +53,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, auditionee.getUserId());
             statement.setInt(2, auditionee.getPartId());
-            statement.setString(3, auditionee.getDate().toString().toLowerCase(Locale.ROOT));
+            statement.setString(3, auditionee.getDate().name().toLowerCase(Locale.ROOT));
             statement.setString(4, auditionee.getSelection());
             return statement;
         }, keyHolder);
