@@ -20,7 +20,12 @@ public class Auditionee {
     private Date date;
     private String selection;
 
-    public Auditionee() {
+    public Auditionee(int auditioneeId, int userId, int partId, Date date, String selection){
+        this.auditioneeId = auditioneeId;
+        this.userId = userId;
+        this.partId = partId;
+        this.date = date;
+        this.selection = selection;
     }
 
     public int getAuditioneeId() {

@@ -18,6 +18,7 @@ public class AuditioneeMapper implements RowMapper<Auditionee> {
         auditionee.setUserId(rs.getInt("user_id"));
         auditionee.setPartId(rs.getInt("part_id"));
         Date.valueOf(rs.getString("date").toUpperCase(Locale.ROOT));
+        auditionee.setSelection(rs.getString("selection"));
         return auditionee;
     }
 }
