@@ -1,5 +1,7 @@
 package learn.capstone.models;
 
+import java.util.Objects;
+
 public class Audition {
 
     private int auditionId;
@@ -28,5 +30,18 @@ public class Audition {
 
     public void setPartId(int partId) {
         this.partId = partId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Audition audition = (Audition) o;
+        return auditionId == audition.auditionId && auditioneeId == audition.auditioneeId && partId == audition.partId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(auditionId, auditioneeId, partId);
     }
 }
