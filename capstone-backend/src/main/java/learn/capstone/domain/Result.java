@@ -1,24 +1,49 @@
 package learn.capstone.domain;
 
-import learn.capstone.models.Auditionee;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-public class Result {
+public class Result<T> {
+    private final ArrayList<String> messages = new ArrayList<>();
+    private ResultType type = ResultType.SUCCESS;
+    private T payload;
+
+    public ResultType getType() {
+        return type;
+    }
+
     public boolean isSuccess() {
-        return false;
+        return type == ResultType.SUCCESS;
     }
 
-    public void setPayload(Auditionee withId) {
+    public T getPayload() {
+        return payload;
     }
 
-//    - private final ArrayList<String> messages
-//        - private ResultType type
-//        - private T payload;
-//        - public ResultType getType()
-//        - public boolean isSuccess()
-//        - public T getPayload()
-//        - public void setPayload()
-//        - public List<String> getMessages()
-//        - public void addMessages()
-//        - Overrides
+    public void setPayload(T payload) {
+        this.payload = payload;
+    }
 
+    public List<String> getMessages() {
+        return new ArrayList<>(messages);
+    }
+
+    public void addMessage(String message, ResultType type) {
+        messages.add(message);
+        this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Result<?> result = (Result<?>) o;
+        return Objects.equals(messages, result.messages) && type == result.type && Objects.equals(payload, result.payload);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(messages, type, payload);
+    }
 }
