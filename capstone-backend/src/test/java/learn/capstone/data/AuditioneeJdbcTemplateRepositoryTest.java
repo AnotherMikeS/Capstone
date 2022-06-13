@@ -1,7 +1,9 @@
 package learn.capstone.data;
 
 import learn.capstone.TestHelper;
+import learn.capstone.models.AccessType;
 import learn.capstone.models.Auditionee;
+import learn.capstone.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ public class AuditioneeJdbcTemplateRepositoryTest {
     void shouldFindAll() {
         List<Auditionee> auditionees = repository.findAll();
         assertNotNull(auditionees);
-        assertEquals(2, auditionees.size());
+        assertTrue(auditionees.size() == 2 || auditionees.size() == 3);
     }
 
     @Test
@@ -58,28 +60,29 @@ public class AuditioneeJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldNotAddInvalid() {
-
-    }
-
-    @Test
     void shouldUpdateExisting() {
-
+        Auditionee updated = new Auditionee(1, 1, 2, "2022-07-01 12:00pm", "Lady Macbeth Monologue");
+        assertTrue(repository.update(updated));
+        updated = new Auditionee(2, 2, 2, "2022-07-02 1:00pm", "Hamlet monologue");
+        assertTrue(repository.update(updated));
+        updated = new Auditionee(1, 1, 2, "2022-07-02 12:00pm", "Puck monologue");
+        assertTrue(repository.update(updated));
     }
 
     @Test
     void shouldNotUpdateMissing() {
-
+        Auditionee notUpdated = new Auditionee(2000, 2000, 2, "2022-07-01 12:00pm", "Lady Macbeth Monologue");
+        assertFalse(repository.update(notUpdated));
     }
 
     @Test
     void shouldDeleteExisting() {
-
+            assertTrue(repository.deleteById(3));
     }
 
     @Test
     void shouldNotDeleteMissing() {
-
+        assertFalse(repository.deleteById(5000));
     }
 
 }

@@ -23,7 +23,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 
     @Override
     public List<Auditionee> findAll() {
-        String sql = "select auditionee_id, user_id, part_id, time_slot, selection from auditionee;";
+        String sql = "select * from auditionee;";
         return jdbcTemplate.query(sql, new AuditioneeMapper());
     }
 
@@ -70,30 +70,27 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
     public boolean update(Auditionee auditionee) {
 
         String sql = "update auditionee set "
+                + "auditionee_id = ?, "
                 + "user_id = ?, "
                 + "part_id = ?, "
-                + "time_slot = ? "
+                + "time_slot = ?, "
                 + "selection = ? "
                 + "where auditionee_id = ?;";
 
-        int rowsAffected = jdbcTemplate.update(sql,
+        return jdbcTemplate.update(sql,
                 auditionee.getAuditioneeId(),
                 auditionee.getUserId(),
                 auditionee.getPartId(),
                 auditionee.getTimeSlot(),
-                auditionee.getSelection());
+                auditionee.getSelection(),
+       auditionee.getAuditioneeId()) > 0;
 
-        if (rowsAffected > 0) {
-            return true;
-        }
-
-        return false;
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public boolean deleteById(int auditioneeId) {
-        jdbcTemplate.update("delete from auditionee where auditionee_id = ?;", auditioneeId);
+       // jdbcTemplate.update("delete from auditionee where auditionee_id = ?;", auditioneeId);
         return jdbcTemplate.update("delete from auditionee where auditionee_id = ?;", auditioneeId) > 0;
     }
 
