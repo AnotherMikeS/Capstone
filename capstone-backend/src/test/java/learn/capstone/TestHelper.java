@@ -4,6 +4,7 @@ import learn.capstone.domain.Result;
 import learn.capstone.domain.ResultType;
 import learn.capstone.models.AccessType;
 import learn.capstone.models.Audition;
+import learn.capstone.models.Auditionee;
 import learn.capstone.models.User;
 
 public class TestHelper {
@@ -83,6 +84,15 @@ public class TestHelper {
         audition.setAuditioneeId(1);
         audition.setPartId(2);
         return audition;
+    }
+
+    public static Auditionee makeValidAuditionee() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setUserId(4);
+        auditionee.setPartId(2);
+        auditionee.setTimeSlot("2022-07-02 1:00pm");
+        auditionee.setSelection("I Dreamed A Dream");
+        return auditionee;
     }
 
 }

@@ -86,7 +86,8 @@ begin
         
 	insert into auditionee (auditionee_id, user_id, part_id, time_slot, selection) values
 	(1, 1, 2, '2022-07-01 12:00pm', 'Kristin Monologue'),
-    (2, 2, 1, '2022-07-02 1:00pm', 'Its a cold and its a broken Waluigi');
+    (2, 2, 1, '2022-07-02 1:00pm', 'Its a cold and its a broken Waluigi'),
+    (3, 4, 1, '2022-07-02 12:20pm', 'On My Way');
     
 	insert into manager (manager_id, user_id) values
 		(1, 3);
