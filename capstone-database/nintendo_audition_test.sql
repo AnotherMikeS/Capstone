@@ -14,6 +14,11 @@ create table part (
     `role` enum('singing', 'acting')
 );
 
+create table available_times (
+	time_id int primary key auto_increment,
+    available_time varchar(50)
+);
+
 create table auditionee (
 	auditionee_id int primary key auto_increment,
     user_id int not null,
@@ -56,6 +61,9 @@ begin
 	delete from auditionee;
     alter table auditionee auto_increment = 1;
     
+    delete from available_times;
+    alter table available_times auto_increment = 1;
+    
 	delete from part;
 	alter table part auto_increment = 1;
 
@@ -72,9 +80,13 @@ begin
         (1, 'singing'),
         (2, 'acting');
         
+	insert into available_times (time_id, available_time) values
+        (3, '2022-07-01 1:00pm'),
+        (4, '2022-07-02 2:00pm');
+        
 	insert into auditionee (auditionee_id, user_id, part_id, time_slot, selection) values
-	(1, 1, 2, '2022-07-01', 'Kristin Monologue'),
-    (2, 2, 1, '2022-07-02', 'Its a cold and its a broken Waluigi');
+	(1, 1, 2, '2022-07-01 12:00pm', 'Kristin Monologue'),
+    (2, 2, 1, '2022-07-02 1:00pm', 'Its a cold and its a broken Waluigi');
     
 	insert into manager (manager_id, user_id) values
 		(1, 3);
