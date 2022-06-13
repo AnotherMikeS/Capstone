@@ -26,12 +26,12 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
         final String sql = "select" +
                 " auditions.audition_id," +
                 " auditionee.auditionee_id," +
-                " user.first_name," +
-                " user.last_name," +
+                " app_user.first_name," +
+                " app_user.last_name," +
                 " part.part_id," +
                 " part.role" +
-                " from user" +
-                " inner join auditionee on user.user_id = auditionee.user_id" +
+                " from app_user" +
+                " inner join auditionee on app_user.app_user_id = auditionee.app_user_id" +
                 " inner join auditions on auditionee.auditionee_id = auditions.auditionee_id" +
                 " inner join part on auditions.part_id = part.part_id;";
 
@@ -43,12 +43,12 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
         final String sql = "select" +
                 " auditions.audition_id," +
                 " auditionee.auditionee_id," +
-                " user.first_name," +
-                " user.last_name," +
+                " app_user.first_name," +
+                " app_user.last_name," +
                 " part.part_id," +
                 " part.role" +
-                " from user" +
-                " inner join auditionee on user.user_id = auditionee.user_id" +
+                " from app_user" +
+                " inner join auditionee on app_user.app_user_id = auditionee.app_user_id" +
                 " inner join auditions on auditionee.auditionee_id = auditions.auditionee_id" +
                 " inner join part on auditions.part_id = part.part_id" +
                 " where audition_id = ?;";
