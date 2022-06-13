@@ -7,9 +7,9 @@ public class Auditionee {
 
     private int auditioneeId;
 
-    @NotNull(message = "user ID is required")
-    @NotBlank(message = "user ID is required")
-    private int userId;
+    @NotNull(message = "app_user ID is required")
+    @NotBlank(message = "app_user ID is required")
+    private int appUserId;
 
     @NotNull(message = "part ID is required")
     @NotBlank(message = "part ID is required")
@@ -18,9 +18,9 @@ public class Auditionee {
     private String timeSlot;
     private String selection;
 
-    public Auditionee(int auditioneeId, int userId, int partId, String timeSlot, String selection){
+    public Auditionee(int auditioneeId, int appUserId, int partId, String timeSlot, String selection){
         this.auditioneeId = auditioneeId;
-        this.userId = userId;
+        this.appUserId = appUserId;
         this.partId = partId;
         this.timeSlot = timeSlot;
         this.selection = selection;
@@ -39,11 +39,11 @@ public class Auditionee {
     }
 
     public int getUserId() {
-        return userId;
+        return appUserId;
     }
 
     public void setUserId(int userId) {
-        this.userId = userId;
+        this.appUserId = userId;
     }
 
     public int getPartId() {
