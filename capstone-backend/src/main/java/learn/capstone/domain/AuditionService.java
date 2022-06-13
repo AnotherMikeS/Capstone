@@ -71,6 +71,11 @@ public class AuditionService {
     private Result<Audition> validate(Audition audition) {
         Result<Audition> result = new Result<>();
 
+        if(audition == null) {
+            result.addMessage("Auditions cannot be null.", ResultType.INVALID);
+            return result;
+        }
+
         if (audition.getAuditioneeId() <= 0 ) {
             result.addMessage("Auditions must have a valid Auditionee.", ResultType.INVALID);
             return result;

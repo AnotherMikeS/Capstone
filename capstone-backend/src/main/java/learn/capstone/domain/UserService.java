@@ -1,30 +1,28 @@
 package learn.capstone.domain;
 
-import learn.capstone.data.UserRepository;
-import learn.capstone.domain.Result;
-import learn.capstone.domain.ResultType;
-import learn.capstone.models.User;
+import learn.capstone.data.AppUserRepository;
+import learn.capstone.models.AppUser;
 
 import java.util.List;
 
 public class UserService {
-    private final UserRepository repository;
+    private final AppUserRepository repository;
 
-    public UserService(UserRepository repository) {
+    public UserService(AppUserRepository repository) {
         this.repository = repository;
     }
 
-    public List<User> findAll() {
+    public List<AppUser> findAll() {
         return repository.findAll();
     }
 
-    public User findById(int userId) {
+    public AppUser findById(int userId) {
         return repository.findById(userId);
     }
 
-    public Result<User> add(User user) {
-        Result<User> result = validation(user);
-        if (user.getUserId() !=0) {
+    public Result<AppUser> add(AppUser user) {
+        Result<AppUser> result = validation(user);
+        if (user.getAppUserId() !=0) {
             result.addMessage("User ID must be 0 when adding a user", ResultType.INVALID);
         }
 
@@ -37,9 +35,9 @@ public class UserService {
         return result;
     }
 
-    public Result<User> update(User user) {
-        Result<User> result = validation(user);
-        if (user.getUserId() <= 0) {
+    public Result<AppUser> update(AppUser user) {
+        Result<AppUser> result = validation(user);
+        if (user.getAppUserId() <= 0) {
             result.addMessage("User ID is required to update a user", ResultType.INVALID);
         }
 
@@ -48,14 +46,14 @@ public class UserService {
         }
 
         if (!repository.update(user)) {
-            String msg = String.format("User ID: %s was not found.", user.getUserId());
+            String msg = String.format("User ID: %s was not found.", user.getAppUserId());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
         return result;
     }
 
-    public Result<User> deleteById(int userId) {
-        Result<User> result = new Result<>();
+    public Result<AppUser> deleteById(int userId) {
+        Result<AppUser> result = new Result<>();
         boolean success = repository.deleteById(userId);
         if (!success) {
             result.addMessage("Unable to delete user.", ResultType.INVALID);
@@ -65,8 +63,8 @@ public class UserService {
         return result;
     }
 
-    private Result<User> validation(User user) {
-        Result<User> result = new Result<>();
+    private Result<AppUser> validation(AppUser user) {
+        Result<AppUser> result = new Result<>();
 
         /*
         Validation Rules:
@@ -79,10 +77,6 @@ public class UserService {
 
         if(user.getLastName().isEmpty() || user.getLastName().isBlank()){
             result.addMessage("User's last name is required", ResultType.INVALID);
-        }
-
-        if(user.getAccessType() == null){
-            result.addMessage("User's access type is required", ResultType.INVALID);
         }
 
         return result;

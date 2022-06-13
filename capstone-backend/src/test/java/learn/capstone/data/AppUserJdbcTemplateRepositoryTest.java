@@ -2,23 +2,20 @@ package learn.capstone.data;
 
 
 import learn.capstone.TestHelper;
-import learn.capstone.models.AccessType;
-import learn.capstone.models.Audition;
-import learn.capstone.models.User;
+import learn.capstone.models.AppUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class UserJdbcTemplateRepositoryTest {
+class AppUserJdbcTemplateRepositoryTest {
     @Autowired
-    UserJdbcTemplateRepository repository;
+    AppUserJdbcTemplateRepository repository;
 
     @Autowired
     KnownGoodState knownGoodState;
@@ -30,7 +27,7 @@ class UserJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindAll() {
-        List<User> users = repository.findAll();
+        List<AppUser> users = repository.findAll();
         assertNotNull(users);
         //If running all at the same time, sometimes it runs after delete, so it's 3. If running by itself, it's 4.
         assertTrue(users.size() == 3 || users.size() == 4);
@@ -38,17 +35,18 @@ class UserJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindById() {
-        User expected = new User(1, "Shelley", "Nixon", AccessType.AUDITIONEE);
-        User actual = repository.findById(1);
-        assertEquals(expected.getUserId(), actual.getUserId());
+        AppUser expected = new AppUser(1, "sNixon", "Shelley", "Nixon", "password");
+        AppUser actual = repository.findById(1);
+        assertEquals(expected.getAppUserId(), actual.getAppUserId());
+        assertEquals(expected.getUsername(), actual.getUsername());
         assertEquals(expected.getFirstName(), actual.getFirstName());
         assertEquals(expected.getLastName(), actual.getLastName());
-        assertEquals(expected.getAccessType(), actual.getAccessType());
+        assertEquals(expected.getPassword(), actual.getPassword());
     }
 
     @Test
     void shouldNotFindOOB() {
-        User actual = repository.findById(1000);
+        AppUser actual = repository.findById(1000);
         assertNull(actual);
     }
 
@@ -56,8 +54,8 @@ class UserJdbcTemplateRepositoryTest {
     void shouldAddValid() {
         //Any data that makes it to this later should be valid, so only testing 'shouldAdd', not 'shouldNotAdd'
 
-        User expected = TestHelper.makeUser();
-        User actual = repository.add(expected);
+        AppUser expected = TestHelper.makeUser();
+        AppUser actual = repository.add(expected);
         assertEquals(expected, actual);
     }
 
@@ -65,11 +63,11 @@ class UserJdbcTemplateRepositoryTest {
     void shouldUpdate(){
         //Same thing. Any data that makes it here should already be valid
 
-        User updated = new User(2, "John", "Smith", AccessType.AUDITIONEE);
+        AppUser updated = new AppUser(2, "jSmith", "John", "Smith", "Password");
         assertTrue(repository.update(updated));
-        updated = new User(2, "John", "Jones", AccessType.AUDITIONEE);
+        updated = new AppUser(2, "jJones", "John", "Jones", "Password");
         assertTrue(repository.update(updated));
-        updated = new User(2, "Michael", "Smith", AccessType.MANAGER);
+        updated = new AppUser(2, "jSmith", "James", "Smith", "Password");
         assertTrue(repository.update(updated));
     }
 

@@ -2,14 +2,14 @@ package learn.capstone;
 
 import learn.capstone.domain.Result;
 import learn.capstone.domain.ResultType;
-import learn.capstone.models.AccessType;
 import learn.capstone.models.Audition;
-import learn.capstone.models.User;
+import learn.capstone.models.Auditionee;
+import learn.capstone.models.AppUser;
 
 public class TestHelper {
 
-    public static User makeUser() {
-        User newUser = new User(5, "Lin-Manuel", "Miranda", AccessType.AUDITIONEE);
+    public static AppUser makeUser() {
+        AppUser newUser = new AppUser(5, "hamilton", "Lin-Manuel", "Miranda", "alexander");
         return newUser;
     }
 
@@ -83,6 +83,15 @@ public class TestHelper {
         audition.setAuditioneeId(1);
         audition.setPartId(2);
         return audition;
+    }
+
+    public static Auditionee makeValidAuditionee() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setUserId(4);
+        auditionee.setPartId(2);
+        auditionee.setTimeSlot("2022-07-02 1:00pm");
+        auditionee.setSelection("I Dreamed A Dream");
+        return auditionee;
     }
 
 }

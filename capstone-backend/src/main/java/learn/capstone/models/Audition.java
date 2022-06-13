@@ -8,6 +8,16 @@ public class Audition {
     private int auditioneeId;
     private int partId;
 
+    public Audition() {
+
+    }
+
+    public Audition(int auditionId, int auditioneeId, int partId) {
+        this.auditionId = auditionId;
+        this.auditioneeId = auditioneeId;
+        this.partId = partId;
+    }
+
     public int getAuditionId() {
         return auditionId;
     }
