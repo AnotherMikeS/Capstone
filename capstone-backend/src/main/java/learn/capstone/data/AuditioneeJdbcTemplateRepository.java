@@ -23,13 +23,13 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 
     @Override
     public List<Auditionee> findAll() {
-        String sql = "select auditionee_id, user_id, part_id, `date`, selection from auditionee;";
+        String sql = "select auditionee_id, user_id, part_id, time_slot, selection from auditionee;";
         return jdbcTemplate.query(sql, new AuditioneeMapper());
     }
 
     @Override
     public Auditionee findById(int auditioneeId) {
-        String sql = "select auditionee_id, user_id, part_id, `date`, selection "
+        String sql = "select auditionee_id, user_id, part_id, time_slot, selection "
                 + "from auditionee "
                 + "where auditionee_id = ?;";
 
@@ -44,7 +44,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
     @Override
     public Auditionee add(Auditionee auditionee) {
 
-        String sql = "insert into auditionee (user_id, part_id, date, selection) values (?,?,?,?);";
+        String sql = "insert into auditionee (user_id, part_id, time_slot, selection) values (?,?,?,?);";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update((conn) -> {
@@ -70,7 +70,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
         String sql = "update auditionee set "
                 + "user_id = ?, "
                 + "part_id = ?, "
-                + "date = ? "
+                + "time_slot = ? "
                 + "selection = ? "
                 + "where auditionee_id = ?;";
 

@@ -35,7 +35,7 @@ public class AuditioneeJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindById() {
-        Auditionee expected = new Auditionee(1, 1, 2, LocalDateTime.DATE_ONE, "Kristin Monologue");
+        Auditionee expected = new Auditionee(1, 1, 2, "2022-07-01 12:00pm", "Kristin Monologue");
         Auditionee actual = repository.findById(1);
         assertEquals(expected.getAuditioneeId(), actual.getAuditioneeId());
         assertEquals(expected.getUserId(), actual.getUserId());
