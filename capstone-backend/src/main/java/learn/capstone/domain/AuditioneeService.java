@@ -10,6 +10,7 @@
 //@Service
 //public class AuditioneeService {
 //
+
 ////        [] Auditionee Service
 ////        - private final AuditioneeRepository
 ////        - public AuditioneeService(AuditioneeRepository repository)
@@ -21,6 +22,7 @@
 ////        - private Result<Auditionee> validate
 //}
 //
+
 //    private final AuditioneeRepository repository;
 //    private final Validator validator;
 //

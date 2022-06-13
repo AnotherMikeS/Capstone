@@ -2,15 +2,14 @@ package learn.capstone;
 
 import learn.capstone.domain.Result;
 import learn.capstone.domain.ResultType;
-import learn.capstone.models.AccessType;
 import learn.capstone.models.Audition;
 import learn.capstone.models.Auditionee;
-import learn.capstone.models.User;
+import learn.capstone.models.AppUser;
 
 public class TestHelper {
 
-    public static User makeUser() {
-        User newUser = new User(5, "Lin-Manuel", "Miranda", AccessType.AUDITIONEE);
+    public static AppUser makeUser() {
+        AppUser newUser = new AppUser(5, "hamilton", "Lin-Manuel", "Miranda", "alexander");
         return newUser;
     }
 

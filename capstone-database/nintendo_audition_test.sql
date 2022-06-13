@@ -90,7 +90,8 @@ begin
 		(1, 'sNixon', 'password', 'Shelley', 'Nixon'),
 		(2, 'mSmith', 'password', 'Michael', 'Smith'),
         (3, 'gGennaro', 'password', 'Greg', 'Gennaro'),
-        (4, 'mMario', 'password', 'Mario', 'Mario');
+        (4, 'mMario', 'password', 'Mario', 'Mario'),
+        (5, 'lMario', 'password', 'Luigi', 'Mario');
         
 	insert into app_role (app_role_id, access_type) values
 		(1, 'manager'),
