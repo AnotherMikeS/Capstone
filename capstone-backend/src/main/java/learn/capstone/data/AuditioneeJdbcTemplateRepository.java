@@ -56,11 +56,13 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
             return statement;
         }, keyHolder);
 
-        if (rowsAffected > 0) {
+        if (rowsAffected <= 0) {
             auditionee.setAuditioneeId(keyHolder.getKey().intValue());
-        }
+            return null;
 
-        return null;
+        }
+        auditionee.setAuditioneeId(keyHolder.getKey().intValue());
+        return auditionee;
     }
 
     @Transactional

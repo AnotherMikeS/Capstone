@@ -1,5 +1,6 @@
 package learn.capstone.data;
 
+import learn.capstone.TestHelper;
 import learn.capstone.models.Auditionee;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,8 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -46,12 +46,15 @@ public class AuditioneeJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotFindMissingById() {
-
+        Auditionee actual = repository.findById(5000);
+        assertNull(actual);
     }
 
     @Test
     void shouldAddValid() {
-
+        Auditionee expected = TestHelper.makeValidAuditionee();
+        Auditionee actual = repository.add(expected);
+        assertEquals(expected, actual);
     }
 
     @Test
