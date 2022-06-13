@@ -35,8 +35,8 @@ class AppUserJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindById() {
-        AppUser expected = new AppUser(1, "sNixon", "Shelley", "Nixon", "password");
-        AppUser actual = repository.findById(1);
+        AppUser expected = TestHelper.makeMike();
+        AppUser actual = repository.findById(2);
         assertEquals(expected.getAppUserId(), actual.getAppUserId());
         assertEquals(expected.getUsername(), actual.getUsername());
         assertEquals(expected.getFirstName(), actual.getFirstName());
@@ -45,8 +45,8 @@ class AppUserJdbcTemplateRepositoryTest {
     }
     @Test
     void shouldFindByUsername() {
-        AppUser expected = new AppUser(1, "sNixon", "Shelley", "Nixon", "password");
-        AppUser actual = repository.findByUsername("sNixon");
+        AppUser expected = TestHelper.makeMike();
+        AppUser actual = repository.findByUsername("mSmith");
         assertEquals(expected.getAppUserId(), actual.getAppUserId());
         assertEquals(expected.getFirstName(), actual.getFirstName());
         assertEquals(expected.getLastName(), actual.getLastName());
@@ -54,8 +54,13 @@ class AppUserJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldNotFindOOB() {
+    void shouldNotFindById() {
         AppUser actual = repository.findById(1000);
+        assertNull(actual);
+    }
+    @Test
+    void shouldNotFindByUsername() {
+        AppUser actual = repository.findByUsername("Waluigi");
         assertNull(actual);
     }
 

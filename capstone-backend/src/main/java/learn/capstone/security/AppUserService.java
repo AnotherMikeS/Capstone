@@ -7,9 +7,11 @@ import learn.capstone.models.AppUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AppUserService implements UserDetailsService {
     private final AppUserRepository repository;
 
@@ -35,10 +37,13 @@ public class AppUserService implements UserDetailsService {
     public AppUser findById(int userId) {
         return repository.findById(userId);
     }
+    public AppUser findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
 
     public Result<AppUser> add(AppUser user) {
         Result<AppUser> result = validation(user);
-        if (user.getAppUserId() !=0) {
+        if (user.getAppUserId() != 0) {
             result.addMessage("User ID must be 0 when adding a user", ResultType.INVALID);
         }
 
@@ -87,12 +92,20 @@ public class AppUserService implements UserDetailsService {
             Fields can’t be null
          */
 
+        if(user.getUsername().isEmpty() || user.getUsername().isBlank()){
+            result.addMessage("Username is required", ResultType.INVALID);
+        }
+
         if(user.getFirstName().isEmpty() || user.getFirstName().isBlank()){
-            result.addMessage("User's first name is required", ResultType.INVALID);
+            result.addMessage("First name is required", ResultType.INVALID);
         }
 
         if(user.getLastName().isEmpty() || user.getLastName().isBlank()){
-            result.addMessage("User's last name is required", ResultType.INVALID);
+            result.addMessage("Last name is required", ResultType.INVALID);
+        }
+
+        if(user.getPassword().isEmpty() || user.getPassword().isBlank()){
+            result.addMessage("Password is required", ResultType.INVALID);
         }
 
         return result;
