@@ -1,14 +1,19 @@
-package learn.capstone.domain;
+package learn.capstone.security;
 
 import learn.capstone.data.AppUserRepository;
+import learn.capstone.domain.Result;
+import learn.capstone.domain.ResultType;
 import learn.capstone.models.AppUser;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
-public class UserService {
+public class AppUserService implements UserDetailsService {
     private final AppUserRepository repository;
 
-    public UserService(AppUserRepository repository) {
+    public AppUserService(AppUserRepository repository) {
         this.repository = repository;
     }
 
@@ -18,6 +23,15 @@ public class UserService {
 
     public AppUser findById(int userId) {
         return repository.findById(userId);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser user = repository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username + " not found.");
+        }
+        return user;
     }
 
     public Result<AppUser> add(AppUser user) {
