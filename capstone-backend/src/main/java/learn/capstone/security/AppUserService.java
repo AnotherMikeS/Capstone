@@ -17,21 +17,23 @@ public class AppUserService implements UserDetailsService {
         this.repository = repository;
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        AppUser user = repository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username + " not found");
+        }
+
+        return user;
+    }
+
     public List<AppUser> findAll() {
         return repository.findAll();
     }
 
     public AppUser findById(int userId) {
         return repository.findById(userId);
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser user = repository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username + " not found.");
-        }
-        return user;
     }
 
     public Result<AppUser> add(AppUser user) {

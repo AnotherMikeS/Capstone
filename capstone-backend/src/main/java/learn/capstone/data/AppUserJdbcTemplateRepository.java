@@ -34,6 +34,14 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository{
         return jdbcTemplate.query(sql, new AppUserMapper(), appUserId)
                 .stream().findFirst().orElse(null);
     }
+    @Override
+    public AppUser findByUsername(String appUsername) {
+        final String sql = "select * " +
+                "from app_user where username = ?;";
+
+        return jdbcTemplate.query(sql, new AppUserMapper(), appUsername)
+                .stream().findFirst().orElse(null);
+    }
 
     @Override
     public AppUser add(AppUser appUser) {

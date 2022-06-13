@@ -43,6 +43,15 @@ class AppUserJdbcTemplateRepositoryTest {
         assertEquals(expected.getLastName(), actual.getLastName());
         assertEquals(expected.getPassword(), actual.getPassword());
     }
+    @Test
+    void shouldFindByUsername() {
+        AppUser expected = new AppUser(1, "sNixon", "Shelley", "Nixon", "password");
+        AppUser actual = repository.findByUsername("sNixon");
+        assertEquals(expected.getAppUserId(), actual.getAppUserId());
+        assertEquals(expected.getFirstName(), actual.getFirstName());
+        assertEquals(expected.getLastName(), actual.getLastName());
+        assertEquals(expected.getPassword(), actual.getPassword());
+    }
 
     @Test
     void shouldNotFindOOB() {
