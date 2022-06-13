@@ -29,7 +29,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 
     @Override
     public Auditionee findById(int auditioneeId) {
-        String sql = "select auditionee_id, user_id, part_id, time_slot, selection "
+        String sql = "select auditionee_id, app_user_id, part_id, time_slot, selection "
                 + "from auditionee "
                 + "where auditionee_id = ?;";
 
@@ -44,7 +44,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
     @Override
     public Auditionee add(Auditionee auditionee) {
 
-        String sql = "insert into auditionee (user_id, part_id, time_slot, selection) values (?,?,?,?);";
+        String sql = "insert into auditionee (app_user_id, part_id, time_slot, selection) values (?,?,?,?);";
 
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update((conn) -> {
@@ -71,7 +71,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 
         String sql = "update auditionee set "
                 + "auditionee_id = ?, "
-                + "user_id = ?, "
+                + "app_user_id = ?, "
                 + "part_id = ?, "
                 + "time_slot = ?, "
                 + "selection = ? "

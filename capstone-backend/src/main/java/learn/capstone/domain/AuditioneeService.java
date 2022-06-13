@@ -10,6 +10,17 @@
 //@Service
 //public class AuditioneeService {
 //
+////        [] Auditionee Service
+////        - private final AuditioneeRepository
+////        - public AuditioneeService(AuditioneeRepository repository)
+////        - public List<Auditionee> findAll()
+////        - public Auditionee findById()
+////        - public Result<Auditionee> add()
+////        - public Result<Auditionee> update()
+////        - public boolean deleteById()
+////        - private Result<Auditionee> validate
+//}
+//
 //    private final AuditioneeRepository repository;
 //    private final Validator validator;
 //

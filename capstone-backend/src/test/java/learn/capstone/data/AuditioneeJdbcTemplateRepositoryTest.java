@@ -1,9 +1,7 @@
 package learn.capstone.data;
 
 import learn.capstone.TestHelper;
-import learn.capstone.models.AccessType;
 import learn.capstone.models.Auditionee;
-import learn.capstone.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
