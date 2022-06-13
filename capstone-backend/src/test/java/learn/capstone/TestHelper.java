@@ -12,6 +12,10 @@ public class TestHelper {
         AppUser newUser = new AppUser(5, "hamilton", "Lin-Manuel", "Miranda", "alexander");
         return newUser;
     }
+    public static AppUser makeMike() {
+        AppUser newUser = new AppUser(2, "mSmith", "Michael", "Smith", "password");
+        return newUser;
+    }
 
     public static Result makeResult(String... messages) {
         Result result = new Result();
