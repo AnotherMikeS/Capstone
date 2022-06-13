@@ -61,7 +61,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, auditionee.getUserId());
             statement.setInt(2, auditionee.getPartId());
-            statement.setString(3, auditionee.getDate().toString().toLowerCase(Locale.ROOT));
+            statement.setString(3, auditionee.getDate().name().toLowerCase(Locale.ROOT));
             statement.setString(4, auditionee.getSelection());
             return statement;
         }, keyHolder);
