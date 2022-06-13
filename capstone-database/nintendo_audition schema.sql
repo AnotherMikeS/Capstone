@@ -14,6 +14,12 @@ create table part (
     `role` enum('singing', 'acting')
 );
 
+create table available_times (
+	time_id int primary key auto_increment,
+    available_time varchar(50)
+);
+    
+
 create table auditionee (
 	auditionee_id int primary key auto_increment,
     user_id int not null,

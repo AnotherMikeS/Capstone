@@ -15,7 +15,7 @@ public class AuditioneeMapper implements RowMapper<Auditionee> {
         auditionee.setAuditioneeId(rs.getInt("auditionee_id"));
         auditionee.setUserId(rs.getInt("user_id"));
         auditionee.setPartId(rs.getInt("part_id"));
-        auditionee.setTimeSlot(rs.getString("date"));
+        auditionee.setTimeSlot(rs.getString("time_slot"));
         auditionee.setSelection(rs.getString("selection"));
         return auditionee;
     }
