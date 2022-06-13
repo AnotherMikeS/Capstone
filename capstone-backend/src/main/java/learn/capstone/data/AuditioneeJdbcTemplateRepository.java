@@ -2,9 +2,7 @@ package learn.capstone.data;
 
 import learn.capstone.data.mappers.AuditioneeMapper;
 import learn.capstone.models.Auditionee;
-import learn.capstone.models.Date;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +51,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, auditionee.getUserId());
             statement.setInt(2, auditionee.getPartId());
-            statement.setString(3, auditionee.getDate().name().toLowerCase(Locale.ROOT));
+            statement.setString(3, auditionee.getTimeSlot());
             statement.setString(4, auditionee.getSelection());
             return statement;
         }, keyHolder);
@@ -80,7 +78,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
                 auditionee.getAuditioneeId(),
                 auditionee.getUserId(),
                 auditionee.getPartId(),
-                auditionee.getDate(),
+                auditionee.getTimeSlot(),
                 auditionee.getSelection());
 
         if (rowsAffected > 0) {
