@@ -3,8 +3,6 @@ package learn.capstone.models;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import static learn.capstone.models.Date.*;
-
 public class Auditionee {
 
     private int auditioneeId;
@@ -17,14 +15,14 @@ public class Auditionee {
     @NotBlank(message = "part ID is required")
     private int partId;
 
-    private Date date;
+    private String timeSlot;
     private String selection;
 
-    public Auditionee(int auditioneeId, int userId, int partId, Date date, String selection){
+    public Auditionee(int auditioneeId, int userId, int partId, String timeSlot, String selection){
         this.auditioneeId = auditioneeId;
         this.userId = userId;
         this.partId = partId;
-        this.date = date;
+        this.timeSlot = timeSlot;
         this.selection = selection;
     }
 
@@ -56,12 +54,12 @@ public class Auditionee {
         this.partId = partId;
     }
 
-    public Date getDate() {
-        return date;
+    public String getTimeSlot() {
+        return timeSlot;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setTimeSlot(String timeSlot) {
+        this.timeSlot = timeSlot;
     }
 
     public String getSelection() {

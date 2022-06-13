@@ -5,8 +5,8 @@ use twelve_eyes_nintendo_audition;
 create table `user` (
 	user_id int primary key auto_increment,
     access_type enum('auditionee', 'manager'),
-    first_name char(50),
-    last_name char(50)
+    first_name varchar(50),
+    last_name varchar(50)
 );
 
 create table part (
@@ -18,8 +18,8 @@ create table auditionee (
 	auditionee_id int primary key auto_increment,
     user_id int not null,
     part_id int not null,
-    `date` date,
-    selection char(100),
+    time_slot varchar(50),
+    selection varchar(100),
      foreign key(user_id)
     references `user`(user_id),
      foreign key(part_id)

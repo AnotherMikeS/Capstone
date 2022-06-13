@@ -1,8 +1,6 @@
 package learn.capstone.data.mappers;
 
-import learn.capstone.models.Audition;
 import learn.capstone.models.Auditionee;
-import learn.capstone.models.Date;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -17,7 +15,7 @@ public class AuditioneeMapper implements RowMapper<Auditionee> {
         auditionee.setAuditioneeId(rs.getInt("auditionee_id"));
         auditionee.setUserId(rs.getInt("user_id"));
         auditionee.setPartId(rs.getInt("part_id"));
-        auditionee.setDate(Date.valueOf(rs.getString("date").toUpperCase(Locale.ROOT)));
+        auditionee.setTimeSlot(rs.getString("date"));
         auditionee.setSelection(rs.getString("selection"));
         return auditionee;
     }

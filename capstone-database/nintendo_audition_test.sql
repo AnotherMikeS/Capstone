@@ -5,8 +5,8 @@ use nintendo_audition_test;
 create table `user` (
 	user_id int primary key auto_increment,
     access_type enum('auditionee', 'manager'),
-    first_name char(50),
-    last_name char(50)
+    first_name varchar(50),
+    last_name varchar(50)
 );
 
 create table part (
@@ -18,8 +18,8 @@ create table auditionee (
 	auditionee_id int primary key auto_increment,
     user_id int not null,
     part_id int not null,
-    `date` date,
-    selection char(100),
+    time_slot varchar(50),
+    selection varchar(100),
      foreign key(user_id)
     references `user`(user_id),
      foreign key(part_id)
@@ -72,7 +72,7 @@ begin
         (1, 'singing'),
         (2, 'acting');
         
-	insert into auditionee (auditionee_id, user_id, part_id, `date`, selection) values
+	insert into auditionee (auditionee_id, user_id, part_id, time_slot, selection) values
 	(1, 1, 2, '2022-07-01', 'Kristin Monologue'),
     (2, 2, 1, '2022-07-02', 'Its a cold and its a broken Waluigi');
     
