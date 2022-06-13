@@ -75,7 +75,7 @@ class AppUserJdbcTemplateRepositoryTest {
     @Test
     void shouldDelete() {
         assertFalse(repository.deleteById(1000));
-        assertTrue(repository.deleteById(4));
-        assertFalse(repository.deleteById(4));
+        assertTrue(repository.deleteById(5));
+        assertFalse(repository.deleteById(5));
     }
 }
