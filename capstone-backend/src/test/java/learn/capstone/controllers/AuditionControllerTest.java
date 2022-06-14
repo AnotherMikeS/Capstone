@@ -56,7 +56,7 @@ class AuditionControllerTest {
     void addShouldReturn415WhenMultipart() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        Audition audition = new Audition(0, 1, 1);
+        Audition audition = new Audition(0, 1, "Shelley", "Nixon", 1, "Acting");
         String auditionJson = jsonMapper.writeValueAsString(audition);
 
         var request = post("/api/audition")
@@ -69,8 +69,8 @@ class AuditionControllerTest {
 
     @Test
     void addShouldReturn201() throws Exception {
-        Audition audition = new Audition(0, 1, 1);
-        Audition expected = new Audition(1, 1, 1);
+        Audition audition = new Audition(0, 1, "Shelley", "Nixon", 1, "acting");
+        Audition expected = new Audition(1, 1, "Shelley", "Nixon", 1, "acting");
 
         when(repository.add(any())).thenReturn(expected);
         ObjectMapper jsonMapper = new ObjectMapper();

@@ -39,17 +39,19 @@ create table available_times (
     available_time varchar(50)
 );
     
+
 create table auditionee (
 	auditionee_id int primary key auto_increment,
-    app_user_id int not null,
+    user_id int not null,
     part_id int not null,
     time_slot varchar(50),
     selection varchar(100),
-     foreign key(app_user_id)
-    references app_user(app_user_id),
+     foreign key(user_id)
+    references `user`(user_id),
      foreign key(part_id)
     references part(part_id)
     );
+    
 
 create table auditions (
 	audition_id int primary key auto_increment,
@@ -68,6 +70,9 @@ begin
     delete from auditions;
     alter table auditions auto_increment = 1;
     
+	delete from manager;
+    alter table manager auto_increment = 1;
+    
 	delete from auditionee;
     alter table auditionee auto_increment = 1;
     
@@ -76,12 +81,6 @@ begin
     
 	delete from part;
 	alter table part auto_increment = 1;
-    
-    delete from app_user_role;
-    alter table app_user_role auto_increment = 1;
-    
-    delete from app_role;
-    alter table app_role auto_increment = 1;
 
 	delete from app_user;
     alter table app_user auto_increment = 1;
@@ -90,8 +89,7 @@ begin
 		(1, 'sNixon', 'password', 'Shelley', 'Nixon'),
 		(2, 'mSmith', 'password', 'Michael', 'Smith'),
         (3, 'gGennaro', 'password', 'Greg', 'Gennaro'),
-        (4, 'mMario', 'password', 'Mario', 'Mario'),
-        (5, 'lMario', 'password', 'Luigi', 'Mario');
+        (4, 'mMario', 'password', 'Mario', 'Mario');
         
 	insert into app_role (app_role_id, access_type) values
 		(1, 'manager'),
@@ -115,7 +113,7 @@ begin
 	(1, 1, 2, '2022-07-01 12:00pm', 'Kristin Monologue'),
     (2, 2, 1, '2022-07-02 1:00pm', 'Its a cold and its a broken Waluigi'),
     (3, 4, 1, '2022-07-02 12:20pm', 'On My Way');
-        
+         
 	insert into auditions (audition_id, auditionee_id, part_id) values
         (1, 1, 2),
         (2, 2, 1);

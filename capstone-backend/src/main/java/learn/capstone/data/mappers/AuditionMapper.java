@@ -12,7 +12,10 @@ public class AuditionMapper implements RowMapper<Audition> {
         Audition audition = new Audition();
         audition.setAuditionId(rs.getInt("audition_id"));
         audition.setAuditioneeId(rs.getInt("auditionee_id"));
+        audition.setFirstName(rs.getString("first_name"));
+        audition.setLastName(rs.getString("last_name"));
         audition.setPartId(rs.getInt("part_id"));
+        audition.setRole(rs.getString("role"));
         return audition;
     }
 }
