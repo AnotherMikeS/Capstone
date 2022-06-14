@@ -45,8 +45,9 @@ class AppUserJdbcTemplateRepositoryTest {
     }
     @Test
     void shouldFindByUsername() {
+        //Works if run by itself, breaks if run with all the others
         AppUser expected = TestHelper.makeMike();
-        AppUser actual = repository.findByUsername("mSmith");
+        AppUser actual = repository.findByUsername(expected.getUsername());
         assertEquals(expected.getAppUserId(), actual.getAppUserId());
         assertEquals(expected.getFirstName(), actual.getFirstName());
         assertEquals(expected.getLastName(), actual.getLastName());
