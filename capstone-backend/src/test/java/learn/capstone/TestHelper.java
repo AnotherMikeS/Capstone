@@ -137,12 +137,35 @@ public class TestHelper {
 
     public static Auditionee makeValidAuditionee6() {
         Auditionee auditionee = new Auditionee();
-        auditionee.setAuditioneeId(6);
+        auditionee.setAuditioneeId(0);
         auditionee.setUserId(6);
         auditionee.setPartId(1);
         auditionee.setTimeSlot("2022-07-02 2:20pm");
         auditionee.setSelection("Oh What A Beautiful Morning");
         return auditionee;
     }
+
+    public static Auditionee makeValidAuditionee7() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setAuditioneeId(1);
+        auditionee.setUserId(6);
+        auditionee.setPartId(1);
+        auditionee.setTimeSlot("2022-07-02 3:20pm");
+        auditionee.setSelection("Balloon Animals");
+        return auditionee;
+    }
+
+    public static Auditionee makeInvalidAuditionee1() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setAuditioneeId(7);
+        auditionee.setUserId(6);
+        auditionee.setPartId(1);
+        auditionee.setTimeSlot("2022-07-02 2:40pm");
+        auditionee.setSelection("Test song 1");
+        return auditionee;
+    }
+
+
+
 
 }

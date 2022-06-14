@@ -72,17 +72,70 @@ public class AuditioneeServiceTest {
         expected.setPayload(TestHelper.makeValidAuditionee6());
 
         Result actual = service.add(TestHelper.makeValidAuditionee6());
-        assertEquals(expected, actual);
-
+        assertEquals(expected.getMessages(), actual.getMessages());
     }
 
     @Test
     void shouldUpdateExisting() {
+        when(repository.update(any())).thenReturn(true);
+        Result expected = TestHelper.makeResult();
+        Result actual = service.update(TestHelper.makeValidAuditionee7());
+        assertEquals(expected.getMessages(), actual.getMessages());
+    }
 
+
+    @Test
+    void shouldNotUpdateToNullAuditionee() {
+        Auditionee auditionee = null;
+        Result expected = TestHelper.makeResult("auditionee cannot be null");
+        Result actual = service.update(auditionee);
+        assertEquals(expected, actual);
     }
 
     @Test
-    void shouldNotUpdateMissing() {
+    void shouldNotUpdateToAuditioneeIdLessThanZero() {
+        Auditionee auditionee = TestHelper.makeInvalidAuditionee1();
+        auditionee.setAuditioneeId(0);
+        Result expected = TestHelper.makeResult("auditionee ID is required in order to update");
+        Result actual = service.update(auditionee);
+        assertEquals(expected.getMessages(), actual.getMessages());
+    }
 
+
+    @Test
+    void shouldNotUpdateToNullTimeslot() {
+        Auditionee auditionee = TestHelper.makeInvalidAuditionee1();
+        auditionee.setTimeSlot(null);
+        Result expected = TestHelper.makeResult("a timeslot must be selected");
+        Result actual = service.update(auditionee);
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    void shouldNotUpdateToNullSelection() {
+        Auditionee auditionee = TestHelper.makeInvalidAuditionee1();
+        auditionee.setSelection(null);
+        Result expected = TestHelper.makeResult("you must enter the piece you will perform");
+        Result actual = service.update(auditionee);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldNotUpdateToAppUserIdLessThanZero() {
+        Auditionee auditionee = TestHelper.makeInvalidAuditionee1();
+        auditionee.setUserId(0);
+        Result expected = TestHelper.makeResult("app user ID must be greater than 0");
+        Result actual = service.update(auditionee);
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldNotUpdateToPartIdNotBetween1and2() {
+        Auditionee auditionee = TestHelper.makeInvalidAuditionee1();
+        auditionee.setPartId(30);
+        Result expected = TestHelper.makeResult("part ID must be between 1-2");
+        Result actual = service.update(auditionee);
+        assertEquals(expected, actual);
     }
 }

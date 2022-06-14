@@ -30,16 +30,12 @@ public class AuditioneeService {
             return result;
         }
 
-        if (auditionee.getAuditioneeId() > 0) {
-            boolean success = repository.update(auditionee);
-            if (!success) {
-                String msg = String.format("auditioneeId %s is not found", auditionee.getAuditioneeId());
-                result.addMessage(msg, ResultType.NOT_FOUND);
-            }
-        } else { //add
-            Auditionee withId = repository.add(auditionee);
-            result.setPayload(withId);
+        if (auditionee.getAuditioneeId() != 0) {
+            result.addMessage("auditionee ID cannot be set for add operation", ResultType.INVALID);
+            return result;
         }
+        auditionee = repository.add(auditionee);
+        result.setPayload(auditionee);
         return result;
     }
 
@@ -78,7 +74,7 @@ public class AuditioneeService {
             return result;
         }
 
-        if (auditionee.getAuditioneeId() <= 0) {
+        if (auditionee.getAuditioneeId() < 0) {
             result.addMessage("auditionee ID must be greater than 0", ResultType.INVALID);
             return result;
         }
