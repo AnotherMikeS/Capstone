@@ -4,8 +4,6 @@ import learn.capstone.data.AuditioneeRepository;
 import learn.capstone.models.Auditionee;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolation;
-import javax.xml.validation.Validator;
 import java.util.List;
 import java.util.Set;
 
@@ -13,11 +11,9 @@ import java.util.Set;
 public class AuditioneeService {
 
     private final AuditioneeRepository repository;
-    private final Validator validator;
 
-    public AuditioneeService(AuditioneeRepository repository, Validator validator) {
+    public AuditioneeService(AuditioneeRepository repository) {
         this.repository = repository;
-        this.validator = validator;
     }
 
     public List<Auditionee> findAll() {
@@ -47,16 +43,33 @@ public class AuditioneeService {
         return result;
     }
 
-    public Result<Auditionee> update() {
-        return null;
+    public Result<Auditionee> update(Auditionee auditionee) {
+        Result<Auditionee> result = validate(auditionee);
+        if (!result.isSuccess()) {
+            return result;
+        }
+
+        if (auditionee.getAuditioneeId() <= 0) {
+            result.addMessage("auditionee ID is required in order to update", ResultType.INVALID);
+            return result;
+        }
+
+        if (!repository.update(auditionee)) {
+            String msg = String.format("Auditionee ID %s was not found.", auditionee.getAuditioneeId());
+            result.addMessage(msg, ResultType.NOT_FOUND);
+        }
+        return result;
     }
 
-    public boolean deleteById() {
-        return false;
+    public Result<Auditionee> deleteById(int auditioneeId) {
+        Result<Auditionee> result = new Result<>();
+        boolean success = repository.deleteById(auditioneeId);
+        if (!success) {
+            result.addMessage("auditionee cannot be deleted.", ResultType.INVALID);
+            return result;
+        }
+        return result;
     }
-
-//    private Result validate(Auditionee auditionee) {
-//    }
 
     private Result<Auditionee> validate(Auditionee auditionee) {
         Result<Auditionee> result = new Result<>();
@@ -90,6 +103,12 @@ public class AuditioneeService {
             return result;
         }
 
+        return result;
+    }
+}
+
+
+//
 //        List<Auditionee> all = repository.findAll();
 //        for (Auditionee a : all) {
 //            if (a.getAuditioneeId() == auditionee.getAuditioneeId() && a.getPartId() == auditionee.getPartId()) {
@@ -102,7 +121,3 @@ public class AuditioneeService {
 //        }
 //        return result;
 //    }
-
-        return result;
-    }
-    }
