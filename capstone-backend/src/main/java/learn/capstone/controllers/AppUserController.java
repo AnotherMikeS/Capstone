@@ -4,7 +4,7 @@ import java.util.List;
 
 import learn.capstone.models.AppUser;
 import learn.capstone.domain.Result;
-import learn.capstone.security.AppUserService;
+import learn.capstone.domain.AppUserService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

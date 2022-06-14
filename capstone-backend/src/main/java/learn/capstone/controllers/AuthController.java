@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,39 +20,47 @@ import java.util.Map;
 @RestController
 public class AuthController {
 
-    private final AuthenticationManager manager;
+    private final AuthenticationManager authenticationManager;
     private final JwtConverter converter;
 
-    public AuthController(AuthenticationManager manager, JwtConverter converter) {
-        this.manager = manager;
+    public AuthController(AuthenticationManager authenticationManager, JwtConverter converter) {
+        this.authenticationManager = authenticationManager;
         this.converter = converter;
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<Object> authenticate(@RequestBody Map<String, String> values) {
+    public ResponseEntity<Map<String, String>> authenticate(@RequestBody Map<String, String> credentials) {
 
-        UsernamePasswordAuthenticationToken token =
-                new UsernamePasswordAuthenticationToken(values.get("username"), values.get("password"));
+        UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(credentials.get("username"), credentials.get("password"));
 
         try {
-            Authentication result = manager.authenticate(token);
-            if (result.isAuthenticated()) {
-                String jwt = converter.getTokenFromUser((AppUser) result.getPrincipal());
-                HashMap<String, String> payload = new HashMap<>();
-                payload.put("jwt_token", jwt);
-                return new ResponseEntity<>(payload, HttpStatus.OK);
+            Authentication authentication = authenticationManager.authenticate(authToken);
+
+            if (authentication.isAuthenticated()) {
+                String jwtToken = converter.getTokenFromUser((User) authentication.getPrincipal());
+
+                HashMap<String, String> map = new HashMap<>();
+                map.put("jwt_token", jwtToken);
+
+                return new ResponseEntity<>(map, HttpStatus.OK);
             }
-        } catch (AuthenticationException e) {
-            System.out.println("Forbidden!");
+
+        } catch (AuthenticationException ex) {
+            System.out.println(ex);
         }
 
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    @PostMapping("/refresh")
-    public ResponseEntity<Object> refresh(@AuthenticationPrincipal AppUser user) {
-        HashMap<String, String> payload = new HashMap<>();
-        payload.put("jwt_token", converter.getTokenFromUser(user));
-        return new ResponseEntity<>(payload, HttpStatus.OK);
+    @PostMapping("/refresh_token")
+    public ResponseEntity<Map<String, String>> refreshToken(UsernamePasswordAuthenticationToken principal) {
+        User user = new User(principal.getName(), principal.getName(), principal.getAuthorities());
+        String jwtToken = converter.getTokenFromUser(user);
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("jwt_token", jwtToken);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 }

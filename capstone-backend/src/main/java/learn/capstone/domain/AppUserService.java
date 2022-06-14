@@ -1,4 +1,4 @@
-package learn.capstone.security;
+package learn.capstone.domain;
 
 import learn.capstone.data.AppUserRepository;
 import learn.capstone.domain.Result;
