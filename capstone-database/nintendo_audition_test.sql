@@ -70,9 +70,6 @@ begin
     delete from auditions;
     alter table auditions auto_increment = 1;
     
-	delete from manager;
-    alter table manager auto_increment = 1;
-    
 	delete from auditionee;
     alter table auditionee auto_increment = 1;
     
