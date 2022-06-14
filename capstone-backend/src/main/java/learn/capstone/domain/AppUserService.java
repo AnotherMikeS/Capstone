@@ -92,19 +92,19 @@ public class AppUserService implements UserDetailsService {
             Fields can’t be null
          */
 
-        if(user.getUsername().isEmpty() || user.getUsername().isBlank()){
+        if(user.getUsername() == null || user.getUsername().isEmpty() || user.getUsername().isBlank()){
             result.addMessage("Username is required", ResultType.INVALID);
         }
 
-        if(user.getFirstName().isEmpty() || user.getFirstName().isBlank()){
+        if(user.getFirstName() == null ||user.getFirstName().isEmpty() || user.getFirstName().isBlank()){
             result.addMessage("First name is required", ResultType.INVALID);
         }
 
-        if(user.getLastName().isEmpty() || user.getLastName().isBlank()){
+        if(user.getLastName() == null ||user.getLastName().isEmpty() || user.getLastName().isBlank()){
             result.addMessage("Last name is required", ResultType.INVALID);
         }
 
-        if(user.getPassword().isEmpty() || user.getPassword().isBlank()){
+        if(user.getPassword() == null ||user.getPassword().isEmpty() || user.getPassword().isBlank()){
             result.addMessage("Password is required", ResultType.INVALID);
         }
 
