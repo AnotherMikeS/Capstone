@@ -1,3 +1,4 @@
+
 package learn.capstone.domain;
 
 import learn.capstone.data.AuditioneeRepository;
@@ -103,17 +104,3 @@ public class AuditioneeService {
     }
 }
 
-
-//
-//        List<Auditionee> all = repository.findAll();
-//        for (Auditionee a : all) {
-//            if (a.getAuditioneeId() == auditionee.getAuditioneeId() && a.getPartId() == auditionee.getPartId()) {
-//                result.addMessage("");
-//            }
-
-//        Set<ConstraintViolation<Auditionee>> violations = validator.validate(auditionee);
-//        for (var violation : violations) {
-//            result.addMessage(violation.getMessage(), ResultType.INVALID);
-//        }
-//        return result;
-//    }

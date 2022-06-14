@@ -24,19 +24,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/audition", "/api/audition/*").permitAll()
-                // Only Admins should be able to see a list of all Auditionees
-                .antMatchers(HttpMethod.GET, "/api/auditionee").hasAuthority("ADMIN")
-                .antMatchers(HttpMethod.POST, "/authenticate").permitAll()
-                .antMatchers(HttpMethod.POST, "/refresh").authenticated()
-                // Admins and Auditionees can create an audition
-                .antMatchers(HttpMethod.POST, "/api/audition", "api/audition/").hasAnyAuthority("USER", "ADMIN")
-                // Only Admins can update an existing audition
-                //      Otherwise, any auditionee could update
-                //          any other auditionee's audition...
-                .antMatchers(HttpMethod.PUT, "/api/audition/*").hasAuthority("ADMIN")
-                // Same issue for deleting an audition.
-                .antMatchers(HttpMethod.DELETE, "/api/audition/*").hasAuthority("ADMIN")
+
+                .antMatchers("/authenticate").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/theater").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/theater/audition", "/api/theater/audition/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/theater/appUser", "/api/theater/appUser/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/theater/auditionee", "/api/theater/auditionee/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/theater/audition").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/theater/appUser", "/api/theater/appUser/*").permitAll()
+                .antMatchers(HttpMethod.POST, "api/theater/auditionee").hasRole("USER")
+                .antMatchers(HttpMethod.PUT, "/api/theater/audition", "/api/theater/audition/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/theater/appUser", "/api/theater/appUser/*").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/theater/auditionee", "/api/theater/audition/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/theater/audition/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/theater/appUser", "/api/theater/appUser/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/theater/auditionee/*").hasRole("ADMIN")
                 .antMatchers("/**").denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(), converter))
