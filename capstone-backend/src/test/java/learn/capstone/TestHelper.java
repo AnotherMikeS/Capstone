@@ -2,6 +2,7 @@ package learn.capstone;
 
 import learn.capstone.domain.Result;
 import learn.capstone.domain.ResultType;
+import learn.capstone.models.AppUser;
 import learn.capstone.models.Audition;
 import learn.capstone.models.Auditionee;
 //import learn.capstone.models.AppUser;

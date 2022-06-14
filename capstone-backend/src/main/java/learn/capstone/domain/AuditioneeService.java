@@ -1,9 +1,11 @@
 
+
 package learn.capstone.domain;
 
 import learn.capstone.data.AuditioneeRepository;
 import learn.capstone.models.Auditionee;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.Set;
@@ -15,6 +17,7 @@ public class AuditioneeService {
 
     public AuditioneeService(AuditioneeRepository repository) {
         this.repository = repository;
+
     }
 
     public List<Auditionee> findAll() {
@@ -76,6 +79,7 @@ public class AuditioneeService {
         }
 
         if (auditionee.getAuditioneeId() < 0) {
+
             result.addMessage("auditionee ID must be greater than 0", ResultType.INVALID);
             return result;
         }
@@ -103,4 +107,3 @@ public class AuditioneeService {
         return result;
     }
 }
-

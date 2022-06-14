@@ -1,6 +1,7 @@
 package learn.capstone.security;
 
 import learn.capstone.models.AppUser;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -21,7 +22,7 @@ public class JwtConverter {
     private final int EXPIRATION_MINUTES = 15;
     private final int EXPIRATION_MILLIS = EXPIRATION_MINUTES * 60 * 1000;
 
-    public String getTokenFromUser(AppUser user) {
+    public String getTokenFromUser(User user) {
         String authorities = user.getAuthorities().stream()
                 .map(i -> i.getAuthority())
                 .collect(Collectors.joining(","));
