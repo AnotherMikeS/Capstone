@@ -16,11 +16,6 @@ public class AppUser implements UserDetails {
     private String lastName;
     private String password;
     private boolean enabled = true;
-
-    public void setAuthorities(List<String> authorities) {
-        this.authorities = authorities;
-    }
-
     private List<String> authorities;
 
     public AppUser(int appUserId, String username, String firstName, String lastName, String password) {
@@ -33,6 +28,14 @@ public class AppUser implements UserDetails {
 
     public AppUser() {
 
+    }
+
+    public AppUser (String username, List<String> authorities) {
+
+    }
+
+    public void setAuthorities(List<String> authorities) {
+        this.authorities = authorities;
     }
 
     public int getAppUserId() {
