@@ -1,10 +1,10 @@
 
 package learn.capstone.security;
 
-import learn.capstone.models.AppUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.servlet.FilterChain;
@@ -30,7 +30,8 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
         String authorization = request.getHeader("Authorization");
 
         if (authorization != null && authorization.startsWith("Bearer")) {
-            AppUser user = converter.getUserFromToken(authorization);
+            //Changed this variable
+            User user = converter.getUserFromToken(authorization);
             if (user == null) {
                 response.setStatus(403);
             } else {

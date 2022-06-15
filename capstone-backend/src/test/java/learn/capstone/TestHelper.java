@@ -2,19 +2,19 @@ package learn.capstone;
 
 import learn.capstone.domain.Result;
 import learn.capstone.domain.ResultType;
-import learn.capstone.models.AppUser;
+import learn.capstone.models.Person;
 import learn.capstone.models.Audition;
 import learn.capstone.models.Auditionee;
 //import learn.capstone.models.AppUser;
 
 public class TestHelper {
 
-    public static AppUser makeUser() {
-        AppUser newUser = new AppUser(5, "hamilton", "Lin-Manuel", "Miranda", "alexander");
+    public static Person makeLuigi() {
+        Person newUser = new Person(5, 5, "Luigi", "Luigi");
         return newUser;
     }
-    public static AppUser makeMike() {
-        AppUser newUser = new AppUser(2, "mSmith", "Michael", "Smith", "password");
+    public static Person makeMike() {
+        Person newUser = new Person(2, 2, "Mike", "Smith");
         return newUser;
     }
 
