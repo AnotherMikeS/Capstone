@@ -58,7 +58,7 @@ public class AuditioneeController {
 
         Result<Auditionee> result = service.update(auditionee);
         if (result.isSuccess()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         return ErrorResponse.build(result);
@@ -68,6 +68,9 @@ public class AuditioneeController {
     public ResponseEntity<Object> deleteById(@PathVariable int auditioneeId) {
         Auditionee auditionee = service.findById(auditioneeId);
         Result<Auditionee> result = service.deleteById(auditioneeId);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
         if (auditionee == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

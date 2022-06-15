@@ -38,7 +38,7 @@ public class AuditioneeJdbcTemplateRepositoryTest {
         Auditionee expected = new Auditionee(1, 1, 2, "2022-07-01 12:00pm", "Kristin Monologue");
         Auditionee actual = repository.findById(1);
         assertEquals(expected.getAuditioneeId(), actual.getAuditioneeId());
-        assertEquals(expected.getUserId(), actual.getUserId());
+        assertEquals(expected.getAppUserId(), actual.getAppUserId());
         assertEquals(expected.getPartId(), actual.getPartId());
         assertEquals(expected.getTimeSlot(), actual.getTimeSlot());
         assertEquals(expected.getSelection(), actual.getSelection());

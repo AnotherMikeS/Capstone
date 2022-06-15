@@ -2,7 +2,6 @@ package learn.capstone.domain;
 
 import learn.capstone.TestHelper;
 import learn.capstone.data.AuditioneeRepository;
-import learn.capstone.models.Audition;
 import learn.capstone.models.Auditionee;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,7 +123,7 @@ public class AuditioneeServiceTest {
     @Test
     void shouldNotUpdateToAppUserIdLessThanZero() {
         Auditionee auditionee = TestHelper.makeInvalidAuditionee1();
-        auditionee.setUserId(0);
+        auditionee.setAppUserId(0);
         Result expected = TestHelper.makeResult("app user ID must be greater than 0");
         Result actual = service.update(auditionee);
         assertEquals(expected, actual);

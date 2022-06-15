@@ -92,7 +92,7 @@ public class TestHelper {
 
     public static Auditionee makeValidAuditionee() {
         Auditionee auditionee = new Auditionee();
-        auditionee.setUserId(4);
+        auditionee.setAppUserId(4);
         auditionee.setPartId(2);
         auditionee.setTimeSlot("2022-07-02 1:00pm");
         auditionee.setSelection("I Dreamed A Dream");
@@ -101,7 +101,7 @@ public class TestHelper {
 
     public static Auditionee makeValidAuditionee2() {
         Auditionee auditionee = new Auditionee();
-        auditionee.setUserId(5);
+        auditionee.setAppUserId(5);
         auditionee.setPartId(2);
         auditionee.setTimeSlot("2022-07-02 1:20pm");
         auditionee.setSelection("Barefoot in the Park monologue");
@@ -110,7 +110,7 @@ public class TestHelper {
 
     public static Auditionee makeValidAuditionee3() {
         Auditionee auditionee = new Auditionee();
-        auditionee.setUserId(5);
+        auditionee.setAppUserId(5);
         auditionee.setPartId(2);
         auditionee.setTimeSlot("2022-07-02 1:40pm");
         auditionee.setSelection("Odyssey monologue");
@@ -119,7 +119,7 @@ public class TestHelper {
 
     public static Auditionee makeValidAuditionee4() {
         Auditionee auditionee = new Auditionee();
-        auditionee.setUserId(5);
+        auditionee.setAppUserId(5);
         auditionee.setPartId(1);
         auditionee.setTimeSlot("2022-07-02 2:00pm");
         auditionee.setSelection("Bring Him Home");
@@ -129,7 +129,7 @@ public class TestHelper {
     public static Auditionee makeValidAuditionee5() {
         Auditionee auditionee = new Auditionee();
         auditionee.setAuditioneeId(6);
-        auditionee.setUserId(5);
+        auditionee.setAppUserId(5);
         auditionee.setPartId(1);
         auditionee.setTimeSlot("2022-07-02 2:20pm");
         auditionee.setSelection("Circus");
@@ -139,7 +139,7 @@ public class TestHelper {
     public static Auditionee makeValidAuditionee6() {
         Auditionee auditionee = new Auditionee();
         auditionee.setAuditioneeId(0);
-        auditionee.setUserId(6);
+        auditionee.setAppUserId(6);
         auditionee.setPartId(1);
         auditionee.setTimeSlot("2022-07-02 2:20pm");
         auditionee.setSelection("Oh What A Beautiful Morning");
@@ -149,7 +149,7 @@ public class TestHelper {
     public static Auditionee makeValidAuditionee7() {
         Auditionee auditionee = new Auditionee();
         auditionee.setAuditioneeId(1);
-        auditionee.setUserId(6);
+        auditionee.setAppUserId(6);
         auditionee.setPartId(1);
         auditionee.setTimeSlot("2022-07-02 3:20pm");
         auditionee.setSelection("Balloon Animals");
@@ -159,7 +159,7 @@ public class TestHelper {
     public static Auditionee makeInvalidAuditionee1() {
         Auditionee auditionee = new Auditionee();
         auditionee.setAuditioneeId(7);
-        auditionee.setUserId(6);
+        auditionee.setAppUserId(6);
         auditionee.setPartId(1);
         auditionee.setTimeSlot("2022-07-02 2:40pm");
         auditionee.setSelection("Test song 1");

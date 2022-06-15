@@ -129,7 +129,7 @@ begin
         (3, '2022-07-01 1:00pm'),
         (4, '2022-07-02 2:00pm');
         
-	insert into auditionee (auditionee_id, app_user_id, part_id, time_slot, selection) values
+	insert into auditionee (auditionee_id, `app_user_id`, part_id, time_slot, selection) values
 	(1, 1, 2, '2022-07-01 12:00pm', 'Kristin Monologue'),
     (2, 2, 1, '2022-07-02 1:00pm', 'Its a cold and its a broken Waluigi'),
     (3, 4, 1, '2022-07-02 12:20pm', 'On My Way');

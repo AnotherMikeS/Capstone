@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
-@Configuration
+//@Configuration
 @SpringBootApplication
 public class App {
     public static void main(String[] args) {

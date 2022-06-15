@@ -39,3 +39,79 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic
 
 ###
 POST http://localhost:8080/api/theater/auditionee
+
+###
+
+#begin auditionee requests
+
+# should deny access because we don't have admin authority yet
+GET http://localhost:8080/api/theater/auditionee HTTP/1.1
+
+###
+
+# gets a token for admin privileges
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+###
+# uses the ADMIN token privilege to READ auditionees
+GET http://localhost:8080/api/theater/auditionee HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUzMTg0ODB9.REqoS0Nph38zfpCy_rAJevW7N5cfhO3M4UZkq028Ifg
+
+###
+
+# gets a token for user privileges
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "user"
+}
+
+###
+
+# should deny access to auditionee list because this is user privileges only
+GET http://localhost:8080/api/theater/auditionee HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUzMTkxMDF9.eqeRZODa-tDtV_g3j0eW-gyK0qtvG34C-v8hXuHijEA
+###
+
+# uses the USER privileges to ADD an auditionee
+POST http://localhost:8080/api/theater/auditionee HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoidXNlciIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjU1MzE4NDYzfQ.CYMGD5SzwAChLX2_396OrNNYfW0lYKvZMtBaNg18N-U
+
+{
+    "appUserId": 5,
+    "partId": 2,
+    "timeSlot": "2022-06-29 2:00pm",
+    "selection": "Sing A New Song"
+}
+
+###
+
+# uses ADMIN privileges to UPDATE an auditionee
+# should return 204 with no content
+PUT http://localhost:8080/api/theater/auditionee/1 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUzMTgyMjd9.7icw3FxoXBAWf8NXN3F-7Imv40HpzWH4b4U2skcykLs
+
+{
+    "auditioneeId": 1,
+    "appUserId": 1,
+    "partId": 2,
+    "timeSlot": "2022-07-01 5:00pm",
+    "selection": "Kristin Monologue"
+}
+
+###
+
+# uses ADMIN privileges to DELETE auditioneeId 3
+# should return 204 with no content
+DELETE http://localhost:8080/api/theater/auditionee/3 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUzMTc4NjF9.W88qHIQbBge-nmWXBz2pYs7VnRGipxN17WB4WHNfR7E

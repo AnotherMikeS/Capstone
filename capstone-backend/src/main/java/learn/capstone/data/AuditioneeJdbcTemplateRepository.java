@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
-import java.util.Locale;
 
 @Repository
 public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
@@ -23,7 +22,9 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 
     @Override
     public List<Auditionee> findAll() {
-        String sql = "select * from auditionee;";
+     //   String sql = "select * from auditionee;";
+        String sql = "select auditionee_id, app_user_id, part_id, time_slot, selection "
+                + "from auditionee;";
         return jdbcTemplate.query(sql, new AuditioneeMapper());
     }
 
@@ -49,7 +50,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update((conn) -> {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, auditionee.getUserId());
+            statement.setInt(1, auditionee.getAppUserId());
             statement.setInt(2, auditionee.getPartId());
             statement.setString(3, auditionee.getTimeSlot());
             statement.setString(4, auditionee.getSelection());
@@ -79,7 +80,7 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 
         return jdbcTemplate.update(sql,
                 auditionee.getAuditioneeId(),
-                auditionee.getUserId(),
+                auditionee.getAppUserId(),
                 auditionee.getPartId(),
                 auditionee.getTimeSlot(),
                 auditionee.getSelection(),
