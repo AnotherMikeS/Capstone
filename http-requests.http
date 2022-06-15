@@ -30,7 +30,7 @@ Content-Type: application/json
 ###
 POST http://localhost:8080/api/theater/audition HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUzMDM5NDB9.AHBjlg7HBg5Ts33mYg9qlBUn0_qbZ6BQCOMIiT5J0kU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUzMDQyNDF9.HMosL5uG8_p9XBk2yx-4SeQsmggJTBoEOVVdSolpxPo
 
 {
   "auditioneeId": 3,
