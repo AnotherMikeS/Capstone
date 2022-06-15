@@ -78,11 +78,11 @@ class AppUserJdbcTemplateRepositoryTest {
     void shouldUpdate(){
         //Same thing. Any data that makes it here should already be valid
 
-        AppUser updated = new AppUser(2, "jSmith", "John", "Smith", "Password");
+        AppUser updated = new AppUser(1, "jSmith", "John", "Smith", "Password");
         assertTrue(repository.update(updated));
-        updated = new AppUser(2, "jJones", "John", "Jones", "Password");
+        updated = new AppUser(1, "jJones", "John", "Jones", "Password");
         assertTrue(repository.update(updated));
-        updated = new AppUser(2, "jSmith", "James", "Smith", "Password");
+        updated = new AppUser(1, "jSmith", "James", "Smith", "Password");
         assertTrue(repository.update(updated));
     }
 
