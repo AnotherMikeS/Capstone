@@ -2,9 +2,10 @@ package learn.capstone;
 
 import learn.capstone.domain.Result;
 import learn.capstone.domain.ResultType;
+import learn.capstone.models.AppUser;
 import learn.capstone.models.Audition;
 import learn.capstone.models.Auditionee;
-import learn.capstone.models.AppUser;
+//import learn.capstone.models.AppUser;
 
 public class TestHelper {
 
@@ -97,5 +98,75 @@ public class TestHelper {
         auditionee.setSelection("I Dreamed A Dream");
         return auditionee;
     }
+
+    public static Auditionee makeValidAuditionee2() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setUserId(5);
+        auditionee.setPartId(2);
+        auditionee.setTimeSlot("2022-07-02 1:20pm");
+        auditionee.setSelection("Barefoot in the Park monologue");
+        return auditionee;
+    }
+
+    public static Auditionee makeValidAuditionee3() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setUserId(5);
+        auditionee.setPartId(2);
+        auditionee.setTimeSlot("2022-07-02 1:40pm");
+        auditionee.setSelection("Odyssey monologue");
+        return auditionee;
+    }
+
+    public static Auditionee makeValidAuditionee4() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setUserId(5);
+        auditionee.setPartId(1);
+        auditionee.setTimeSlot("2022-07-02 2:00pm");
+        auditionee.setSelection("Bring Him Home");
+        return auditionee;
+    }
+
+    public static Auditionee makeValidAuditionee5() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setAuditioneeId(6);
+        auditionee.setUserId(5);
+        auditionee.setPartId(1);
+        auditionee.setTimeSlot("2022-07-02 2:20pm");
+        auditionee.setSelection("Circus");
+        return auditionee;
+    }
+
+    public static Auditionee makeValidAuditionee6() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setAuditioneeId(0);
+        auditionee.setUserId(6);
+        auditionee.setPartId(1);
+        auditionee.setTimeSlot("2022-07-02 2:20pm");
+        auditionee.setSelection("Oh What A Beautiful Morning");
+        return auditionee;
+    }
+
+    public static Auditionee makeValidAuditionee7() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setAuditioneeId(1);
+        auditionee.setUserId(6);
+        auditionee.setPartId(1);
+        auditionee.setTimeSlot("2022-07-02 3:20pm");
+        auditionee.setSelection("Balloon Animals");
+        return auditionee;
+    }
+
+    public static Auditionee makeInvalidAuditionee1() {
+        Auditionee auditionee = new Auditionee();
+        auditionee.setAuditioneeId(7);
+        auditionee.setUserId(6);
+        auditionee.setPartId(1);
+        auditionee.setTimeSlot("2022-07-02 2:40pm");
+        auditionee.setSelection("Test song 1");
+        return auditionee;
+    }
+
+
+
 
 }

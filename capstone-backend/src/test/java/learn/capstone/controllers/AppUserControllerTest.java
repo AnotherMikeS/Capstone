@@ -29,7 +29,7 @@ class AppUserControllerTest {
 
     @Test
     void addShouldReturn400WhenEmpty() throws Exception {
-        var request = post("/api/appUser")
+        var request = post("/api/theater/appUser")
                 .contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request)
@@ -43,7 +43,7 @@ class AppUserControllerTest {
         AppUser user = new AppUser();
         String userJson = jsonMapper.writeValueAsString(user);
 
-        var request = post("/api/appUser")
+        var request = post("/api/theater/appUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson);
 
@@ -58,7 +58,7 @@ class AppUserControllerTest {
         AppUser user = new AppUser(0,"testname","test","mcTest","testword");
         String userJson = jsonMapper.writeValueAsString(user);
 
-        var request = post("/api/appUser")
+        var request = post("/api/theater/appUser")
                 .contentType(MediaType.MULTIPART_FORM_DATA)
                 .content(userJson);
 
@@ -77,7 +77,7 @@ class AppUserControllerTest {
         String userJson = jsonMapper.writeValueAsString(actual);
         String expectedJson = jsonMapper.writeValueAsString(expected);
 
-        var request = post("/api/appUser")
+        var request = post("/api/theater/appUser")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(userJson);
 

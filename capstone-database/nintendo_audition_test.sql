@@ -42,12 +42,12 @@ create table available_times (
 
 create table auditionee (
 	auditionee_id int primary key auto_increment,
-    user_id int not null,
+    app_user_id int not null,
     part_id int not null,
     time_slot varchar(50),
     selection varchar(100),
-     foreign key(user_id)
-    references `user`(user_id),
+     foreign key(app_user_id)
+    references app_user(app_user_id),
      foreign key(part_id)
     references part(part_id)
     );
@@ -78,6 +78,12 @@ begin
     
 	delete from part;
 	alter table part auto_increment = 1;
+
+	delete from app_user_role;
+    alter table app_user_role auto_increment = 1;
+    
+	delete from app_role;
+    alter table app_role auto_increment = 1;
 
 	delete from app_user;
     alter table app_user auto_increment = 1;

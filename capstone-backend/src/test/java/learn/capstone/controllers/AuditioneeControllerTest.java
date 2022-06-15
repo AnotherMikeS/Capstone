@@ -1,8 +1,8 @@
 package learn.capstone.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import learn.capstone.data.AuditionRepository;
-import learn.capstone.models.Audition;
+import learn.capstone.data.AuditioneeRepository;
+import learn.capstone.models.Auditionee;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,17 +20,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AuditionControllerTest {
+public class AuditioneeControllerTest {
 
     @MockBean
-    AuditionRepository repository;
+    AuditioneeRepository repository;
 
     @Autowired
     MockMvc mvc;
 
     @Test
-    void addShouldReturn400WhenEmpty() throws Exception {
-        var request = post("/api/theater/audition")
+    void addShouldReturn400IfEmpty() throws Exception {
+        var request = post("/api/theater/auditionee")
                 .contentType(MediaType.APPLICATION_JSON);
 
         mvc.perform(request)
@@ -38,30 +38,30 @@ class AuditionControllerTest {
     }
 
     @Test
-    void addShouldReturn400WhenInvalid() throws Exception {
+    void addShouldReturn400IfInvalid() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        Audition audition = new Audition();
-        String auditionJson = jsonMapper.writeValueAsString(audition);
+        Auditionee auditionee = new Auditionee();
+        String auditioneeJson = jsonMapper.writeValueAsString(auditionee);
 
-        var request = post("/api/theater/audition")
+        var request = post("/api/theater/auditionee")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(auditionJson);
+                .content(auditioneeJson);
 
         mvc.perform(request)
                 .andExpect(status().isBadRequest());
     }
 
     @Test
-    void addShouldReturn415WhenMultipart() throws Exception {
+    void addShouldReturn415IfMultipart() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        Audition audition = new Audition(0, 1, "Shelley", "Nixon", 1, "Acting");
-        String auditionJson = jsonMapper.writeValueAsString(audition);
+        Auditionee auditionee = new Auditionee(10, 10, 2, "Controller Test Timeslot", "Controller Test Selection");
+        String auditioneeJson = jsonMapper.writeValueAsString(auditionee);
 
-        var request = post("/api/theater/audition")
+        var request = post("/api/theater/auditionee")
                 .contentType(MediaType.MULTIPART_FORM_DATA)
-                .content(auditionJson);
+                .content(auditioneeJson);
 
         mvc.perform(request)
                 .andExpect(status().isUnsupportedMediaType());
@@ -69,21 +69,22 @@ class AuditionControllerTest {
 
     @Test
     void addShouldReturn201() throws Exception {
-        Audition audition = new Audition(0, 1, "Shelley", "Nixon", 1, "acting");
-        Audition expected = new Audition(1, 1, "Shelley", "Nixon", 1, "acting");
+        Auditionee auditionee = new Auditionee(0, 1, 2, "Test Date", "Test Selection");
+        Auditionee expected = new Auditionee(1, 1, 2, "Test Date", "Test Selection");
 
         when(repository.add(any())).thenReturn(expected);
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        String auditionJson = jsonMapper.writeValueAsString(audition);
+        String auditioneeJson = jsonMapper.writeValueAsString(auditionee);
         String expectedJson = jsonMapper.writeValueAsString(expected);
 
-        var request = post("/api/theater/audition")
+        var request = post("/api/theater/auditionee")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(auditionJson);
+                .content(auditioneeJson);
 
         mvc.perform(request)
                 .andExpect(status().isCreated())
                 .andExpect(content().json(expectedJson));
     }
+
 }

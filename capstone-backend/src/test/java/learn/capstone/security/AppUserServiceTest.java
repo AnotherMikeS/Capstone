@@ -1,10 +1,12 @@
+
 package learn.capstone.security;
 
+import learn.capstone.App;
 import learn.capstone.TestHelper;
 import learn.capstone.data.AppUserRepository;
 import learn.capstone.domain.Result;
 import learn.capstone.models.AppUser;
-import learn.capstone.domain.AppUserService;
+import learn.capstone.security.AppUserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
