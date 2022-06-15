@@ -1,8 +1,8 @@
-import {Link, Outlet} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function App() {
+export default function NavBar() {
   return (
-    <div>
+<div>
       <h1
         style={{
           textAlign: "center",
@@ -23,8 +23,6 @@ export default function App() {
         <Link to="/signup"><button className="btn btn-outline-success">Sign Up</button></Link> {" "}
         <Link to="/schedule"><button className="btn btn-outline-success">Audition Schedule</button></Link> {/*Admin Only eventually*/} 
       </nav>
-      <Outlet />
     </div>
   );
 }
-
