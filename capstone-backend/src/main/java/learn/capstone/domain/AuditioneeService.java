@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class AuditioneeService {
@@ -94,7 +93,7 @@ public class AuditioneeService {
             return result;
         }
 
-        if (auditionee.getUserId() <= 0) {
+        if (auditionee.getAppUserId() <= 0) {
             result.addMessage("app user ID must be greater than 0", ResultType.INVALID);
             return result;
         }

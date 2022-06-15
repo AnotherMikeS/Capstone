@@ -38,12 +38,12 @@ public class Auditionee {
         this.auditioneeId = auditioneeId;
     }
 
-    public int getUserId() {
+    public int getAppUserId() {
         return appUserId;
     }
 
-    public void setUserId(int userId) {
-        this.appUserId = userId;
+    public void setAppUserId(int appUserId) {
+        this.appUserId = appUserId;
     }
 
     public int getPartId() {
