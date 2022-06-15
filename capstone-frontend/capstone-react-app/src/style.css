@@ -1,0 +1,29 @@
+body {
+	background-color: white;
+}
+
+.tag {
+	text-align: center;
+}
+
+.slick-slide img {
+	margin: auto;
+	width: 25%;
+	height: 25%;
+}
+
+.yelp {
+    margin: 250px;
+    width: 50%;
+    height: 50%;
+}
+
+.logo {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+
+}
+
+
+

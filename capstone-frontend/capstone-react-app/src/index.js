@@ -1,3 +1,5 @@
+import React from "react";
+import "./style.css";
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App';
@@ -6,6 +8,7 @@ import Schedule from "./components/Schedule";
 import LogIn from "./components/LogIn";
 import Home from "./components/Home";
 import NotFound from './components/NotFound';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

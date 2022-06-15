@@ -1,4 +1,6 @@
 import {Link, Outlet} from "react-router-dom";
+import images from "./components/images";
+import ImageSlider from "./components/imageSlider";
 
 export default function App() {
   return (
@@ -24,7 +26,9 @@ export default function App() {
         <Link to="/schedule"><button className="btn btn-outline-success">Audition Schedule</button></Link> {/*Admin Only eventually*/} 
       </nav>
       <Outlet />
+    
     </div>
+    
   );
 }
 
