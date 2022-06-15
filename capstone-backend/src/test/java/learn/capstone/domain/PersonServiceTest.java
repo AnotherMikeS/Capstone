@@ -1,12 +1,8 @@
+package learn.capstone.domain;
 
-package learn.capstone.security;
-
-import learn.capstone.App;
 import learn.capstone.TestHelper;
-import learn.capstone.data.AppUserRepository;
-import learn.capstone.domain.Result;
-import learn.capstone.models.AppUser;
-import learn.capstone.security.AppUserService;
+import learn.capstone.data.PersonRepository;
+import learn.capstone.models.Person;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,33 +17,33 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class AppUserServiceTest {
+class PersonServiceTest {
 
     @Autowired
-    AppUserService service;
+    PersonService service;
 
     @MockBean
-    AppUserRepository repository;
+    PersonRepository repository;
 
     @Test
     void shouldFindAll(){
-        List<AppUser> expected = new ArrayList<>();
-        expected.add(TestHelper.makeUser());
+        List<Person> expected = new ArrayList<>();
+        expected.add(TestHelper.makeLuigi());
 
         when(repository.findAll()).thenReturn(expected);
 
-        List<AppUser> actual = service.findAll();
+        List<Person> actual = service.findAll();
 
         assertEquals(expected, actual);
     }
 
     @Test
     void shouldFindById(){
-        AppUser expected = TestHelper.makeMike();
+        Person expected = TestHelper.makeMike();
 
         when(repository.findById(expected.getAppUserId())).thenReturn(expected);
 
-        AppUser actual = service.findById(expected.getAppUserId());
+        Person actual = service.findById(expected.getAppUserId());
 
         assertEquals(expected, actual);
     }
@@ -58,33 +54,17 @@ class AppUserServiceTest {
     }
 
     @Test
-    void shouldFindByUsername(){
-        AppUser expected = TestHelper.makeMike();
-
-        when(repository.findByUsername(expected.getUsername())).thenReturn(expected);
-
-        AppUser actual = service.findByUsername(expected.getUsername());
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void shouldNotFindByUsername(){
-        assertFalse(repository.findByUsername("Waluigi") != null);
-    }
-
-    @Test
     void shouldAddValid(){
-        AppUser postAdd = TestHelper.makeUser();
-        postAdd.setAppUserId(6);
+        Person postAdd = TestHelper.makeLuigi();
 
         when(repository.add(any())).thenReturn(postAdd);
 
         Result expected = TestHelper.makeResult();
+
         expected.setPayload(postAdd);
 
-        AppUser preAdd = TestHelper.makeUser();
-        preAdd.setAppUserId(0);
+        Person preAdd = TestHelper.makeLuigi();
+        preAdd.setPersonId(0);
 
         Result actual = service.add(preAdd);
 
@@ -95,14 +75,13 @@ class AppUserServiceTest {
     void shouldNotAddInvalid(){
         //Null Fields
         //Id != 0;
-        AppUser allWrong = new AppUser(1, "", "", "", "");
+        Person allWrong = new Person(1, 0, "", "");
 
         Result expected = TestHelper.makeResult(
-                "Username is required",
                 "First name is required",
                 "Last name is required",
-                "Password is required",
-                "User ID must be 0 when adding a user");
+                "Valid User Id is required",
+                "Person ID must be 0 when adding a person");
 
         Result actual = service.add(allWrong);
 
@@ -114,7 +93,7 @@ class AppUserServiceTest {
         when(repository.update(any())).thenReturn(true);
 
         Result expected = TestHelper.makeResult();
-        AppUser updated = TestHelper.makeMike();
+        Person updated = TestHelper.makeMike();
         updated.setFirstName("Matt");
         Result actual = service.update(updated);
         assertEquals(expected, actual);
@@ -124,14 +103,13 @@ class AppUserServiceTest {
     void shouldNotUpdateInvalid(){
         //Null Fields
         //Id <= 0;
-        AppUser allWrong = new AppUser(0, "", "", "", "");
+        Person allWrong = new Person(0, 0, "", "");
 
         Result expected = TestHelper.makeResult(
-                "Username is required",
                 "First name is required",
                 "Last name is required",
-                "Password is required",
-                "User ID is required to update a user");
+                "Valid User Id is required",
+                "Person ID is required to update a person");
 
         Result actual = service.update(allWrong);
 
@@ -148,7 +126,7 @@ class AppUserServiceTest {
 
     @Test
     void shouldNotDelete(){
-        Result expected = TestHelper.makeResult("Unable to delete user.");
+        Result expected = TestHelper.makeResult("Unable to delete Person.");
         Result actual = service.deleteById(1000);
         assertEquals(expected, actual);
     }
