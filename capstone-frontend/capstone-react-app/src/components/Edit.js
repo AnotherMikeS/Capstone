@@ -1,4 +1,3 @@
-import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 import React, { useState, useEffect } from 'react';
 
 // Edit an existing audition
@@ -36,6 +35,11 @@ export default function Edit() {
         setSubmitted(false);
     }
 
+    // handle submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    };
+
     return (
 
         <div className="form">
@@ -44,19 +48,28 @@ export default function Edit() {
             </div>
 
             <form>
-                <label className="label">Will You Be Acting or Singing?</label>
-                <input className="input" type="text" value={role} onChange={handleNewRole} /><br></br>
+                <label className="label">Type of Audition</label>
+                <select className="role" value={role} onChange={handleNewRole}>
+                    <option value="Keep My Current Audition Type"></option>
+                    <option value="Acting">Acting</option>
+                    <option value="Singing">Singing</option>
+                </select>
 
                 <label className="label">Piece You Will Perform</label>
-                <input className="input" type="text" value={selection} onChange={handleNewSelection} /><br></br>
-
+                <input className="input" type="text" value={selection} onChange={handleNewSelection} />
+                
                 <label className="label">Time Slot</label>
-                <select className="timeslot" id="timeslot" name="timeslot" value={timeSlot} onChange={handleNewTimeSlot}>
+                <select className="timeslot" value={timeSlot} onChange={handleNewTimeSlot}>
                     <option value="Keep My Current Time Slot">Keep My Current Time Slot</option>
                     <option value="2022-07-01 12:00pm">2022-07-01 12:00pm</option>
                     <option value="2022-07-01 1:00pm">2022-07-01 1:00pm</option>
                     <option value="2022-07-01 2:00pm">2022-07-01 2:00pm</option>
                 </select>
+
+                <br></br>
+                <br></br>
+
+                <button onClick={handleSubmit} className="btn btn-success" type="submit">Submit</button>
 
             </form>
 

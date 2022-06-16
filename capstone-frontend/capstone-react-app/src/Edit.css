@@ -16,26 +16,3 @@
     margin-right: 15%;
     text-align: center;
 }
-
-.messages {
-    display: flex;
-    justify-content: center;
-}
-
-.error {
-    display: block;
-    background-color: red;
-    color: white;
-    width: fit-content;
-    height: 50px;
-    padding: 5px;
-}
-
-.success {
-    display: block;
-    background-color: lightgreen;
-    color: black;
-    width: fit-content;
-    height: 50px;
-    padding: 5px;
-}
