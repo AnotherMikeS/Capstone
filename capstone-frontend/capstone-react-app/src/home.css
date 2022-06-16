@@ -5,6 +5,7 @@ body {
 .tag {
 	text-align: center;
     color: #737373;
+    /* color: #4f89b7; */
 }
 
 .slick-slide img {
@@ -25,4 +26,39 @@ body {
   margin: auto;
   width: 50%;
   height: 50%;
+}
+
+.calloutBox {
+  position: fixed;
+  top: 35px;
+  right: 20px;
+  margin-right: 20px;
+  max-width: 300px;
+}
+
+.calloutBox-header {
+  padding: 15px 10px 5px 10px;
+  background: #ff0f39;
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.calloutBox-header:hover {
+  background-color: #26f7b2;
+  color: white;
+}
+
+.calloutBox-container {
+  padding: 5px 10px 15px 10px;
+  background: #ff0f39;
+  color: white;
+  text-align: center;
+  font-size: 25px;
+}
+
+.calloutBox-container:hover {
+  background-color: orange;
+  color: purple;
 }

@@ -10,16 +10,15 @@ export default function Home() {
           <ImageSlider images={images}/>
       </div>
       
-      <div className="yelp-review">
-        <span className="yelp-review" data-review-id="WDjunj7EP_X9z18z_4cg_w" 
-        data-hostname="www.yelp.com">Read <a href="https://www.yelp.com/user_details?userid=3kffGUf3oz__Sc8MZgQWlA" 
-        rel="nofollow noopener">Luana O.</a>'s <a href="https://www.yelp.com/biz/don-julios-mexican-kitchen-and-tequila-bar-lake-mary?hrid=WDjunj7EP_X9z18z_4cg_w" 
-        rel="nofollow noopener">review</a> of <a href="https://www.yelp.com/biz/Hm3k86w9CHNAR7dR1oJwWA"
-        rel="nofollow noopener">Don Julios Mexican Kitchen and Tequila Bar </a>on <a href="https://www.yelp.com" rel="nofollow noopener"
-        >Yelp</a><script src="https://www.yelp.com/embed/widgets.js" 
-        type="text/javascript" async></script></span>
-        
-        </div>
+      {/* <div className="yelp-review">
+      <span class="yelp-review" data-review-id="WGeShu94I3QENyoeNMftRw" data-hostname="www.yelp.com"><iframe src="https://www.yelp.com/biz/playhouse-square-cleveland-2?hrid=WGeShu94I3QENyoeNMftRw" rel="nofollow noopener"></iframe></span>   </div>
+       */}
+
+<div className="calloutBox">
+  <div className="calloutBox-header">NINTENDO: the musical!</div>
+  <div className="calloutBox-container">auditioning now
+  </div>
+</div>
       </main>
     );
   }
