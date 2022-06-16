@@ -54,10 +54,14 @@ export default function Edit() {
                     <option value="Acting">Acting</option>
                     <option value="Singing">Singing</option>
                 </select>
+                <br></br>
+                <br></br>
 
                 <label className="label">Piece You Will Perform</label>
                 <input className="input" type="text" value={selection} onChange={handleNewSelection} />
-                
+                <br></br>
+                <br></br>
+
                 <label className="label">Time Slot</label>
                 <select className="timeslot" value={timeSlot} onChange={handleNewTimeSlot}>
                     <option value="Keep My Current Time Slot">Keep My Current Time Slot</option>

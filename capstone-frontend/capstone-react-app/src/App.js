@@ -4,6 +4,7 @@ import SignUp from "./components/SignUp";
 import Schedule from "./components/Schedule";
 import LogIn from "./components/LogIn";
 import Home from "./components/Home";
+import Edit from "./components/Edit";
 //import './UserForms.css';
 import NavBar from "./components/NavBar";
 import UserForms from "./components/UserForms";
@@ -29,6 +30,7 @@ export default function App() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/forms" element={<UserForms />} />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/edit" element={<Edit />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/login" element={<LogIn userStatus={userStatus} test={3} />}/>
 
