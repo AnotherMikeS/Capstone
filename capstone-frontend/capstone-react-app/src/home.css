@@ -1,0 +1,67 @@
+body {
+	background-color: #f5d9e0;
+}
+
+.tag {
+	text-align: center;
+    color: #737373;
+    /* color: #4f89b7; */
+}
+
+.slick-slide img {
+	margin: auto;
+	width: 50%;
+	height: 50%;
+}
+
+.yelp-review {
+    padding: 50px;
+    color: #737373;
+    margin: auto;
+    width: 50%;
+    height: 50%;
+}
+
+.logo {
+  margin: auto;
+  width: 50%;
+  height: 50%;
+}
+
+.calloutBox {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  margin-right: 20px;
+  max-width: 250px;
+}
+
+.calloutBox-header {
+  padding: 10px 10px 10px 10px;
+  background: #ff0f39;
+  font-size: 25px;
+  color: #26f7b2;
+  text-align: center;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.calloutBox-header:hover {
+  color: #26f7b2;
+  /* color: white; */
+}
+
+.calloutBox-container {
+  padding: 10px 10px 10px 10px;
+  background: #ff0f39;
+  color: #26f7b2;
+  /* color: white; */
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.calloutBox-container:hover {
+  color: #26f7b2;
+}
