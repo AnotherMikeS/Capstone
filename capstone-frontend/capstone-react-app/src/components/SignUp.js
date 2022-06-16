@@ -1,10 +1,21 @@
 import React, { useEffect } from "react";
 import {useState} from "react";
 
-function SignUp(addAudition){
+function SignUp(addAuditionee){
 
   const[firstName, setFirstName] = useState("");
   const[lastName, setLastName] = useState("");
+  const[role, setRole] = useState("");
+  const[date, setDate] = useState("");
+  const[time, setTime] = useState("");
+  const[selection, setSelectionPiece] = useState("");
+
+  const baseurl = "http://localhost:8080/api/theater/auditionee";
+  const init = {
+      headers: {
+          "Content-Type": "application/json"
+      }
+  }
 
 
   const handleFirstChange = (evt) => {
@@ -13,18 +24,51 @@ function SignUp(addAudition){
   const handleLastChange = (evt) => {
       setLastName(evt.target.value);
   }
+  const handleRoleChange = (evt) => {
+      setRole(evt.target.value);
+  }
+  const handleDateChange = (evt) => {
+      setDate(evt.target.value);
+  }
+  const handleTimeChange = (evt) => {
+      setTime(evt.target.value);
+  }
+  const handleSelectionChange = (evt) => {
+      setSelectionPiece(evt.target.value);
+  }
 
   const handleSubmit = (evt) => {
       evt.preventDefault();
-      var agent = {
-          agentId: 0, //must be 0 when adding
-          firstName: firstName,
-          lastName: lastName,
-          heightInInches: 60 //can't be null
+      var auditionee = {
+          appUserId: 2, //Using a default hardcoded id currently. Need to use the logged in ID later.
+          partId: parseInt(role, 10),
+          timeslot: date + " " + time,
+          selection: selection
       }
-      addAudition(agent);
+
+      console.log(auditionee);
+
+      init.method = "POST";
+        init.body = JSON.stringify(auditionee)
+
+        fetch(baseurl, init)
+        .then(response => {
+            if (response.status === 201) { // status CREATED
+            } else {
+                return Promise.reject("POST auditionee status was not 201.");
+            }
+
+        })
+        .catch(console.error);
+
+
+      //Set to blank
       setFirstName("");
       setLastName("");
+      setRole("");
+      setDate("");
+      setTime("");
+      setSelectionPiece("");
   };
 
   return (
@@ -46,33 +90,53 @@ function SignUp(addAudition){
                       </div>
                   </div>
                   <div class="row">
-                      <label htmlFor = "lastName">Role: </label>
+                      <label htmlFor = "roles">Role: </label>
                       <div class="col-3">
-                      <select id="roles" name="roles" class="col-7">
-                        <option value="actor">Actor</option>
-                        <option value="singer">Singer</option>
+                      <select id="roles" name="roles" class="col-100" onChange={handleRoleChange} value = {role}>
+                        <option value="" disabled selected>Choose Role</option>
+                        <option value="1" >Actor</option>
+                        <option value="2">Singer</option>
                       </select>
                       </div>
                   </div>
                   <div class="row">
-                      <label htmlFor = "lastName">Date: </label>
+                      <label htmlFor = "dates">Date: </label>
                       <div class="col-3">
-                      <select id="dates" name="dates" class="col-7">
-                        <option value="7-1">July 1st</option>
-                        <option value="7-2">July 2nd</option>
-                        <option value="7-3">July 3rd</option>
+                        
+                      <select id="dates" name="dates" class="col-100" onChange={handleDateChange} value  = {date}>
+                        <option value="" disabled selected>Choose Date</option>
+                        <option value="2022-07-01">July 1st</option>
+                        <option value="2022-07-02">July 2nd</option>
+                        <option value="2022-07-03">July 3rd</option>
                       </select>
                       </div>
                   </div>
+                        {(date === "") 
+                        ? <div></div> 
+                        : 
+                        <div class="row">
+                            <label htmlFor = "times">Time: </label>
+                            <div class="col-3">
+                                <select id="times" name="times" class="col-100" onChange={handleTimeChange} value  = {time}>
+                                    <option value="" disabled selected>Choose Time</option>
+                                    <option value="9:00am">9 am</option>
+                                    <option value="10:00am">10 am</option>
+                                    <option value="11:00am">11 am</option>
+                                </select>
+                            </div>
+                        </div>
+                        }
                   <div class="row">
-                      <label htmlFor = "auditionPiece">Audition Piece: </label>
+                      <label htmlFor = "auditionPiece">Selection Piece: </label>
                       <div class="col-3">
-                      <input id = "lastName" onChange={handleLastChange} name="lastName" type="Text" value = {lastName}></input>
+                      <input id = "selection" onChange={handleSelectionChange} name="selection" type="Text" value = {selection}></input>
                       </div>
                   </div>
-                  <div className="col-2">
-                      <button className="btn btn-primary" type="submit">Add Audition</button>
-                  </div>
+                  {(role === "" || date === "" || firstName === "" || lastName === "" || time === "" || selection === "") 
+                  ?  <button className="btn btn-secondary" disabled>Add Audition</button> 
+                  : <button className="btn btn-primary" type="submit">Add Audition</button>
+                  }
+                  
               </div>
               
           </form>
