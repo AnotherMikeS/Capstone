@@ -1,4 +1,3 @@
-
 package learn.capstone.security;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,13 +27,13 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
                                     FilterChain chain) throws IOException, ServletException {
 
         String authorization = request.getHeader("Authorization");
+        if (authorization != null && authorization.startsWith("Bearer ")) {
 
-        if (authorization != null && authorization.startsWith("Bearer")) {
-            //Changed this variable
             User user = converter.getUserFromToken(authorization);
             if (user == null) {
                 response.setStatus(403);
             } else {
+
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                         user, null, user.getAuthorities());
 
