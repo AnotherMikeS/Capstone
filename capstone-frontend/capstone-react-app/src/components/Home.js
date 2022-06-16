@@ -4,6 +4,8 @@ import ImageSlider from "./imageSlider";
 import yoshi from "./yoshi-tpt.png";
 
 export default function Home() {
+  
+  
   return (
     <main style={{ padding: "1rem" }}>
       <div>
