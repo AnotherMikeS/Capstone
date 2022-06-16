@@ -10,6 +10,27 @@ GET http://localhost:8080/api/theater/auditionee HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUyMzQ3ODh9.P5OJpypdrbol-_Lj_fbdmjxCSmdDYa4V7tqvxL_EEPc
 
 ###
+
+POST http://localhost:8080/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "cCody",
+  "password": "password1!"
+}
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "cCody",
+  "password": "password1!"
+}
+
+###
+
 POST http://localhost:8080/authenticate HTTP/1.1
 Content-Type: application/json
 
@@ -30,7 +51,7 @@ Content-Type: application/json
 ###
 POST http://localhost:8080/api/theater/audition HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUzMDQyNDF9.HMosL5uG8_p9XBk2yx-4SeQsmggJTBoEOVVdSolpxPo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiY0NvZHkiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImV4cCI6MTY1NTM0NjAyNH0.59S-VD3vi7uqIB97IUBjYOC0xXGBxnE3Dmqk3uCd9Xo
 
 {
   "auditioneeId": 3,

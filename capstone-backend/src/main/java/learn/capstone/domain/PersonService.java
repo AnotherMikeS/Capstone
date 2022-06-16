@@ -85,6 +85,15 @@ public class PersonService {
             result.addMessage("Valid User Id is required", ResultType.INVALID);
         }
 
+        List<Person> all = repository.findAll();
+        for (int i = 0; i < all.size(); i++) {
+            if (person.getAppUserId() == all.get(i).getAppUserId() &&
+                person.getFirstName().equalsIgnoreCase(all.get(i).getFirstName()) &&
+                person.getLastName().equalsIgnoreCase(all.get(i).getLastName())) {
+                result.addMessage("Cannot create duplicate people.", ResultType.INVALID);
+            }
+        }
+
         return result;
     }
 }

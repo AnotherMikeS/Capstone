@@ -1,6 +1,5 @@
 package learn.capstone.data;
 
-import learn.capstone.data.mappers.AppUserMapper;
 import learn.capstone.models.AppUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -26,7 +25,7 @@ public class AppUserRepository {
     public AppUser findByUsername(String username) {
         List<String> roles = getRolesByUsername(username);
 
-        final String sql = "select app_user_id, username, password_hash, disabled "
+        final String sql = "select app_user_id, username, password_hash, enabled "
                 + "from app_user "
                 + "where username = ?;";
 
@@ -64,7 +63,7 @@ public class AppUserRepository {
 
         final String sql = "update app_user set "
                 + "username = ?, "
-                + "disabled = ? "
+                + "enabled = ? "
                 + "where app_user_id = ?";
 
         jdbcTemplate.update(sql,
@@ -85,17 +84,17 @@ public class AppUserRepository {
 
         for (String role : AppUser.convertAuthoritiesToRoles(authorities)) {
             String sql = "insert into app_user_role (app_user_id, app_role_id) "
-                    + "select ?, app_role_id from app_role where `name` = ?;";
+                    + "select ?, app_role_id from app_role where access_type = ?;";
             jdbcTemplate.update(sql, user.getAppUserId(), role);
         }
     }
 
     private List<String> getRolesByUsername(String username) {
-        final String sql = "select r.name "
-                + "from app_user_role ur "
-                + "inner join app_role r on ur.app_role_id = r.app_role_id "
-                + "inner join app_user au on ur.app_user_id = au.app_user_id "
-                + "where au.username = ?";
-        return jdbcTemplate.query(sql, (rs, rowId) -> rs.getString("name"), username);
+        final String sql = "select app_role.access_type "
+                + "from app_user_role "
+                + "inner join app_role on app_user_role.app_role_id = app_role.app_role_id "
+                + "inner join app_user on app_user_role.app_user_id = app_user.app_user_id "
+                + "where app_user.username = ?";
+        return jdbcTemplate.query(sql, (rs, rowId) -> rs.getString("access_type"), username);
     }
 }

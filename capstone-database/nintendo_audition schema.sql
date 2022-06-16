@@ -41,6 +41,7 @@ create table part (
     `role` enum('singing', 'acting')
 );
 
+
 create table available_times (
 	time_id int primary key auto_increment,
     available_time varchar(50)
@@ -67,8 +68,47 @@ create table auditions (
 	foreign key(part_id)
 		references part(part_id)
 );
-    
-    
+
+-- insert into app_user (app_user_id, username, password_hash, enabled) values
+-- 	(1, 'sNixon', 'password', 1),
+-- 	(2, 'mSmith', 'password', 1),
+-- 	(3, 'gGennaro', 'password', 1),
+-- 	(4, 'mMario', 'password', 1),
+-- 	(5, 'lMario', 'password', 1);
+	
+insert into app_role (access_type) values
+	('ADMIN'),
+	('USER');
+	
+-- insert into app_user_role (app_user_id, app_role_id) values
+-- 	(1, 2),
+-- 	(2, 2),
+-- 	(3, 1),
+-- 	(4, 2);
+	
+-- insert into person (person_id, app_user_id, first_name, last_name) values
+-- 	(1, 1, 'Shelley', 'Nixon'),
+-- 	(2, 2, 'Mike', 'Smith'),
+-- 	(3, 3, 'Greg', 'Gennaro'),
+-- 	(4, 4, 'Mario', 'Mario'),
+-- 	(5, 5, 'Luigi', 'Mario');
+	
+
+insert into part (part_id, `role`) values
+	(1, 'singing'),
+	(2, 'acting');
+	
+insert into available_times (time_id, available_time) values
+	(3, '2022-07-01 1:00pm'),
+	(4, '2022-07-02 2:00pm');
+	
+insert into auditionee (auditionee_id, `app_user_id`, part_id, time_slot, selection) values
+(1, 1, 2, '2022-07-01 12:00pm', 'Kristin Monologue'),
+(2, 2, 1, '2022-07-02 1:00pm', 'Its a cold and its a broken Waluigi'),
+(3, 4, 1, '2022-07-02 12:20pm', 'On My Way');
+
+
+
     
     
     

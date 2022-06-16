@@ -1,9 +1,9 @@
 package learn.capstone.models;
 
+import io.jsonwebtoken.lang.Assert;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,8 +17,8 @@ public class AppUser extends User {
     private int appUserId;
 
     public AppUser(int appUserId, String username, String password,
-                   boolean disabled, List<String> roles) {
-        super(username, password, !disabled,
+                   boolean enabled, List<String> roles) {
+        super(username, password, enabled,
                 true, true, true,
                 convertRolesToAuthorities(roles));
         this.appUserId = appUserId;
@@ -38,11 +38,7 @@ public class AppUser extends User {
     public static List<GrantedAuthority> convertRolesToAuthorities(List<String> roles) {
         List<GrantedAuthority> authorities = new ArrayList<>(roles.size());
         for (String role : roles) {
-            Assert.isTrue(!role.startsWith(AUTHORITY_PREFIX),
-                    () ->
-                            String.
-                                    format("%s cannot start with %s (it is automatically added)",
-                                            role, AUTHORITY_PREFIX));
+//            Assert.isTrue(!role.startsWith(AUTHORITY_PREFIX), () -> String.format("%s cannot start with %s (it is automatically added)", role, AUTHORITY_PREFIX));
             authorities.add(new SimpleGrantedAuthority(AUTHORITY_PREFIX + role));
         }
         return authorities;

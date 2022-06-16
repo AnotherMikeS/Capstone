@@ -25,13 +25,16 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
     public List<Audition> findAll() {
         final String sql = "select" +
                 " auditions.audition_id," +
+                " auditions.auditionee_id," +
                 " auditionee.auditionee_id," +
-                " app_user.first_name," +
-                " app_user.last_name," +
+                " person.first_name," +
+                " person.last_name," +
                 " part.part_id," +
-                " part.role" +
-                " from app_user" +
-                " inner join auditionee on app_user.app_user_id = auditionee.app_user_id" +
+                " part.role," +
+                " auditionee.selection" +
+                " from auditionee" +
+                " inner join app_user on auditionee.app_user_id = app_user.app_user_id" +
+                " inner join person on app_user.app_user_id = person.app_user_id" +
                 " inner join auditions on auditionee.auditionee_id = auditions.auditionee_id" +
                 " inner join part on auditions.part_id = part.part_id;";
 
@@ -42,13 +45,16 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
     public Audition findById(int auditionId) {
         final String sql = "select" +
                 " auditions.audition_id," +
+                " auditions.auditionee_id," +
                 " auditionee.auditionee_id," +
-                " app_user.first_name," +
-                " app_user.last_name," +
+                " person.first_name," +
+                " person.last_name," +
                 " part.part_id," +
-                " part.role" +
-                " from app_user" +
-                " inner join auditionee on app_user.app_user_id = auditionee.app_user_id" +
+                " part.role," +
+                " auditionee.selection" +
+                " from auditionee" +
+                " inner join app_user on auditionee.app_user_id = app_user.app_user_id" +
+                " inner join person on app_user.app_user_id = person.app_user_id" +
                 " inner join auditions on auditionee.auditionee_id = auditions.auditionee_id" +
                 " inner join part on auditions.part_id = part.part_id" +
                 " where audition_id = ?;";
@@ -59,8 +65,7 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
 
     @Override
     public Audition add(Audition audition) {
-        final String sql = "insert into auditions (auditionee_id, part_id)" +
-                " values (?, ?);";
+        final String sql = "insert into auditions (auditionee_id, part_id) values (?, ?);";
 
         if (audition.getAuditioneeId() <= 0) {
             return null;

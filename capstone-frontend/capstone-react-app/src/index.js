@@ -7,6 +7,7 @@ import SignUp from "./components/SignUp";
 import Schedule from "./components/Schedule";
 import LogIn from "./components/LogIn";
 import Home from "./components/Home";
+import './LogIn.css';
 import NotFound from './components/NotFound';
 
 
