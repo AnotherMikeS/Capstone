@@ -5,7 +5,7 @@ import ImageSlider from "./imageSlider";
 
 export default function Home() {
     return (
-      <main style={{ padding: "2rem" }}>
+      <main style={{ padding: "1rem" }}>
         <div>
           <img className="logo" src={Twelve4} style={{padding: "0rem", width:300, height:300}} />
           <ImageSlider images={images}/>
