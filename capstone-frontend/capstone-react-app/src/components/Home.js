@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Twelve4 from "./Twelve4.png";
+
 import images from "./images";
 import ImageSlider from "./imageSlider";
 
@@ -7,7 +7,6 @@ export default function Home() {
     return (
       <main style={{ padding: "1rem" }}>
         <div>
-          <img className="logo" src={Twelve4} style={{padding: "0rem", width:300, height:300}} />
           <ImageSlider images={images}/>
       </div>
       
