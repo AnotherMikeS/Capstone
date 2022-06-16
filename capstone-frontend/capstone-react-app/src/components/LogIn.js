@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function LogIn() {
 
@@ -24,7 +24,7 @@ export default function LogIn() {
             })
             .then(json => setUsers(json))
             .catch(console.log);
-    }, []); 
+    }, []);
 
     // Handle First Name Change
     const handleFirstName = (e) => {
@@ -40,8 +40,8 @@ export default function LogIn() {
 
     // Handle UserName Change
     const handleUsername = (e) => {
-    setUsername(e.target.value);
-    setSubmitted(false);
+        setUsername(e.target.value);
+        setSubmitted(false);
     };
 
     // Handle Password Change
@@ -53,7 +53,7 @@ export default function LogIn() {
 
     // Fetch for App User
     const postAppUser = () => {
-        const newAppUser = {username, password};
+        const newAppUser = { username, password };
         const initAppUser = { // Initialize POST request that will go to sql app_user
             method: "POST",
             headers: {
@@ -79,7 +79,7 @@ export default function LogIn() {
 
     // Fetch for Person
     const postPerson = () => {
-        const newPerson = {appUserId: (users.length + 1), firstName, lastName}; // How to get app_user_id ??
+        const newPerson = { appUserId: (users.length + 1), firstName, lastName }; // How to get app_user_id ??
         const initPerson = { // Initialize POST request that will go to sql person
             method: "POST",
             headers: {
@@ -90,25 +90,25 @@ export default function LogIn() {
         };
 
         return fetch(`http://localhost:8080/api/theater/person`, initPerson) // POST person
-        .then(response => {
-            if (response.status === 404) {
-                setError(true);
-            } else if (response.status === 400) {
-                setError(true);
-                alert("This user already exists!")
-            } else if (response.status === 201) {
-                setError(false);
-                alert("Success!")
-            } else {
-                setError(true);
-            }
-        });
+            .then(response => {
+                if (response.status === 404) {
+                    setError(true);
+                } else if (response.status === 400) {
+                    setError(true);
+                    alert("This user already exists!")
+                } else if (response.status === 201) {
+                    setError(false);
+                    alert("Success!")
+                } else {
+                    setError(true);
+                }
+            });
     }
 
     // Handle Form Submission
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (firstName === '' || lastName === '' || username === '' || password === '') {
             setError(true);
         }
@@ -143,13 +143,13 @@ export default function LogIn() {
                 style={{
                     display: error ? '' : 'none',
                 }}>
-                    <h3>Error: User could not be created.</h3>
-                </div>
+                <h3>Error: User could not be created.</h3>
+            </div>
         );
     };
- 
+
     return (
- 
+
         <div className="form">
             <div>
                 <h1>New User Registration</h1>
@@ -162,18 +162,18 @@ export default function LogIn() {
 
             <form>
                 <label className="label">First Name</label>
-                <input className="input" type="text" value={firstName} onChange={handleFirstName}/><br></br>
+                <input className="input" type="text" value={firstName} onChange={handleFirstName} /><br></br>
 
                 <label className="label">Last Name</label>
-                <input className="input" type="text" value={lastName} onChange={handleLastName}/><br></br>
+                <input className="input" type="text" value={lastName} onChange={handleLastName} /><br></br>
 
                 <label className="label">Username</label>
-                <input className="input" type="text" value={username} onChange={handleUsername}/><br></br>
+                <input className="input" type="text" value={username} onChange={handleUsername} /><br></br>
 
                 <label className="label">Password (must contain at least 8 characters, a digit, a letter, and a symbol)</label>
-                <input className="input" type="text" value={password} onChange={handlePassword}/><br></br>
+                <input className="input" type="text" value={password} onChange={handlePassword} /><br></br>
 
-                <button onClick={handleSubmit} className = "btn btn-success" type="submit">Sumbit</button>
+                <button onClick={handleSubmit} className="btn btn-success" type="submit">Sumbit</button>
             </form>
         </div>
     );
