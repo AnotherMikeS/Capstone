@@ -2,6 +2,7 @@ import { Link, Outlet } from "react-router-dom";
 import Twelve5 from "./components/Twelve5.png";
 import images from "./components/images";
 import ImageSlider from "./components/imageSlider";
+import Home from "./components/Home";
 
 export default function App() {
   return (
@@ -27,7 +28,10 @@ export default function App() {
         <Link to="/schedule"><button className="btn btn-outline-success">Audition Schedule</button></Link> {/*Admin Only eventually*/}
       </nav>
       <Outlet />
+      <div><Home /></div>
+
     </div>
+
 
   );
 }
