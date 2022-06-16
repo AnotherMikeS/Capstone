@@ -1,9 +1,10 @@
 body {
-	background-color: white;
+	background-color: #f5d9e0;
 }
 
 .tag {
 	text-align: center;
+    color: #737373;
 }
 
 .slick-slide img {
@@ -12,17 +13,18 @@ body {
 	height: 25%;
 }
 
-.yelp {
-    margin: 250px;
+.yelp-review {
+    padding: 50px;
+    color: #737373;
+    margin: auto;
     width: 50%;
     height: 50%;
 }
 
 .logo {
-  position: absolute;
-  top: 0%;
-  left: 0%;
-
+  margin: auto;
+  width: 50%;
+  height: 50%;
 }
 
 
