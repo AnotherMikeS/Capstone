@@ -1,4 +1,4 @@
-package learn.capstone.security;
+package learn.capstone.domain;
 
 import learn.capstone.data.AppUserRepository;
 import learn.capstone.models.AppUser;
@@ -33,18 +33,22 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
-    public AppUser create(String username, String password) {
+    public AppUser create(String username, String password, String role) {
         validate(username);
         validatePassword(password);
 
         password = encoder.encode(password);
 
-        AppUser appUser = new AppUser(0, username, password, false, List.of("User"));
+        AppUser appUser = new AppUser(0, username, password, false, List.of("user"));
 
         return repository.create(appUser);
     }
 
     private void validate(String username) {
+        AppUser existing = repository.findByUsername(username);
+        if (existing != null) {
+            throw new ValidationException("username already in use");
+        }
         if (username == null || username.isBlank()) {
             throw new ValidationException("username is required");
         }

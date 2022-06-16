@@ -1,4 +1,4 @@
-package learn.capstone.data.mappers;
+package learn.capstone.data;
 
 import learn.capstone.models.AppUser;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,7 +20,7 @@ public class AppUserMapper implements RowMapper<AppUser> {
                 rs.getInt("app_user_id"),
                 rs.getString("username"),
                 rs.getString("password_hash"),
-                rs.getBoolean("disabled"),
+                rs.getBoolean("enabled"),
                 roles);
     }
 }

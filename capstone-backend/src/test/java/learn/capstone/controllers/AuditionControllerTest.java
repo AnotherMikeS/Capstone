@@ -56,7 +56,7 @@ class AuditionControllerTest {
     void addShouldReturn415WhenMultipart() throws Exception {
         ObjectMapper jsonMapper = new ObjectMapper();
 
-        Audition audition = new Audition(0, 1, "Shelley", "Nixon", 1, "Acting");
+        Audition audition = new Audition(0, 1, "Shelley", "Nixon", 1, "acting");
         String auditionJson = jsonMapper.writeValueAsString(audition);
 
         var request = post("/api/theater/audition")

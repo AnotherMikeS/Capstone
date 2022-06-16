@@ -1,12 +1,13 @@
 package learn.capstone.security;
 
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
 
+import java.net.URI;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Date;
@@ -15,8 +16,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class JwtConverter {
-
     private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
     private final String ISSUER = "capstone-backend";
     private final int EXPIRATION_MINUTES = 15;
     private final int EXPIRATION_MILLIS = EXPIRATION_MINUTES * 60 * 1000;
@@ -35,7 +36,6 @@ public class JwtConverter {
                 .compact();
     }
 
-    //Changed this function
     public User getUserFromToken(String token) {
 
         if (token == null || !token.startsWith("Bearer ")) {
