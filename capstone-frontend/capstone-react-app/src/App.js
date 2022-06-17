@@ -10,30 +10,36 @@ import UserForms from "./components/UserForms";
 
 export default function App() {
 
-    const [userStatus, setUserStatus] = useState({
-        user: null,
-        login(username) {
-            setUserStatus((prev) => ({ ...prev, user: username }));
-        },
-        logout() {
-            localStorage.removeItem("token");
-            setUserStatus((prev) => ({ ...prev, user: null }));
-        },
-    });
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    if (localStorage.getItem("token") && !loggedIn) {
+        setLoggedIn(true);
+    }  
 
     return (
         <BrowserRouter>
-            <NavBar userStatus={userStatus} />
+            <NavBar loggedIn={loggedIn} />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/forms" element={<UserForms />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/schedule" element={<Schedule />} />
-                <Route path="/login" element={<LogIn userStatus={userStatus} test={3} />}/>
+                <Route path="/login" element={<LogIn/>} />
 
                 {/* <Route path="/login" element={userStatus.user ? (<Navigate to="/" />) : (<LogIn userStatus={userStatus} test={3} />)}/> */}
             </Routes>
         </BrowserRouter>
     );
 }
+
+// {
+//     user: null,
+//     login(username) {
+//         setUserStatus((prev) => ({ ...prev, user: username }));
+//     },
+//     logout() {
+//         localStorage.removeItem("token");
+//         setUserStatus((prev) => ({ ...prev, user: null }));
+//     },
+// });

@@ -6,7 +6,7 @@ function Error({ msg }) {
   return (
     <p>
       🙅🏾‍♂️ Error{" "}
-      {navigate("../success", { replace: true }) ? ` - ${navigate.location.state.msg}` : ""}
+      {/* {navigate("../forms", { replace: true }) ? ` - ${navigate.location.state.msg}` : ""} */}
       {msg}
     </p>
   );
