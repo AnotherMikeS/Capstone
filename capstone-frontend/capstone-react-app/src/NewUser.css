@@ -9,6 +9,7 @@
     font-size: larger;
     padding: 5px;
     margin: 2px;
+    border-style: double;
 }
 
 .password {
@@ -16,6 +17,7 @@
     font-size: larger;
     padding: 5px;
     margin: 2px;
+    border-style: double;
 }
 
 .form {
