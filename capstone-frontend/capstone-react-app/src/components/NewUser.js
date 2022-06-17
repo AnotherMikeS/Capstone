@@ -172,10 +172,10 @@ export default function NewUser() {
                 <label className="label">Username</label>
                 <input className="input" type="text" value={username} onChange={handleUsername} /><br></br>
 
-                <label className="label">Password (must contain at least 8 characters, a digit, a letter, and a symbol)</label>
+                <label className="label">Password (8 characters: digit, number, symbol)</label>
                 <input className="password" type="password" value={password} onChange={handlePassword} /><br></br>
 
-                <button onClick={handleSubmit} className="btn btn-success" type="submit">Submit</button>
+                <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
             </form>
         </div>
     );
