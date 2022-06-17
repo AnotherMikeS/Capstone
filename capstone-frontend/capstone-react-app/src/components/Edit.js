@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { findAllInRenderedTree } from 'react-dom/test-utils';
+import { useNavigate } from 'react-router-dom';
 import Error from "./Error";
 
 // Edit an existing audition
@@ -9,106 +9,122 @@ export default function Edit() {
     // the EDIT feature to edit an audition
 
 
-    // sets state for inputs
-    const [selection, setNewSelection] = useState("");
-    const [timeSlot, setNewTimeSlot] = useState(""); // what is this since it's drop down?, not string..
-    const [role, setNewRole] = useState("");
-    const [errors, setErrors] = useState([]);
+    // // sets state for inputs
+    // const [selection, setNewSelection] = useState("");
+    // const [timeSlot, setNewTimeSlot] = useState(); // what is this since it's drop down?, not string..
+    // const [role, setNewRole] = useState();
+    // const [idToEdit, setIdToEdit] = useState();
+    // const [messages, setMessages] = useState();
+    // const [errors, setErrors] = useState([]);
+    const [formData, setFormData] = useState({
+     partId: "",
+     timeSlot: "",
+    selection: ""
+    })
 
-    const [submitted, setSubmitted] = useState(false);
+    // const navigate = useNavigate();
+
+    // const [submitted, setSubmitted] = useState(false);
 
 
     // handle new role
     // i.e. will you be acting or singing?
-    const handleNewRole = (e) => {
-        setNewRole(e.target.value);
-        setSubmitted(false);
-    }
+    // const handleNewRole = (e) => {
+    //     setNewRole(e.target.value);
+    //     setSubmitted(false);
+    // }
 
-    // handle new selection
-    const handleNewSelection = (e) => {
-        setNewSelection(e.target.value);
-        setSubmitted(false);
-    };
+    // // handle new selection
+    // const handleNewSelection = (e) => {
+    //     setNewSelection(e.target.value);
+    //     setSubmitted(false);
+    // };
 
-    // handle new timeslot
-    // drop down menu
-    const handleNewTimeSlot = (e) => {
-        setNewTimeSlot(e.target.value);
-        setSubmitted(false);
-    }
+    // // handle new timeslot
+    // // drop down menu
+    // const handleNewTimeSlot = (e) => {
+    //     setNewTimeSlot(e.target.value);
+    //     setSubmitted(false);
+    // }
 
-    // handle submit
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    };
+    // // handle submit
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
-    const response = fetch("http://localhost:8080/api/theater/auditionee", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            // auditioneeId,
-            // appUserId,
-            // partId,
-            timeSlot,
-            selection,
-        }),
-    });
+    //     if (idToEdit) {
+    //         const editedAuditionee = {
+    //             auditioneeId: idToEdit,
+    //             appUserId: editedAuditionee.appUserId,
+    //             partId: formData.partId,
+    //             timeSlot: formData.timeSlot,
+    //             selection: formData.selection
+    //         };
+    //         const body = JSON.stringify(editedAuditionee);
+    //         const response = await fetch(`http://localhost:8080/api/theater/auditionee/${idToEdit}`, {
+    //             method: "PUT",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body
+    //         }).then(resp => {
+    //             if (resp.status >= 200 && resp.status <= 299) {
+    //                 console.log(`edit success with status: ${resp.status}`);
+    //                 setMessages(`Successful edit with status: ${resp.status}`);
+    //             } else if (resp.status >= 400 && resp.status <= 499) {
+    //                 console.log(`${resp.status}: bad request`);
+    //                 setMessages(`${resp.status}: bad request`);
+    //             } else {
+    //                 console.log(`edit failed with status: ${resp.status}`);
+    //                 setMessages(`Edit failed with status: ${resp.status}`);
+    //             }
 
-    // if the request is a success, display a message
-    if (response.status === 200 - 299) {
-        response.json();
-        // if error, display errors
-    } else if (response.status === 400) {
-        const errors = response.json();
-        setErrors(errors);
-    } else if (response.status === 403) {
-        setErrors(["Edit failed"]);
-    } else {
-        setErrors(["Unknown error"]);
-    }
-};
+    //         })
+    //     };
 
-return (
+    //     const handleFormChange = (e) => {
+    //         const nextFormData = { ...formData };
+    //         nextFormData[e.target.name] = e.target.value;
+    //         setFormData(nextFormData);
+    //     }
 
-    <div className="form">
-        <div>
-            <h1>Make Changes To An Audition</h1>
-        </div>
+    return (
 
-        <form>
-            <label className="label">Type of Audition</label>
-            <select className="role" value={role} onChange={handleNewRole}>
+        <div className="form">
+            <div>
+                <h1>Make Changes To An Audition</h1>
+            </div>
+
+            <form>
+                <label className="label">Type of Audition</label>
+                <select className="role">
                 <option value="Keep My Current Audition Type"></option>
-                <option value="Acting">Acting</option>
-                <option value="Singing">Singing</option>
-            </select>
-            <br></br>
-            <br></br>
+                        <option value="Acting">Acting</option>
+                        <option value="Singing">Singing</option>
+                    </select>
+                <br></br>
+                <br></br>
 
-            <label className="label">Piece To Be Performed</label>
-            <input className="input" type="text" value={selection} onChange={handleNewSelection} />
-            <br></br>
-            <br></br>
+                <label className="label">Piece To Be Performed</label>
+                <input className="input" type="text" />
+                <br></br>
+                <br></br>
 
-            <label className="label">Time Slot</label>
-            <select className="timeslot" value={timeSlot} onChange={handleNewTimeSlot}>
+                <label className="label">Time Slot</label>
+                <select className="timeslot">
                 <option value="Keep My Current Time Slot">Keep Current Time Slot</option>
-                <option value="2022-07-01 12:00pm">2022-07-01 12:00pm</option>
-                <option value="2022-07-01 1:00pm">2022-07-01 1:00pm</option>
-                <option value="2022-07-01 2:00pm">2022-07-01 2:00pm</option>
-            </select>
+                        <option value="2022-07-01 12:00pm">2022-07-01 12:00pm</option>
+                        <option value="2022-07-01 1:00pm">2022-07-01 1:00pm</option>
+                        <option value="2022-07-01 2:00pm">2022-07-01 2:00pm</option>
+                 </select>
 
-            <br></br>
-            <br></br>
+                <br></br>
+                <br></br>
 
-            <button onClick={handleSubmit} className="btn btn-success" type="submit">Submit</button>
+                <button className="btn btn-success" type="submit">Submit</button>
 
-        </form>
+            </form>
 
-    </div >
-)
+        </div >
+    )
 
 }
