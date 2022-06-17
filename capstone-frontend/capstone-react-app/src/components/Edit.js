@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Error from "./Error";
 
+// pass in props for global user
+
+
 // Edit an existing audition
 export default function Edit() {
 
