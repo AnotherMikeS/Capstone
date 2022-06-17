@@ -6,6 +6,12 @@ select * from auditions;
 
 select * from app_user_role;
 
+select * from app_role;
+
+update app_user_role set 
+	app_role_id = 1
+    where app_user_id = 1;
+
 select * from app_user;
 
 select
