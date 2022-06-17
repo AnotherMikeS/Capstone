@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../NewUser.css';
 
 export default function NewUser() {
 
@@ -171,14 +172,10 @@ export default function NewUser() {
                 <input className="input" type="text" value={username} onChange={handleUsername} /><br></br>
 
                 <label className="label">Password (must contain at least 8 characters, a digit, a letter, and a symbol)</label>
-                <input className="input" type="text" value={password} onChange={handlePassword} /><br></br>
+                <input className="password" type="password" value={password} onChange={handlePassword} /><br></br>
 
                 <button onClick={handleSubmit} className="btn btn-success" type="submit">Submit</button>
             </form>
         </div>
     );
 }
-
-
-// TO DO (JUNE 16)
-//  - LOG IN FORM

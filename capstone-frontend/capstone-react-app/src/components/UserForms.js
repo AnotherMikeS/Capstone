@@ -1,15 +1,24 @@
 import NewUser from "./NewUser";
 import LogIn from "./LogIn";
+import '../UserForms.css';
 
-export default function UserForms() {
+export default function UserForms(props) {
     return (
-        <div className="row">
-            <div className="col">
-                <LogIn />
-            </div>
-            <div className="col">
-                <NewUser />
+        <div>
+            <div className="row">
+                <div className="col">
+                    <LogIn login={props.login}/>
+                </div>
+
+                <div id="middle" className="col">
+                    <h2>OR</h2>
+                </div>
+
+                <div className="col">
+                    <NewUser />
+                </div>
             </div>
         </div>
+
     );
 }
