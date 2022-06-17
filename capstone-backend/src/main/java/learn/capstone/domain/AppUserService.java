@@ -33,6 +33,15 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
+    public AppUser findByUsername(String username) {
+        AppUser appUser = repository.findByUsername(username);
+
+        if (appUser == null || !appUser.isEnabled()) {
+            throw new UsernameNotFoundException(username + " not found");
+        }
+        return appUser;
+    }
+
     public AppUser create(String username, String password, String role) {
         validate(username);
         validatePassword(password);

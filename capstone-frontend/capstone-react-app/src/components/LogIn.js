@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Error from "./Error";
+import '../Login.css';
 
-export default function LogIn() {
+export default function LogIn(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
-  //console.log(props);
+  console.log("LogIn: ", props);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -23,15 +25,17 @@ export default function LogIn() {
       }),
     });
 
-    // This code executes if the request is successful
     if (response.status === 200) {
-      const { jwt_token } = await response.json();
-
-      localStorage.setItem("token", jwt_token);
-      console.log("token");
+      const please = await response.json();
+      console.log(please);
+      
+      const loggedInUser = await fetch
+      
+      localStorage.setItem("token", please.jwt_token);
+      localStorage.setItem("id", please.appUserId);
+      props.login(username, 1);
 
       navigate("/home");
-      document.location.reload();
 
     } else if (response.status === 400) {
       const errors = await response.json();
@@ -41,37 +45,32 @@ export default function LogIn() {
     } else {
       setErrors(["Unknown error."]);
     }
-
-
   };
 
   return (
-    <div>
-      <h2>Login</h2>
 
-      {errors.map((error, i) => (
-        <Error key={i} msg={error} />
-      ))}
+    <div className="form">
+      <div>
+        <h1>Login</h1>
+      </div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </div>
-        <div>
-          <button type="submit">Login</button>
-        </div>
+      <div className="messages">
+        {errors.map((error, i) => (
+          <Error key={i} msg={error} />
+        ))}
+      </div>
+
+      <form>
+          <label className="label">Username:</label>
+          <input className="input" type="text" onChange={(event) => setUsername(event.target.value)}/>
+
+        
+          <label className="label">Password:</label>
+          <input className="input" type="password" onChange={(event) => setPassword(event.target.value)}/> <br></br>
+
+          <button onClick={handleSubmit} className="btn" type="submit">Login</button>
+
       </form>
-    </div>
+      </div>
   );
 }

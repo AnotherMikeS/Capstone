@@ -1,5 +1,6 @@
 package learn.capstone.controllers;
 
+import learn.capstone.App;
 import learn.capstone.models.AppUser;
 import learn.capstone.domain.AppUserService;
 import learn.capstone.security.JwtConverter;
@@ -70,7 +71,9 @@ public class AuthController {
 
                 HashMap<String, String> map = new HashMap<>();
                 map.put("jwt_token", jwtToken);
-
+                AppUser lookUp = appUserService.findByUsername(credentials.get("username"));
+                int appUserId = lookUp.getAppUserId();
+                map.put("appUserId", String.valueOf(appUserId));
                 return new ResponseEntity<>(map, HttpStatus.OK);
             }
 
