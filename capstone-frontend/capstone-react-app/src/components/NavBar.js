@@ -1,8 +1,14 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet} from "react-router-dom";
 import Twelve5 from "./Twelve5.png";
 
 
-export default function NavBar({userStatus}) {
+export default function NavBar({loggedIn}) {
+
+  const handleLogout = (e) => {
+    localStorage.removeItem("token");
+    document.location.reload();
+  }
+
   return (
     <div>
       <h1
@@ -21,10 +27,8 @@ export default function NavBar({userStatus}) {
         }}
       >
         <Link to="/home"><button className="btn btn-outline-success">Home</button></Link> {" "}
-        {userStatus.user ? (
-            <button onClick={userStatus.logout} className="btn btn-outline-success">
-              Logout {userStatus.user}
-            </button>
+        {loggedIn ? (
+            <button onClick={handleLogout} className="btn btn-outline-success">Logout</button>
         ) : (
             <Link to="/forms"><button className="btn btn-outline-success">Log In/Register</button></Link>
         )}
