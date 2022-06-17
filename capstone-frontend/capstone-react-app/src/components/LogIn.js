@@ -2,13 +2,13 @@ import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import Error from "./Error";
 
-export default function LogIn(props) {
+export default function LogIn() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
     
     const navigate = useNavigate();
-    console.log(props);
+    //console.log(props);
     const handleSubmit = async (event) => {
         event.preventDefault();
       
@@ -28,9 +28,11 @@ export default function LogIn(props) {
           const { jwt_token } = await response.json();
       
           localStorage.setItem("token", jwt_token);
-         
-          //userStatus.login(username);
-          navigate("/");
+          console.log("token");
+
+          navigate("/home");
+          document.location.reload();
+        
         } else if (response.status === 400) {
           const errors = await response.json();
           setErrors(errors);
@@ -39,6 +41,8 @@ export default function LogIn(props) {
         } else {
           setErrors(["Unknown error."]);
         }
+
+        
       };
       
       return (
