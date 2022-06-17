@@ -2,12 +2,8 @@ import { Link, Outlet} from "react-router-dom";
 import Twelve5 from "./Twelve5.png";
 
 
-export default function NavBar({loggedIn}) {
+export default function NavBar(props) {
 
-  const handleLogout = (e) => {
-    localStorage.removeItem("token");
-    document.location.reload();
-  }
 
   return (
     <div>
@@ -26,14 +22,14 @@ export default function NavBar({loggedIn}) {
           textAlign: "center",
         }}
       >
-        <Link to="/home"><button className="btn btn-outline-success">Home</button></Link> {" "}
-        {loggedIn ? (
-            <button onClick={handleLogout} className="btn btn-outline-success">Logout</button>
+        <Link to="/home"><button className="btn">Home</button></Link> {" "}
+        {props.userStatus.username ? (
+            <button onClick={props.logout} className="btn">Logout {props.userStatus.username}</button>
         ) : (
-            <Link to="/forms"><button className="btn btn-outline-success">Log In/Register</button></Link>
-        )}
-        <Link to="/signup"><button className="btn btn-outline-success">Sign Up</button></Link> {" "}
-        <Link to="/schedule"><button className="btn btn-outline-success">Audition Schedule</button></Link> {/*Admin Only eventually*/}
+            <Link to="/forms"><button className="btn">Log In/Register</button></Link>
+        )} {" "}
+        <Link to="/signup"><button className="btn">Sign Up</button></Link> {" "}
+        <Link to="/schedule"><button className="btn">Audition Schedule</button></Link> {/*Admin Only eventually*/}
       </nav>
       <Outlet />
       
