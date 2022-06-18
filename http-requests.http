@@ -81,8 +81,8 @@ Content-Type: application/json
 
 ###
 # uses the ADMIN token privilege to READ auditionees
-GET http://localhost:8080/api/theater/auditionee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUzMTg0ODB9.REqoS0Nph38zfpCy_rAJevW7N5cfhO3M4UZkq028Ifg
+GET http://localhost:8080/api/theater/auditionee/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiY0dlbm5hcm8iLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImV4cCI6MTY1NTU3OTQ0NX0.VrO6D-9nyTpdqaAZKqb4T7bQtXkRM8RbJ5hC0XXmudA
 
 ###
 
@@ -91,8 +91,8 @@ POST http://localhost:8080/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "user",
-    "password": "user"
+    "username": "cGennaro",
+    "password": "password1!"
 }
 
 ###
