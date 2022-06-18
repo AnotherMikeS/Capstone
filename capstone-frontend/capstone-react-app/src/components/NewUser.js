@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '../NewUser.css';
 
 export default function NewUser() {
 
@@ -123,59 +122,109 @@ export default function NewUser() {
         }
     };
 
-    // Successful
-    const successMessage = () => {
-        return (
-            <div
-                className="success"
-                style={{
-                    display: submitted ? '' : 'none',
-                }}>
-                <h1>User {username} successfully registered!</h1>
-            </div>
-        );
-    };
+    // // Successful
+    // const successMessage = () => {
+    //     return (
+    //         <div
+    //             className="success"
+    //             style={{
+    //                 display: submitted ? '' : 'none',
+    //             }}>
+    //             <h1>User {username} successfully registered!</h1>
+    //         </div>
+    //     );
+    // };
 
-    // If Errors
-    const errorMessage = () => {
-        return (
-            <div
-                className="error"
-                style={{
-                    display: error ? '' : 'none',
-                }}>
-                <h3>Error: User could not be created.</h3>
-            </div>
-        );
-    };
+    // // If Errors
+    // const errorMessage = () => {
+    //     return (
+    //         <div
+    //             className="error"
+    //             style={{
+    //                 display: error ? '' : 'none',
+    //             }}>
+    //             <h3>Error: User could not be created.</h3>
+    //         </div>
+    //     );
+    // };
 
     return (
+        <div className="container">
+            <form novalidate>
+                <div>
+                    <h1>New User Registration</h1>
+                </div>
+                <div class="col-sm">
+                    <div class="form-field">
+                        <div class="form-field__control">
+                            <input id="firstname" type="text" class="form-field__input" placeholder=" " value={firstName} onChange={handleFirstName} />
+                            <label for="firstname" class="form-field__label">First name</label>
+                            <div class="form-field__bar"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-field">
+                        <div class="form-field__control">
+                            <input id="lastname" type="text" class="form-field__input" placeholder=" " value={lastName} onChange={handleLastName} />
+                            <label for="lastname" class="form-field__label">Last name</label>
+                            <div class="form-field__bar"></div>
+                        </div>
+                    </div>
+                </div>
 
-        <div className="form">
-            <div>
-                <h1>New User Registration</h1>
-            </div>
-
-            <div className="messages">
-                {errorMessage()}
-                {successMessage()}
-            </div>
-
-            <form>
-                <label className="label">First Name</label>
-                <input className="input" type="text" value={firstName} onChange={handleFirstName} /><br></br>
-
-                <label className="label">Last Name</label>
-                <input className="input" type="text" value={lastName} onChange={handleLastName} /><br></br>
-
-                <label className="label">Username</label>
-                <input className="input" type="text" value={username} onChange={handleUsername} /><br></br>
-
-                <label className="label">Password (8 characters: digit, number, symbol)</label>
-                <input className="password" type="password" value={password} onChange={handlePassword} /><br></br>
-
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-field">
+                            <div class="form-field__control">
+                                <input id="newUser" type="text" class="form-field__input" placeholder=" " value={username} onChange={handleUsername} />
+                                <label for="newUser" class="form-field__label">Username</label>
+                                <div class="form-field__bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-field">
+                            <div class="form-field__control">
+                                <input id="newPass" type="password" class="form-field__input" placeholder=" " value={password} onChange={handlePassword} />
+                                <label for="newPass" class="form-field__label">Password</label>
+                                <div class="form-field__bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
+
             </form>
         </div>
+
+        // <div className="form">
+        //     <div>
+        //         <h1>New User Registration</h1>
+        //     </div>
+
+        //     <div className="messages">
+        //         {errorMessage()}
+        //         {successMessage()}
+        //     </div>
+
+        //     <form>
+        //         <label className="label">First Name</label>
+        //         <input className="input" type="text" value={firstName} onChange={handleFirstName} /><br></br>
+
+        //         <label className="label">Last Name</label>
+        //         <input className="input" type="text" value={lastName} onChange={handleLastName} /><br></br>
+
+        //         <label className="label">Username</label>
+        //         <input className="input" type="text" value={username} onChange={handleUsername} /><br></br>
+
+        //         <label className="label">Password (8 characters: digit, number, symbol)</label>
+        //         <input className="password" type="password" value={password} onChange={handlePassword} /><br></br>
+
+        //         <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
+        //     </form>
+        // </div>
     );
 }

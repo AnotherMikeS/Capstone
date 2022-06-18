@@ -5,6 +5,7 @@ import Schedule from "./components/Schedule";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import UserForms from "./components/UserForms";
+import './App.css';
 
 export default function App() {
     const [userStatus, setUserStatus] = useState({username: null, userId: 0});
@@ -18,6 +19,7 @@ export default function App() {
         localStorage.removeItem("token");
         localStorage.removeItem("id");
         setUserStatus((userStatus) => ({ ...userStatus, username: null, userId: 0}));
+        alert("You have successfully logged out!");
     };
 
     return (
