@@ -1,7 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import '../MyAccount.css';
-import EditableRow from './EditableRow';
-import ReadOnlyRow from './ReadOnlyRow';
 
 
 // My Account page
@@ -13,21 +11,16 @@ import ReadOnlyRow from './ReadOnlyRow';
 export default function MyAccount() {
     // setState
     // user
-    const [user, setUser] = ([]);
+
     const [persons, setPersons] = useState([]);
-    const [auditionees, setAuditionees] = useState([]);
-    const [username, setUsername] = useState("");
+    const [auditionee, setAuditionee] = useState([]);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [editUserId, setEditUserId] = useState(null); // Need to find ID in order to edit and delete. If NULL, Editable Row does NOT show.
-    const [editFormData, setEditFormData] = useState({ // Need blank object in order to store updated data
-        firstName: "",
-        lastName: "",
-        timeSlot: "",
-        selection: "",
-        role: ""
-    });
 
+    const [editMode, setEditMode] = useState(false);
+    const toggleEdit = (evt) => {
+        setEditMode(!editMode)
+    };
 
     useEffect(() => {
         // get a list of all people
@@ -48,17 +41,76 @@ export default function MyAccount() {
         fetch(`http://localhost:8080/api/theater/auditionee/${userId}`, init)
             .then(resp => resp.json())
             .then(data => {
-                setAuditionees(data);
+                setAuditionee(data);
             })
     }, []);
 
     var userId = localStorage.getItem("id");
 
-    console.log("all Auditionees: " + auditionees.auditioneeId);
+
+
+    const handleUpdate = () => {
+        //updateAgent(actualAgent);
+
+        if (actualUser.part === undefined) {
+            actualUser.part = auditionee.partId;
+        }
+        if (actualUser.timeSlot === undefined) {
+            actualUser.timeSlot = auditionee.timeSlot;
+        }
+        if (actualUser.selection === undefined) {
+            actualUser.selection = auditionee.selection;
+        }
+
+        console.log(actualUser.part);
+
+        var editedAuditionee = {
+            auditioneeId: auditionee.auditioneeId,
+            appUserId: parseInt(userId),
+            partId: parseInt(actualUser.part, 10),
+            timeSlot: actualUser.timeSlot,
+            selection: actualUser.selection
+        };
+
+        console.log(editedAuditionee);
+
+        const init = { // initialize the GET request
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            body: JSON.stringify(editedAuditionee)
+        };
+
+        fetch(`http://localhost:8080/api/theater/auditionee/${userId}`, init) // Perform the PUT request with ID
+        .then(response => {
+            if (response.status === 404) {
+                console.log("Audition not found."); 
+                //We're putting audition as the error message cause users won't know they're updating auditionee
+            } else if (response.status === 400) {
+                alert("Unable to Update Audition Info"); // Invalid data produces a warning popup
+            } else if (response.status === 200) {
+                console.log("Audition updated.");
+                setActualUser(editedAuditionee);
+            } else {
+                console.log(`Audition update failed with status ${response.status}`);
+            }
+        });
+
+        toggleEdit();
+        document.location.reload();
+    }
+
+    const handleChange = (evt) => {
+        const nextUser = { ...actualUser };
+        nextUser[evt.target.name] = evt.target.value;
+        setActualUser(nextUser);
+    }
+
 
     // loop through all people until we find the app_user_id that matches the global state
     // use built in FIND function for arrays to find user whose app_user_id matches
-
     // currentPerson = persons.find(appUserId === userId)
 
 
@@ -77,7 +129,7 @@ export default function MyAccount() {
         }
     }
 
-    var partNumber = auditionees.partId;
+    var partNumber = auditionee.partId;
     var partString;
     if (partNumber === 1) {
         partString = "Acting";
@@ -85,13 +137,16 @@ export default function MyAccount() {
         partString = "Singing";
     }
 
-    const userInfo = {
-        firstName: firstName,
-        lastName: lastName,
-        timeSlot: auditionees.timeSlot,
-        selection: auditionees.selection,
-        part: partString
-    }
+    const userInfo = new Object();
+    userInfo.firstName = firstName;
+    userInfo.lastName = lastName;
+    userInfo.timeSlot = auditionee.timeSlot;
+    userInfo.selection = auditionee.selection;
+    userInfo.part = partString;
+
+    console.log(userInfo);
+
+    const [actualUser, setActualUser] = useState(userInfo);
 
     var userInfoArray = [];
     userInfoArray[0] = userInfo;
@@ -102,79 +157,13 @@ export default function MyAccount() {
     // timeslot (from auditionee), selection (from auditionee) 
     // part (from part)
     // access type (from app_role)
-    const handleEditFormSubmit = (event) => { // Form submit is an event
 
-        const editedUser = { // Must fill the editedAgent object with data from the editForm input
-            userId: editUserId, // DON'T FORGET TO INCLUDE ID ON PUT REQUEST!!!!
-            firstName: editFormData.firstName,
-            lastName: editFormData.lastName,
-            timeSlot: editFormData.timeSlot,
-            selection: editFormData.selection,
-            role: editFormData.role
-        };
-
-        // const init = { // Prepare the PUT request
-        //     method: "PUT",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Accept": "application/json"
-        //     },
-        //     body: JSON.stringify(editedAgent)
-        // };
-
-        // fetch(`http://localhost:8080/api/agent/${editedAgent.agentId}`, init) // Perform the PUT request with ID
-        //     .then(response => {
-        //         if (response.status === 404) {
-        //             console.log("Agent not found.");
-        //         } else if (response.status === 400) {
-        //             alert("Agents must be older than 12 and taller than 36 inches."); // Invalid data produces a warning popup
-        //         } else if (response.status === 204) {
-        //             console.log("Agent updated.");
-        //         } else {
-        //             console.log(`Agent update failed with sataus ${response.status}`);
-        //         }
-        //     });
-
-        setEditUserId(null); // In order for the Editable Row to disappear, ID must be null
-    }
-
-    // GET NEW DATA FROM EDITS
-    const handleEditFormChange = (event) => { // Form Change is event
-        event.preventDefault(); // Don't want page to refresh before we're ready
-
-        const fieldName = event.target.getAttribute("name"); // Get each input field by it's name
-        const fieldValue = event.target.value; // Assign the value of each input field
-
-        const newFormData = { ...editFormData }; // Create object with edited data from inputs
-        newFormData[fieldName] = fieldValue; // Fill newFormData
-        setEditFormData(newFormData); // Set the Form for use
-    }
-
-    // MORE EDIT/PUT
-    const handleEditClick = (event, userInfo) => { // Edit click is an event and also decides which agent to edit
-        event.preventDefault(); // Don't refresh page on click
-        setEditUserId(userInfo.userId); // Set ID for edit
-
-        const formValues = { // Set the form values
-            firstName: userInfo.firstName,
-            lastName: userInfo.lastName,
-            timeSlot: userInfo.timeSlot,
-            selection: userInfo.selection,
-            role: userInfo.role
-        };
-
-        setEditFormData(formValues);
-    }
-
-    const handleCancelClick = () => {
-        setEditUserId(null); // Editable Row must disappear if edit is cancelled
-    }
 
 
     return (
 
         <div>
-            <form onSubmit={handleEditFormSubmit}>
+            <form>
                 <table>
                     <thead>
                         <tr>
@@ -187,30 +176,37 @@ export default function MyAccount() {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* <tr>
-                            <td>{firstName}</td>
-                            <td>{lastName}</td>
-                            <td>{auditionees.timeSlot}</td>
-                            <td>{auditionees.selection}</td>
-                            <td>{partString}</td>
-                        </tr> */}
-                        {userInfo.map(u => {
-                            return (<Fragment>
-                                {editUserId === u.userId ? (
-                                    <EditableRow
-                                        editFormData={editFormData}
-                                        handleEditFormChange={handleEditFormChange}
-                                        handleCancelClick={handleCancelClick}
-                                    />
-                                ) : (
-                                    <ReadOnlyRow user={u}
-                                        handleEditClick={handleEditClick}
-                                    />
-                                )}
-                            </Fragment>)
-                        }
-                        
-                    )}
+                        <tr>
+                            <td>{userInfo.firstName}</td>
+                            <td>{userInfo.lastName}</td>
+                            <td>{editMode ?
+                                <select name="timeSlot" id="timeSlot" onChange={handleChange}>
+                                    <option value="2022-07-01 12:00pm">2022-07-01 12:00pm</option>
+                                    <option value="2022-07-02 12:00pm">2022-07-02 12:00pm</option>
+                                    <option value="2022-07-03 12:00pm">2022-07-03 12:00pm</option>
+                                </select>
+                                : userInfo.timeSlot}</td>
+
+                            <td>{editMode ?
+                                <input type="text" name="selection" id="selection" className="form-control" placeholder={userInfo.selection}
+                                    value={actualUser.selection} onChange={handleChange} />
+                                : userInfo.selection}</td>
+                            <td>{editMode ?
+                                <select name="part" id="part" onChange={handleChange}>
+                                    <option value="1">Acting</option>
+                                    <option value="2">Singing</option>
+                                </select>
+                                : userInfo.part}</td>
+
+                            <td>
+                                <tr>
+                                    <td><button type="button" className="btn" onClick={toggleEdit}>{editMode ? "Cancel" : "Edit"}</button></td>
+
+                                    {(editMode) ? <td><button className="btn" onClick={handleUpdate}>Save</button></td> : <></>}
+
+                                </tr>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </form>
