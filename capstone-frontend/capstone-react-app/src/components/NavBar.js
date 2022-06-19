@@ -30,6 +30,7 @@ export default function NavBar(props) {
         )} {" "}
         <Link to="/signup"><button className="btn">Sign Up</button></Link> {" "}
         <Link to="/schedule"><button className="btn">Audition Schedule</button></Link> {/*Admin Only eventually*/}
+        <Link to="/myaccount"><button className="btn">My Account</button></Link> 
       </nav>
       <Outlet />
       
