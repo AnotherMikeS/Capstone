@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Error from "./Error";
-import '../Login.css';
 
 export default function LogIn(props) {
   const [username, setUsername] = useState("");
@@ -47,9 +46,6 @@ export default function LogIn(props) {
   return (
 
     <div className="form">
-      <div>
-        <h1>Login</h1>
-      </div>
 
       <div className="messages">
         {errors.map((error, i) => (
@@ -57,17 +53,40 @@ export default function LogIn(props) {
         ))}
       </div>
 
-      <form>
-          <label className="label">Username:</label>
-          <input className="input" type="text" onChange={(event) => setUsername(event.target.value)}/>
+      <div className="container">
+            <form>
 
-        
-          <label className="label">Password:</label>
-          <input className="input" type="password" onChange={(event) => setPassword(event.target.value)}/> <br></br>
+                <div>
+                    <h1>Log in to your account</h1>
+                </div>
 
-          <button onClick={handleSubmit} className="btn" type="submit">Login</button>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-field">
+                            <div class="form-field__control">
+                                <input id="oldUser" type="text" class="form-field__input" placeholder=" " onChange={(event) => setUsername(event.target.value)} />
+                                <label for="oldUser" class="form-field__label">Username</label>
+                                <div class="form-field__bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-      </form>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-field">
+                            <div class="form-field__control">
+                                <input id="oldPass" type="password" class="form-field__input" placeholder=" " onChange={(event) => setPassword(event.target.value)} />
+                                <label for="oldPass" class="form-field__label">Password</label>
+                                <div class="form-field__bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
+
+            </form>
+        </div>
       </div>
   );
 }
