@@ -4,6 +4,9 @@ select * from person;
 
 select * from auditions;
 
+select * from auditionee;
+
+
 select * from app_user_role;
 
 select * from app_role;
