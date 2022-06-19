@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Error from "./Error";
-import '../Login.css';
 
 export default function LogIn(props) {
   const [username, setUsername] = useState("");
