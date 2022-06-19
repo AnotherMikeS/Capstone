@@ -91,8 +91,8 @@ POST http://localhost:8080/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "user",
-    "password": "user"
+    "username": "please",
+    "password": "password1!"
 }
 
 ###
@@ -105,7 +105,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic
 # uses the USER privileges to ADD an auditionee
 POST http://localhost:8080/api/theater/auditionee HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoidXNlciIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjU1MzE4NDYzfQ.CYMGD5SzwAChLX2_396OrNNYfW0lYKvZMtBaNg18N-U
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoicGxlYXNlIiwiYXV0aG9yaXRpZXMiOiIiLCJleHAiOjE2NTU0OTc3NjV9.fj_mz9mdt4Uc9PWQyJovnFjWcQmbG0BydNdZ2_oRgd8
 
 {
     "appUserId": 5,

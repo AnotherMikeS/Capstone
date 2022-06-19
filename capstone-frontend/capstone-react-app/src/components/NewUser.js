@@ -71,7 +71,6 @@ export default function NewUser() {
                     setError(true);
                     alert("User already Exists!")
                 } else if (response.status === 201) {
-                    console.log(response.json().stringify);
                     setError(false);
                 } else {
                     alert("User could not be created");

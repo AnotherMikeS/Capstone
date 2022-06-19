@@ -26,13 +26,10 @@ export default function LogIn(props) {
     });
 
     if (response.status === 200) {
-      const please = await response.json();
-      console.log(please);
+      const resp = await response.json();
       
-      const loggedInUser = await fetch
-      
-      localStorage.setItem("token", please.jwt_token);
-      localStorage.setItem("id", please.appUserId);
+      localStorage.setItem("token", resp.jwt_token);
+      localStorage.setItem("id", parseInt(resp.appUserId, 10));
       props.login(username, 1);
 
       navigate("/home");
