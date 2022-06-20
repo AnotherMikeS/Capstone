@@ -3,8 +3,6 @@ import Twelve5 from "../Images/Twelve5.png";
 
 
 export default function NavBar(props) {
-
-
   return (
     <div>
       <h1
@@ -23,8 +21,8 @@ export default function NavBar(props) {
         }}
       >
         <Link to="/home"><button className="btn">Home</button></Link> {" "}
-        {props.userStatus.username 
-        ? (<button onClick={props.logout} className="btn">Logout {props.userStatus.username}</button>) 
+        {(localStorage.getItem("token"))
+        ? (<button onClick={props.logout} className="btn">Logout</button>) 
         : (<Link to="/forms"><button className="btn">Log In/Register</button></Link>)} {" "}
         {localStorage.getItem("token") 
         ? <Link to="/signup"><button className="btn">Sign Up</button></Link>

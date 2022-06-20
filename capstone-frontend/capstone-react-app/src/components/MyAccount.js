@@ -13,7 +13,8 @@ export default function MyAccount() {
     // user
 
     const [persons, setPersons] = useState([]);
-    const [auditionee, setAuditionee] = useState([]);
+    const [auditioneeList, setAuditioneeList] = useState([]);
+    const [auditionee, setAuditionee] = useState({});
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
 
@@ -40,14 +41,37 @@ export default function MyAccount() {
             }
         };
 
-        fetch(`http://localhost:8080/api/theater/auditionee/${userId}`, init)
+        fetch(`http://localhost:8080/api/theater/auditionee`, init)
             .then(resp => resp.json())
             .then(data => {
-                setAuditionee(data);
+                setAuditioneeList(data);
             })
     }, []);
 
-        const handleUpdate = () => {
+    var correctAuditioneeId;
+
+    for (let i = 0; i < auditioneeList.length; i++) {
+        if (userId == auditioneeList[i].appUserId) {
+
+                correctAuditioneeId = auditioneeList[i].auditioneeId;
+                const init = { // initialize the GET request
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("token")
+                    }
+                };
+
+                fetch(`http://localhost:8080/api/theater/auditionee/${correctAuditioneeId}`, init)
+                    .then(resp => resp.json())
+                    .then(data => {
+                        setAuditionee(data);
+                    })
+
+        }
+    }
+
+    const handleUpdate = () => {
 
         if (actualUser.part === undefined) {
             actualUser.part = auditionee.partId;
@@ -137,16 +161,9 @@ export default function MyAccount() {
     const userInfo = new Object();
     userInfo.firstName = firstName;
     userInfo.lastName = lastName;
-
     userInfo.timeSlot = auditionee.timeSlot;
-
-
     userInfo.selection = auditionee.selection;
-
-
     userInfo.part = partString;
-
-    console.log(userInfo);
 
     const [actualUser, setActualUser] = useState(userInfo);
 

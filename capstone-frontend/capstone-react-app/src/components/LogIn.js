@@ -28,7 +28,7 @@ export default function LogIn(props) {
       
       localStorage.setItem("token", resp.jwt_token);
       localStorage.setItem("id", parseInt(resp.appUserId, 10));
-      props.login(username, 1);
+      props.login(username, resp.appUserId);
 
       navigate("/home");
 

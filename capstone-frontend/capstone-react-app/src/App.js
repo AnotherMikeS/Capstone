@@ -4,7 +4,6 @@ import SignUp from "./components/SignUp";
 import Schedule from "./components/Schedule";
 import Home from "./components/Home";
 import Edit from "./components/Edit";
-//import './UserForms.css';
 import NavBar from "./components/NavBar";
 import UserForms from "./components/UserForms";
 import MyAccount from "./components/MyAccount";
@@ -24,8 +23,6 @@ export default function App() {
             localStorage.removeItem("id");
             setUserStatus((userStatus) => ({ ...userStatus, username: null, userId: 0 }));
             window.location = '/home';
-        } else {
-            alert("Log out Canceled!")
         }
     };
 
