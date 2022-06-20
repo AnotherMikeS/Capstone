@@ -22,6 +22,8 @@ export default function MyAccount() {
         setEditMode(!editMode)
     };
 
+    var userId = localStorage.getItem("id");
+
     useEffect(() => {
         // get a list of all people
         fetch("http://localhost:8080/api/theater/person")
@@ -45,12 +47,7 @@ export default function MyAccount() {
             })
     }, []);
 
-    var userId = localStorage.getItem("id");
-
-
-
-    const handleUpdate = () => {
-        //updateAgent(actualAgent);
+        const handleUpdate = () => {
 
         if (actualUser.part === undefined) {
             actualUser.part = auditionee.partId;
