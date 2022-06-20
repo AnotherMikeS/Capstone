@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import SignUp from "./components/SignUp";
 import Schedule from "./components/Schedule";
 import Home from "./components/Home";
@@ -18,11 +18,15 @@ export default function App() {
     };
 
     const logout = () => {
-        // "token" must match the name used in "/Login" route
-        localStorage.removeItem("token");
-        localStorage.removeItem("id");
-        setUserStatus((userStatus) => ({ ...userStatus, username: null, userId: 0}));
-        alert("You have successfully logged out!");
+        let confirmActin = window.confirm("Are you sure you want to log out?");
+        if (confirmActin) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("id");
+            setUserStatus((userStatus) => ({ ...userStatus, username: null, userId: 0 }));
+            window.location = '/home';
+        } else {
+            alert("Log out Canceled!")
+        }
     };
 
     return (
@@ -36,8 +40,6 @@ export default function App() {
                 <Route path="/edit" element={<Edit />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/myaccount" element={<MyAccount />} />
-
-                {/* <Route path="/login" element={userStatus.user ? (<Navigate to="/" />) : (<LogIn userStatus={userStatus} test={3} />)}/> */}
             </Routes>
         </BrowserRouter>
     );
