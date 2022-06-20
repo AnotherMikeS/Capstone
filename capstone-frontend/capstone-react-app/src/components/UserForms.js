@@ -23,7 +23,7 @@ export default function UserForms(props) {
                </div>
 
                <div className="col">
-                    <NewUser />
+                    <NewUser login={props.login}/>
                 </div>
 
                 <div className="col"/>

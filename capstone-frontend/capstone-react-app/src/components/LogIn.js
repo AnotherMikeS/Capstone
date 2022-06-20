@@ -8,7 +8,6 @@ export default function LogIn(props) {
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
-  console.log("LogIn: ", props);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,13 +25,10 @@ export default function LogIn(props) {
 
     if (response.status === 200) {
       const please = await response.json();
-      console.log(please);
-      
-      const loggedInUser = await fetch
       
       localStorage.setItem("token", please.jwt_token);
       localStorage.setItem("id", please.appUserId);
-      props.login(username, 1);
+      props.login(username, please.appUserId);
 
       navigate("/home");
 
