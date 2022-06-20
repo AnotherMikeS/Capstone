@@ -1,6 +1,6 @@
 import NewUser from "./NewUser";
 import LogIn from "./LogIn";
-import '../UserForms.css';
+import '../CSS/UserForms.css';
 
 export default function UserForms(props) {
 

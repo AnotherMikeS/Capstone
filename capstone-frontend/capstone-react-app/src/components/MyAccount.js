@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import '../MyAccount.css';
+import '../CSS/MyAccount.css';
 
 
 // My Account page
