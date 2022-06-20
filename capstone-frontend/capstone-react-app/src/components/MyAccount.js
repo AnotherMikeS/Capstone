@@ -104,7 +104,7 @@ export default function MyAccount() {
             body: JSON.stringify(editedAuditionee)
         };
 
-        fetch(`http://localhost:8080/api/theater/auditionee/${userId}`, init) // Perform the PUT request with ID
+        fetch(`http://localhost:8080/api/theater/auditionee/${correctAuditioneeId}`, init) // Perform the PUT request with ID
             .then(response => {
                 if (response.status === 404) {
                     console.log("Audition not found.");
