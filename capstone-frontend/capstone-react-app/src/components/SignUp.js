@@ -2,9 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 
 function SignUp(addAuditionee) {
-
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
     const [role, setRole] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
@@ -13,13 +10,6 @@ function SignUp(addAuditionee) {
 
     const baseurl = "http://localhost:8080/api/theater/auditionee";
 
-
-    const handleFirstChange = (evt) => {
-        setFirstName(evt.target.value);
-    }
-    const handleLastChange = (evt) => {
-        setLastName(evt.target.value);
-    }
     const handleRoleChange = (evt) => {
         setRole(evt.target.value);
     }
@@ -67,8 +57,6 @@ function SignUp(addAuditionee) {
         
 
         //Set to blank
-        setFirstName("");
-        setLastName("");
         setRole("");
         setDate("");
         setTime("");
@@ -78,21 +66,6 @@ function SignUp(addAuditionee) {
     return (
         <form onSubmit={handleSubmit}>
             <div class="container">
-                <div class="row">
-                    <h2 class="col">Audition Sign Up</h2>
-                </div>
-                <div class="row">
-                    <label htmlFor="firstName">First Name: </label>
-                    <div class="col-3">
-                        <input id="firstName" onChange={handleFirstChange} name="firstName" type="Text" value={firstName}></input>
-                    </div>
-                </div>
-                <div class="row">
-                    <label htmlFor="lastName">Last Name: </label>
-                    <div class="col-3">
-                        <input id="lastName" onChange={handleLastChange} name="lastName" type="Text" value={lastName}></input>
-                    </div>
-                </div>
                 <div class="row">
                     <label htmlFor="roles">Role: </label>
                     <div class="col-3">
@@ -136,7 +109,7 @@ function SignUp(addAuditionee) {
                         <input id="selection" onChange={handleSelectionChange} name="selection" type="Text" value={selection}></input>
                     </div>
                 </div>
-                {(role === "" || date === "" || firstName === "" || lastName === "" || time === "" || selection === "")
+                {(role === "" || date === "" || time === "" || selection === "")
                     ? <button className="btn btn-secondary" disabled>Add Audition</button>
                     : <button className="btn btn-primary" type="submit">Add Audition</button>
                 }
