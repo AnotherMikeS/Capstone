@@ -8,7 +8,6 @@ export default function LogIn(props) {
   const [errors, setErrors] = useState([]);
 
   const navigate = useNavigate();
-  console.log("LogIn: ", props);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

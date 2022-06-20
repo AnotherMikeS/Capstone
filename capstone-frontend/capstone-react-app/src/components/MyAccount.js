@@ -84,19 +84,19 @@ export default function MyAccount() {
         };
 
         fetch(`http://localhost:8080/api/theater/auditionee/${userId}`, init) // Perform the PUT request with ID
-        .then(response => {
-            if (response.status === 404) {
-                console.log("Audition not found."); 
-                //We're putting audition as the error message cause users won't know they're updating auditionee
-            } else if (response.status === 400) {
-                alert("Unable to Update Audition Info"); // Invalid data produces a warning popup
-            } else if (response.status === 200) {
-                console.log("Audition updated.");
-                setActualUser(editedAuditionee);
-            } else {
-                console.log(`Audition update failed with status ${response.status}`);
-            }
-        });
+            .then(response => {
+                if (response.status === 404) {
+                    console.log("Audition not found.");
+                    //We're putting audition as the error message cause users won't know they're updating auditionee
+                } else if (response.status === 400) {
+                    alert("Unable to Update Audition Info"); // Invalid data produces a warning popup
+                } else if (response.status === 200) {
+                    console.log("Audition updated.");
+                    setActualUser(editedAuditionee);
+                } else {
+                    console.log(`Audition update failed with status ${response.status}`);
+                }
+            });
 
         toggleEdit();
         document.location.reload();
@@ -140,8 +140,13 @@ export default function MyAccount() {
     const userInfo = new Object();
     userInfo.firstName = firstName;
     userInfo.lastName = lastName;
+
     userInfo.timeSlot = auditionee.timeSlot;
+
+
     userInfo.selection = auditionee.selection;
+
+
     userInfo.part = partString;
 
     console.log(userInfo);
@@ -158,11 +163,13 @@ export default function MyAccount() {
     // part (from part)
     // access type (from app_role)
 
-
-
     return (
         <div>
             <form>
+                <div>
+                    <h1>Your Audition</h1>
+                </div>
+
                 <table>
                     <thead>
                         <tr>
@@ -179,7 +186,7 @@ export default function MyAccount() {
                             <td>{userInfo.firstName}</td>
                             <td>{userInfo.lastName}</td>
                             <td>{editMode ?
-                                <select name="timeSlot" id="timeSlot" onChange={handleChange}>
+                                <select select style={{ height: 40, width: 250, textAlign: 'center' }} name="timeSlot" id="timeSlot" onChange={handleChange}>
                                     <option value="2022-07-01 12:00pm">2022-07-01 12:00pm</option>
                                     <option value="2022-07-02 12:00pm">2022-07-02 12:00pm</option>
                                     <option value="2022-07-03 12:00pm">2022-07-03 12:00pm</option>
@@ -187,14 +194,17 @@ export default function MyAccount() {
                                 : userInfo.timeSlot}</td>
 
                             <td>{editMode ?
-                                <input type="text" name="selection" id="selection" className="form-control" placeholder={userInfo.selection}
+                                <input style={{ height: 40, width: 300 }} type="text" name="selection" id="selection" className="form-control_input" placeholder={userInfo.selection}
                                     value={actualUser.selection} onChange={handleChange} />
                                 : userInfo.selection}</td>
                             <td>{editMode ?
-                                <select name="part" id="part" onChange={handleChange}>
-                                    <option value="1">Acting</option>
-                                    <option value="2">Singing</option>
-                                </select>
+                                <div>
+                                    <select style={{ height: 40, width: 100, textAlign: 'center' }} id="part" onChange={handleChange}>
+                                        <option value="1">Acting</option>
+                                        <option value="2">Singing</option>
+                                    </select>
+                                </div>
+
                                 : userInfo.part}</td>
 
                             <td>
@@ -210,7 +220,5 @@ export default function MyAccount() {
                 </table>
             </form>
         </div>
-
-
     );
 }

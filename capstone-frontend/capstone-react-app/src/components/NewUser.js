@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 
-export default function NewUser() {
+export default function NewUser(props) {
 
     // Set State for User Inputs
     const [users, setUsers] = useState([]);
@@ -12,6 +13,8 @@ export default function NewUser() {
     // Set States for Validating Inputs
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState(false);
+
+    const navigate = useNavigate();
 
     // Prepare list of existing users
     useEffect(() => {
@@ -118,35 +121,38 @@ export default function NewUser() {
         await postPerson();
 
         if (!error) {
-            //document.location.reload();
-        }
-    };
+            
+            const response = await fetch("http://localhost:8080/authenticate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username,
+                    password,
+                }),
+            });
 
-    // // Successful
-    // const successMessage = () => {
-    //     return (
-    //         <div
-    //             className="success"
-    //             style={{
-    //                 display: submitted ? '' : 'none',
-    //             }}>
-    //             <h1>User {username} successfully registered!</h1>
-    //         </div>
-    //     );
-    // };
+            if (response.status === 200) {
+                const please = await response.json();
 
-    // // If Errors
-    // const errorMessage = () => {
-    //     return (
-    //         <div
-    //             className="error"
-    //             style={{
-    //                 display: error ? '' : 'none',
-    //             }}>
-    //             <h3>Error: User could not be created.</h3>
-    //         </div>
-    //     );
-    // };
+                localStorage.setItem("token", please.jwt_token);
+                localStorage.setItem("id", please.appUserId);
+                props.login(username, please.appUserId);
+          
+                navigate("/home");   
+
+            } else if (response.status === 400) {
+                const errors = await response.json();
+                setError(error);
+            } else if (response.status === 403) {
+                setError(["Login failed."]);
+            } else {
+                setError(["Unknown error."]);
+            }
+        };
+
+    }
 
     return (
         <div className="container">
@@ -177,7 +183,7 @@ export default function NewUser() {
                     <div class="col-sm">
                         <div class="form-field">
                             <div class="form-field__control">
-                                <input id="newUser" type="text" class="form-field__input" placeholder=" " value={username} onChange={handleUsername} />
+                                <input id="newUser" type="text" class="form-field__input" placeholder=" " onChange={(event) => setUsername(event.target.value)} />
                                 <label for="newUser" class="form-field__label">Username</label>
                                 <div class="form-field__bar"></div>
                             </div>
@@ -188,7 +194,7 @@ export default function NewUser() {
                     <div class="col-sm">
                         <div class="form-field">
                             <div class="form-field__control">
-                                <input id="newPass" type="password" class="form-field__input" placeholder=" " value={password} onChange={handlePassword} />
+                                <input id="newPass" type="password" class="form-field__input" placeholder=" " onChange={(event) => setPassword(event.target.value)} />
                                 <label for="newPass" class="form-field__label">Password</label>
                                 <div class="form-field__bar"></div>
                             </div>
@@ -199,32 +205,5 @@ export default function NewUser() {
 
             </form>
         </div>
-
-        // <div className="form">
-        //     <div>
-        //         <h1>New User Registration</h1>
-        //     </div>
-
-        //     <div className="messages">
-        //         {errorMessage()}
-        //         {successMessage()}
-        //     </div>
-
-        //     <form>
-        //         <label className="label">First Name</label>
-        //         <input className="input" type="text" value={firstName} onChange={handleFirstName} /><br></br>
-
-        //         <label className="label">Last Name</label>
-        //         <input className="input" type="text" value={lastName} onChange={handleLastName} /><br></br>
-
-        //         <label className="label">Username</label>
-        //         <input className="input" type="text" value={username} onChange={handleUsername} /><br></br>
-
-        //         <label className="label">Password (8 characters: digit, number, symbol)</label>
-        //         <input className="password" type="password" value={password} onChange={handlePassword} /><br></br>
-
-        //         <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
-        //     </form>
-        // </div>
     );
 }
