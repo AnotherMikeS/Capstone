@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 
 function SignUp(addAuditionee) {
+
     const [role, setRole] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
@@ -9,6 +10,7 @@ function SignUp(addAuditionee) {
     const [allPeople, setPeople] = useState([]);
 
     const baseurl = "http://localhost:8080/api/theater/auditionee";
+
 
     const handleRoleChange = (evt) => {
         setRole(evt.target.value);
@@ -25,36 +27,53 @@ function SignUp(addAuditionee) {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        var auditionee = {
-            appUserId: parseInt(localStorage.getItem("id"), 10),
-            partId: parseInt(role, 10),
-            timeSlot: date + " " + time,
-            selection: selection
-        }
 
-        console.log(auditionee);
-
-        const init = { 
-            method: "POST",
+        const init = { // initialize the GET request
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("token")
-            },
-            body : JSON.stringify(auditionee)
+            }
         };
 
-        fetch(baseurl, init)
+        const userId = localStorage.getItem("id");
+
+        fetch(`http://localhost:8080/api/theater/auditionee/${userId}`, init)
             .then(response => {
-                console.log(response.status);
-                if (response.status === 201) { // status CREATED
-                } else {
-                    return Promise.reject("POST auditionee status was not 201.");
+                if(response.status !== 200){ //No Auditionee in Database
+                    var auditionee = {
+                        appUserId: parseInt(localStorage.getItem("id"), 10),
+                        partId: parseInt(role, 10),
+                        timeSlot: date + " " + time,
+                        selection: selection
+                    }
+            
+                    console.log(auditionee);
+            
+                    const anotherInit = { 
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + localStorage.getItem("token")
+                        },
+                        body : JSON.stringify(auditionee)
+                    };
+            
+                    fetch(baseurl, anotherInit)
+                        .then(response => {
+                            console.log(response.status);
+                            if (response.status === 201) { // status CREATED
+                            } else {
+                                return Promise.reject("POST auditionee status was not 201.");
+                            }
+            
+                        })
+                        .catch(console.error);
                 }
-
+                else{
+                    alert("There is already an audition for this user. Please edit it in the 'My Account' Section, or make a different user");
+                }
             })
-            .catch(console.error);
-
-        
 
         //Set to blank
         setRole("");
@@ -66,6 +85,9 @@ function SignUp(addAuditionee) {
     return (
         <form onSubmit={handleSubmit}>
             <div class="container">
+                <div class="row">
+                    <h2 class="col">Audition Sign Up</h2>
+                </div>
                 <div class="row">
                     <label htmlFor="roles">Role: </label>
                     <div class="col-3">
