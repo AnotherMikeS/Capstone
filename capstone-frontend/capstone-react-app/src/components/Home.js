@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import images from "./images";
 import ImageSlider from "./imageSlider";
-import yoshi from "./yoshi-tpt.png";
+import yoshi from "../Images/yoshi-tpt.png";
 
 export default function Home() {
   

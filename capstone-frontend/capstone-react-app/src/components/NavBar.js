@@ -1,5 +1,5 @@
 import { Link, Outlet} from "react-router-dom";
-import Twelve5 from "./Twelve5.png";
+import Twelve5 from "../Images/Twelve5.png";
 
 
 export default function NavBar(props) {

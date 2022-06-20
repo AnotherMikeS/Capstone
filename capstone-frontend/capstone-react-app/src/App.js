@@ -8,7 +8,7 @@ import Edit from "./components/Edit";
 import NavBar from "./components/NavBar";
 import UserForms from "./components/UserForms";
 import MyAccount from "./components/MyAccount";
-import './App.css';
+import './CSS/App.css';
 
 export default function App() {
     const [userStatus, setUserStatus] = useState({ username: null, userId: 0 });

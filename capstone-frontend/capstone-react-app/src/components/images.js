@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import image1 from "./facepaint.jpg";
-import image2 from "./dance.jpg";
-import image3 from "./moreballet.jpg";
-import image4 from "./outdoor.jpg";
-import image5 from "./singing.jpg";
-import image6 from "./welcome.jpg";
-import image7 from "./beast.jpg";
+import image1 from "../Images/facepaint.jpg";
+import image2 from "../Images/dance.jpg";
+import image3 from "../Images/moreballet.jpg";
+import image4 from "../Images/outdoor.jpg";
+import image5 from "../Images/singing.jpg";
+import image6 from "../Images/welcome.jpg";
+import image7 from "../Images/beast.jpg";
 
 
 const images = [
