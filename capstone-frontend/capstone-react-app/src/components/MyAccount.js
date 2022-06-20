@@ -164,7 +164,6 @@ export default function MyAccount() {
     // access type (from app_role)
 
     return (
-
         <div>
             <form>
                 <div>
