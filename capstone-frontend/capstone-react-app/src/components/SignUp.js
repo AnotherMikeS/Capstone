@@ -9,6 +9,7 @@ function SignUp(addAuditionee) {
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [selection, setSelectionPiece] = useState("");
+    const [allPeople, setPeople] = useState([]);
 
     const baseurl = "http://localhost:8080/api/theater/auditionee";
 
@@ -35,15 +36,15 @@ function SignUp(addAuditionee) {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         var auditionee = {
-            appUserId: localStorage.getItem("id"),
+            appUserId: parseInt(localStorage.getItem("id"), 10),
             partId: parseInt(role, 10),
-            timeslot: date + " " + time,
+            timeSlot: date + " " + time,
             selection: selection
         }
 
         console.log(auditionee);
 
-        const init = { // initialize the GET request
+        const init = { 
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -54,6 +55,7 @@ function SignUp(addAuditionee) {
 
         fetch(baseurl, init)
             .then(response => {
+                console.log(response.status);
                 if (response.status === 201) { // status CREATED
                 } else {
                     return Promise.reject("POST auditionee status was not 201.");
@@ -62,6 +64,7 @@ function SignUp(addAuditionee) {
             })
             .catch(console.error);
 
+        
 
         //Set to blank
         setFirstName("");
