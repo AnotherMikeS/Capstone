@@ -99,7 +99,7 @@ Content-Type: application/json
 
 # should deny access to auditionee list because this is user privileges only
 GET http://localhost:8080/api/theater/auditionee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoibXNtaXRoIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NTU3MzYyOTB9.cQ9z-zdHMYN80ggkbkxLO-6vDforc-Pk77GG0-0X5Cs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoibXNtaXRoIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NTU3NDI0NDR9.avg-1V26mSj2byfwzZ4pwIVaaR4fM6lZFO_A6Iem8BI
 ###
 
 # uses the USER privileges to ADD an auditionee
