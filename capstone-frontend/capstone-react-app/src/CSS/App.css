@@ -5,8 +5,7 @@ body {
 
 .tag {
 	text-align: center;
-    color: #737373;
-    /* color: #4f89b7; */
+  color: #737373;
 }
 
 .slick-slide img {
@@ -14,6 +13,16 @@ body {
 	width: 50%;
 	height: 50%;
 }
+
+.map {
+  padding: 50px;
+  margin: auto;
+	width: 50%;
+	height: 50%;
+  text-align: center;
+  color: #737373;
+  
+  }
 
 .yelp-review {
     padding: 50px;
