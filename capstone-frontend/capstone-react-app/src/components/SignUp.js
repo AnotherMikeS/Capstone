@@ -3,6 +3,8 @@ import { useState } from "react";
 
 function SignUp(addAuditionee) {
 
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [role, setRole] = useState("");
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
@@ -12,6 +14,12 @@ function SignUp(addAuditionee) {
     const baseurl = "http://localhost:8080/api/theater/auditionee";
 
 
+    const handleFirstChange = (evt) => {
+        setFirstName(evt.target.value);
+    }
+    const handleLastChange = (evt) => {
+        setLastName(evt.target.value);
+    }
     const handleRoleChange = (evt) => {
         setRole(evt.target.value);
     }
@@ -27,55 +35,40 @@ function SignUp(addAuditionee) {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
+        var auditionee = {
+            appUserId: parseInt(localStorage.getItem("id"), 10),
+            partId: parseInt(role, 10),
+            timeSlot: date + " " + time,
+            selection: selection
+        }
 
-        const init = { // initialize the GET request
-            method: "GET",
+        console.log(auditionee);
+
+        const init = { 
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + localStorage.getItem("token")
-            }
+            },
+            body : JSON.stringify(auditionee)
         };
 
-        const userId = localStorage.getItem("id");
-
-        fetch(`http://localhost:8080/api/theater/auditionee/${userId}`, init)
+        fetch(baseurl, init)
             .then(response => {
-                if(response.status !== 200){ //No Auditionee in Database
-                    var auditionee = {
-                        appUserId: parseInt(localStorage.getItem("id"), 10),
-                        partId: parseInt(role, 10),
-                        timeSlot: date + " " + time,
-                        selection: selection
-                    }
-            
-                    console.log(auditionee);
-            
-                    const anotherInit = { 
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": "Bearer " + localStorage.getItem("token")
-                        },
-                        body : JSON.stringify(auditionee)
-                    };
-            
-                    fetch(baseurl, anotherInit)
-                        .then(response => {
-                            console.log(response.status);
-                            if (response.status === 201) { // status CREATED
-                            } else {
-                                return Promise.reject("POST auditionee status was not 201.");
-                            }
-            
-                        })
-                        .catch(console.error);
+                console.log(response.status);
+                if (response.status === 201) { // status CREATED
+                } else {
+                    return Promise.reject("POST auditionee status was not 201.");
                 }
-                else{
-                    alert("There is already an audition for this user. Please edit it in the 'My Account' Section, or make a different user");
-                }
+
             })
+            .catch(console.error);
+
+        
 
         //Set to blank
+        setFirstName("");
+        setLastName("");
         setRole("");
         setDate("");
         setTime("");
@@ -87,6 +80,18 @@ function SignUp(addAuditionee) {
             <div class="container">
                 <div class="row">
                     <h2 class="col">Audition Sign Up</h2>
+                </div>
+                <div class="row">
+                    <label htmlFor="firstName">First Name: </label>
+                    <div class="col-3">
+                        <input id="firstName" onChange={handleFirstChange} name="firstName" type="Text" value={firstName}></input>
+                    </div>
+                </div>
+                <div class="row">
+                    <label htmlFor="lastName">Last Name: </label>
+                    <div class="col-3">
+                        <input id="lastName" onChange={handleLastChange} name="lastName" type="Text" value={lastName}></input>
+                    </div>
                 </div>
                 <div class="row">
                     <label htmlFor="roles">Role: </label>
@@ -131,7 +136,7 @@ function SignUp(addAuditionee) {
                         <input id="selection" onChange={handleSelectionChange} name="selection" type="Text" value={selection}></input>
                     </div>
                 </div>
-                {(role === "" || date === "" || time === "" || selection === "")
+                {(role === "" || date === "" || firstName === "" || lastName === "" || time === "" || selection === "")
                     ? <button className="btn btn-secondary" disabled>Add Audition</button>
                     : <button className="btn btn-primary" type="submit">Add Audition</button>
                 }
