@@ -118,7 +118,7 @@ export default function NewUser() {
         await postPerson();
 
         if (!error) {
-            document.location.reload();
+            //document.location.reload();
         }
     };
 
