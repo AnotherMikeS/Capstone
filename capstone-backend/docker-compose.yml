@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   capstone-api:
-    image: shelley4/capstone-backend:1.6
+    image: gennarogreg/capstone-backend:1.7
     environment:
       - DB_URL=jdbc:mysql://sn-capstone-db.cn7ajgqf9e2f.us-east-2.rds.amazonaws.com:3306/twelve_eyes_nintendo_audition
       - DB_USERNAME=admin

@@ -83,7 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://sncapstoneui-env.eba-duvmn8qw.us-east-2.elasticbeanstalk.com")
+                        .allowedOrigins("https://cors-anywhere.herokuapp.com/sncapstoneui-env.eba-duvmn8qw.us-east-2.elasticbeanstalk.com")
                         .allowedMethods("*");
             }
         };

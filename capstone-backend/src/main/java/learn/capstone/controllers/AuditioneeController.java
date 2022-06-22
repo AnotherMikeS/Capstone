@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://sncapstoneui-env.eba-duvmn8qw.us-east-2.elasticbeanstalk.com")
+@CrossOrigin("https://cors-anywhere.herokuapp.com/sncapstoneui-env.eba-duvmn8qw.us-east-2.elasticbeanstalk.com")
 @RequestMapping("/api/theater/auditionee")
 
 public class AuditioneeController {
