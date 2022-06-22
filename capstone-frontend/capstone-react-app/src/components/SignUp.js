@@ -9,7 +9,7 @@ function SignUp(addAuditionee) {
     const [selection, setSelectionPiece] = useState("");
     const [allPeople, setPeople] = useState([]);
 
-    const baseurl = "http://localhost:8080/api/theater/auditionee";
+    const baseurl = window.API_URL + "/api/theater/auditionee";
 
 
     const handleRoleChange = (evt) => {
@@ -38,7 +38,7 @@ function SignUp(addAuditionee) {
 
         const userId = localStorage.getItem("id");
 
-        fetch(`http://localhost:8080/api/theater/auditionee/${userId}`, init)
+        fetch(window.API_URL + `/api/theater/auditionee/${userId}`, init)
             .then(response => {
                 if(response.status !== 200){ //No Auditionee in Database
                     var auditionee = {

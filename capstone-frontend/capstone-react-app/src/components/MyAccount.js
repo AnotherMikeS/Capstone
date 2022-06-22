@@ -27,7 +27,7 @@ export default function MyAccount() {
 
     useEffect(() => {
         // get a list of all people
-        fetch("http://localhost:8080/api/theater/person")
+        fetch(window.API_URL + "/api/theater/person")
             .then(resp => resp.json())
             .then(data => {
                 setPersons(data);
@@ -41,7 +41,7 @@ export default function MyAccount() {
             }
         };
 
-        fetch(`http://localhost:8080/api/theater/auditionee`, init)
+        fetch(window.API_URL + `/api/theater/auditionee`, init)
             .then(resp => resp.json())
             .then(data => {
                 setAuditioneeList(data);
@@ -62,7 +62,7 @@ export default function MyAccount() {
                     }
                 };
 
-                fetch(`http://localhost:8080/api/theater/auditionee/${correctAuditioneeId}`, init)
+                fetch(window.API_URL + `/api/theater/auditionee/${correctAuditioneeId}`, init)
                     .then(resp => resp.json())
                     .then(data => {
                         setAuditionee(data);
@@ -104,7 +104,7 @@ export default function MyAccount() {
             body: JSON.stringify(editedAuditionee)
         };
 
-        fetch(`http://localhost:8080/api/theater/auditionee/${correctAuditioneeId}`, init) // Perform the PUT request with ID
+        fetch(window.API_URL + `/api/theater/auditionee/${correctAuditioneeId}`, init) // Perform the PUT request with ID
             .then(response => {
                 if (response.status === 404) {
                     console.log("Audition not found.");
