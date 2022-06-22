@@ -134,5 +134,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic
 
 # uses ADMIN privileges to DELETE auditioneeId 3
 # should return 204 with no content
-DELETE http://localhost:8080/api/theater/auditionee/3 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUzMTc4NjF9.W88qHIQbBge-nmWXBz2pYs7VnRGipxN17WB4WHNfR7E
+DELETE http://localhost:8080/api/theater/auditionee/1 HTTP/1.1

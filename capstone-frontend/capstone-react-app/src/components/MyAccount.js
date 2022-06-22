@@ -182,9 +182,9 @@ export default function MyAccount() {
         <div>
             <form>
                 <div>
-                    <h1>Your Audition</h1>
+                    <h1>Your Account</h1>
                 </div>
-
+            {(localStorage.getItem("id") !== "1") ?
                 <table>
                     <thead>
                         <tr>
@@ -233,6 +233,9 @@ export default function MyAccount() {
                         </tr>
                     </tbody>
                 </table>
+                :
+                <h2>You are the System Admin!</h2>
+                }
             </form>
         </div>
     );

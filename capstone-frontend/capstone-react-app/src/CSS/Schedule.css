@@ -1,0 +1,37 @@
+h2 {
+    font-weight: 700;
+    font-style: oblique;
+    margin-top: 3%;
+    margin-left: 40%;
+    margin-bottom: 2%;
+}
+
+.center {
+    margin-left: 8%;
+}
+
+table {
+    width: auto;
+}
+
+thead {
+    text-align: center;
+    border-bottom: solid 1px;
+    font-size: 18px;
+    font-style: oblique;
+}
+
+th {
+    text-align: center;
+    border-bottom: solid 1px;
+    font-size: 18px;
+    font-style: oblique;
+}
+
+td {
+    width: 400px;
+    text-align: center;
+    padding: 8px;
+    font-size: 16px;
+    justify-content: center;
+}
