@@ -4,6 +4,6 @@ services:
   capstone-api:
     image: shelley4/twelve_eyes-ui:2.0
     environment:
-      - API_URL=http://sncapstoneapi3-env.eba-wbf4kprf.us-east-2.elasticbeanstalk.com/api/theater
+      - API_URL=http://sncapstoneapi3-env.eba-wbf4kprf.us-east-2.elasticbeanstalk.com
     ports:
       - 80:80
