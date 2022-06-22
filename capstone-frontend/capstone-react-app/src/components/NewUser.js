@@ -18,7 +18,7 @@ export default function NewUser(props) {
 
     // Prepare list of existing users
     useEffect(() => {
-        fetch("http://localhost:8080/api/theater/person")
+        fetch(window.API_URL + "/api/theater/person")
             .then(response => {
                 if (response.status !== 200) {
                     return Promise.reject("There was an error.");
@@ -65,7 +65,7 @@ export default function NewUser(props) {
             body: JSON.stringify(newAppUser)
         };
 
-        return fetch(`http://localhost:8080/create_account`, initAppUser) // POST app_user
+        return fetch(window.API_URL +  "/create_account", initAppUser) // POST app_user
             .then(response => {
                 if (response.status === 404) {
                     setError(true);
@@ -92,7 +92,7 @@ export default function NewUser(props) {
             body: JSON.stringify(newPerson)
         };
 
-        return fetch(`http://localhost:8080/api/theater/person`, initPerson) // POST person
+        return fetch(window.API_URL + "/api/theater/person", initPerson) // POST person
             .then(response => {
                 if (response.status === 404) {
                     setError(true);
@@ -122,7 +122,7 @@ export default function NewUser(props) {
 
         if (!error) {
             
-            const response = await fetch("http://localhost:8080/authenticate", {
+            const response = await fetch(window.API_URL + "/authenticate", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
