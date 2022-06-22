@@ -1,1 +1,1 @@
-window.API_URL="http://sncapstoneapi3-env.eba-wbf4kprf.us-east-2.elasticbeanstalk.com"
+window.API_URL="https://cors-anywhere.herokuapp.com/sncapstoneapi3-env.eba-wbf4kprf.us-east-2.elasticbeanstalk.com"

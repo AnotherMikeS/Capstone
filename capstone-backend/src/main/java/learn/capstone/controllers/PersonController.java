@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@CrossOrigin("http://sncapstoneui-env.eba-duvmn8qw.us-east-2.elasticbeanstalk.com")
 @RequestMapping("/api/theater/person")
 
 public class PersonController {
