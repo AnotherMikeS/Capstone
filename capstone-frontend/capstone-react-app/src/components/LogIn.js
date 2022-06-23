@@ -12,7 +12,7 @@ export default function LogIn(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:8080/authenticate", {
+    const response = await fetch(window.API_URL + "/authenticate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
