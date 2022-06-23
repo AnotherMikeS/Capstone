@@ -18,7 +18,7 @@ export default function NewUser(props) {
 
     // Prepare list of existing users
     useEffect(() => {
-        fetch(window.API_URL + "/api/theater/person")
+        fetch("http://localhost:8080/api/theater/person", { method: "GET" })
             .then(response => {
                 if (response.status !== 200) {
                     return Promise.reject("There was an error.");
@@ -65,24 +65,18 @@ export default function NewUser(props) {
             body: JSON.stringify(newAppUser)
         };
 
-        return fetch(window.API_URL +  "/create_account", initAppUser) // POST app_user
+        return fetch(window.API_URL + "/create_account", initAppUser) // POST app_user
             .then(response => {
-                if (response.status === 404) {
+                if (response.status !== 201) {
                     setError(true);
-                } else if (response.status === 400) {
-                    setError(true);
-                    alert("User already Exists!")
-                } else if (response.status === 201) {
-                    setError(false);
-                } else {
-                    alert("User could not be created");
-                }
+                } else if (response.status === 201)
+                    postPerson();
             });
     }
 
     // Fetch for Person
     const postPerson = () => {
-        const newPerson = { appUserId: (users.length+1), firstName, lastName }; // How to get app_user_id ??
+        const newPerson = { appUserId: (users.length + 1), firstName, lastName }; // How to get app_user_id ??
         const initPerson = { // Initialize POST request that will go to sql person
             method: "POST",
             headers: {
@@ -98,10 +92,8 @@ export default function NewUser(props) {
                     setError(true);
                 } else if (response.status === 400) {
                     setError(true);
-                    alert("This user already exists!")
                 } else if (response.status === 201) {
                     setError(false);
-                    alert("Success!")
                 } else {
                     setError(true);
                 }
@@ -118,10 +110,8 @@ export default function NewUser(props) {
 
         await postAppUser();
 
-        await postPerson();
-
         if (!error) {
-            
+
             const response = await fetch(window.API_URL + "/authenticate", {
                 method: "POST",
                 headers: {
@@ -139,8 +129,8 @@ export default function NewUser(props) {
                 localStorage.setItem("token", please.jwt_token);
                 localStorage.setItem("id", please.appUserId);
                 props.login(username, please.appUserId);
-          
-                navigate("/home");   
+
+                navigate("/home");
 
             } else if (response.status === 400) {
                 const errors = await response.json();
@@ -154,56 +144,67 @@ export default function NewUser(props) {
 
     }
 
+    const handleAgain = () => {
+        document.location.reload();
+    }
+
     return (
         <div className="container">
-            <form novalidate>
+            {(error) ?
                 <div>
-                    <h1>New User Registration</h1>
+                    <h1>User creation failed.</h1>
+                    <button type="button" className='btn' onClick={handleAgain}>Try Again</button>
                 </div>
-                <div class="col-sm">
-                    <div class="form-field">
-                        <div class="form-field__control">
-                            <input autoComplete="off" id="firstname" type="text" class="form-field__input" placeholder=" " value={firstName} onChange={handleFirstName} />
-                            <label for="firstname" class="form-field__label">First name</label>
-                            <div class="form-field__bar"></div>
-                        </div>
+                :
+                <form novalidate>
+                    <div>
+                        <h1>New User Registration</h1>
                     </div>
-                </div>
-                <div class="col-sm">
-                    <div class="form-field">
-                        <div class="form-field__control">
-                            <input autoComplete="off" id="lastname" type="text" class="form-field__input" placeholder=" " value={lastName} onChange={handleLastName} />
-                            <label for="lastname" class="form-field__label">Last name</label>
-                            <div class="form-field__bar"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
                     <div class="col-sm">
                         <div class="form-field">
                             <div class="form-field__control">
-                                <input autoComplete="off" id="newUser" type="text" class="form-field__input" placeholder=" " onChange={(event) => setUsername(event.target.value)} />
-                                <label for="newUser" class="form-field__label">Username</label>
+                                <input autoComplete="off" id="firstname" type="text" class="form-field__input" placeholder=" " value={firstName} onChange={handleFirstName} />
+                                <label for="firstname" class="form-field__label">First name</label>
                                 <div class="form-field__bar"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-sm">
                         <div class="form-field">
                             <div class="form-field__control">
-                                <input autoComplete="off" id="newPass" type="password" class="form-field__input" placeholder=" " onChange={(event) => setPassword(event.target.value)} />
-                                <label for="newPass" class="form-field__label">Password</label>
+                                <input autoComplete="off" id="lastname" type="text" class="form-field__input" placeholder=" " value={lastName} onChange={handleLastName} />
+                                <label for="lastname" class="form-field__label">Last name</label>
                                 <div class="form-field__bar"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
 
-            </form>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-field">
+                                <div class="form-field__control">
+                                    <input autoComplete="off" id="newUser" type="text" class="form-field__input" placeholder=" " onChange={(event) => setUsername(event.target.value)} />
+                                    <label for="newUser" class="form-field__label">Username</label>
+                                    <div class="form-field__bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-field">
+                                <div class="form-field__control">
+                                    <input autoComplete="off" id="newPass" type="password" class="form-field__input" placeholder=" " onChange={(event) => setPassword(event.target.value)} />
+                                    <label for="newPass" class="form-field__label">Password</label>
+                                    <div class="form-field__bar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
+
+                </form>
+            }
         </div>
     );
 }

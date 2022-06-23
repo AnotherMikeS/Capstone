@@ -39,7 +39,7 @@ export default function Schedule() {
     return fetch(`http://localhost:8080/api/theater/audition/${audition.auditionId}`, deleteInit)
       .then(response => {
         if (response.status === 204) {
-          
+
         } else {
           return Promise.reject("DELETE not successful.");
         }
@@ -49,7 +49,7 @@ export default function Schedule() {
 
 
   const auditioneeDelete = (audition) => {
-    
+
     const deleteInit = {
       method: "DELETE",
       // headers: {
@@ -59,9 +59,7 @@ export default function Schedule() {
 
     return fetch(`http://localhost:8080/api/theater/auditionee/${audition.auditioneeId}`, deleteInit)
       .then(response => {
-        if (response.status === 200) {
-          alert("Audition deleted!");
-        } else {
+        if (response.status !== 200) {
           return Promise.reject("DELETE not successful.");
         }
       })
@@ -70,7 +68,7 @@ export default function Schedule() {
 
   const superDelete = async (audition) => {
     await auditionDelete(audition);
-    await auditioneeDelete(audition);  
+    await auditioneeDelete(audition);
     document.location.reload();
   }
 

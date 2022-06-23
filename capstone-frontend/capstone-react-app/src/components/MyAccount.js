@@ -110,7 +110,7 @@ export default function MyAccount() {
                     console.log("Audition not found.");
                     //We're putting audition as the error message cause users won't know they're updating auditionee
                 } else if (response.status === 400) {
-                    alert("Unable to Update Audition Info"); // Invalid data produces a warning popup
+                    console.log("Failed");
                 } else if (response.status === 200) {
                     console.log("Audition updated.");
                     setActualUser(editedAuditionee);

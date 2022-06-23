@@ -9,6 +9,8 @@ function SignUp(addAuditionee) {
     const [selection, setSelectionPiece] = useState("");
     const [auditionees, setAuditionees] = useState([]);
     const [allPeople, setPeople] = useState([]);
+    const [submit, setSubmit] = useState(false);
+    const [error, setError] = useState(false);
 
     const baseurl = window.API_URL + "/api/theater/auditionee";
 
@@ -36,9 +38,9 @@ function SignUp(addAuditionee) {
     if (auditionees.length === 0) {
         correctId = 1;
     }
-    else if(auditionees.length === 2){
+    else if (auditionees.length === 2) {
         correctId = 3;
-    } 
+    }
     else {
         var index = auditionees.length - 1;
         console.log(index);
@@ -47,6 +49,9 @@ function SignUp(addAuditionee) {
         correctId = tempAuditionee.auditioneeId + 1;
         console.log(correctId);
     }
+
+    var currentUserId = parseInt(localStorage.getItem("id"), 10);
+    console.log(currentUserId);
 
 
     const auditionPost = () => {
@@ -69,6 +74,7 @@ function SignUp(addAuditionee) {
             .then(response => {
                 console.log(response.status);
                 if (response.status === 201) {
+                    setSubmit(true);
                 } else {
                     return Promise.reject("POST failed.")
                 }
@@ -78,48 +84,37 @@ function SignUp(addAuditionee) {
 
     const auditioneePost = () => {
 
-        const init = { // initialize the GET request
-            method: "GET"
-        };
+        if (!error) {
+            var auditionee = {
+                appUserId: currentUserId,
+                partId: parseInt(role, 10),
+                timeSlot: date + " " + time,
+                selection: selection
+            };
 
+            const auditioneeInit = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                },
+                body: JSON.stringify(auditionee)
+            };
 
-
-        return fetch(`http://localhost:8080/api/theater/auditionee/${correctId}`, init)
-            .then(response => {
-                if (response.status !== 200) { //No Auditionee in Database
-                    var auditionee = {
-                        appUserId: parseInt(localStorage.getItem("id"), 10),
-                        partId: parseInt(role, 10),
-                        timeSlot: date + " " + time,
-                        selection: selection
+            fetch(baseurl, auditioneeInit)
+                .then(response => {
+                    console.log(response.status);
+                    if (response.status !== 201) {
+                        setError(true);
+                    } else if (response.status === 201) {
+                        auditionPost();
+                    } else {
+                        return Promise.reject("POST auditionee status was not 201.");
                     }
+                })
+                .catch(console.error);
 
-                    console.log(auditionee);
-
-                    const anotherInit = {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": "Bearer " + localStorage.getItem("token")
-                        },
-                        body: JSON.stringify(auditionee)
-                    };
-
-                    fetch(baseurl, anotherInit)
-                        .then(response => {
-                            console.log(response.status);
-                            if (response.status === 201) { // status CREATED
-                            } else {
-                                return Promise.reject("POST auditionee status was not 201.");
-                            }
-
-                        })
-                        .catch(console.error);
-                }
-                else {
-                    alert("There is already an audition for this user. Please edit it in the 'My Account' Section, or make a different user");
-                }
-            })
+        }
     }
 
     const handleRoleChange = (evt) => {
@@ -137,76 +132,86 @@ function SignUp(addAuditionee) {
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
-
         await auditioneePost();
-        await auditionPost();
 
         //Set to blank
-        setRole("");
-        setDate("");
-        setTime("");
-        setSelectionPiece("");
+        // setRole("");
+        // setDate("");
+        // setTime("");
+        // setSelectionPiece("");
     };
 
 
     return (
         <div>
-            {true? 
-        <form onSubmit={handleSubmit}>
-            <div class="container">
-                <div class="row">
-                    <h2 class="col">Audition Sign Up</h2>
-                </div>
-                <div class="row">
-                    <label htmlFor="roles">Role: </label>
-                    <div class="col-3">
-                        <select id="roles" name="roles" class="col-100" onChange={handleRoleChange} value={role}>
-                            <option value="" disabled selected>Choose Role</option>
-                            <option value="1" >Actor</option>
-                            <option value="2">Singer</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <label htmlFor="dates">Date: </label>
-                    <div class="col-3">
+            {(submit) ?
 
-                        <select id="dates" name="dates" class="col-100" onChange={handleDateChange} value={date}>
-                            <option value="" disabled selected>Choose Date</option>
-                            <option value="2022-07-01">July 1st</option>
-                            <option value="2022-07-02">July 2nd</option>
-                            <option value="2022-07-03">July 3rd</option>
-                        </select>
-                    </div>
-                </div>
-                {(date === "")
-                    ? <div></div>
-                    :
-                    <div class="row">
-                        <label htmlFor="times">Time: </label>
-                        <div class="col-3">
-                            <select id="times" name="times" class="col-100" onChange={handleTimeChange} value={time}>
-                                <option value="" disabled selected>Choose Time</option>
-                                <option value="9:00am">9 am</option>
-                                <option value="10:00am">10 am</option>
-                                <option value="11:00am">11 am</option>
-                            </select>
+                <h1>You have successfully<br></br>signed up!</h1>
+
+                :
+                <form onSubmit={handleSubmit}>
+                    <div class="container">
+                        <div class="row">
+                            <h2 class="col">Audition Sign Up</h2>
                         </div>
+                        <div class="row">
+                            <label htmlFor="roles">Role: </label>
+                            <div class="col-3">
+                                <select id="roles" name="roles" class="col-100" onChange={handleRoleChange} value={role}>
+                                    <option value="" disabled selected>Choose Role</option>
+                                    <option value="1" >Actor</option>
+                                    <option value="2">Singer</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label htmlFor="dates">Date: </label>
+                            <div class="col-3">
+
+                                <select id="dates" name="dates" class="col-100" onChange={handleDateChange} value={date}>
+                                    <option value="" disabled selected>Choose Date</option>
+                                    <option value="2022-07-01">July 1st</option>
+                                    <option value="2022-07-02">July 2nd</option>
+                                    <option value="2022-07-03">July 3rd</option>
+                                </select>
+                            </div>
+                        </div>
+                        {(date === "")
+                            ? <div></div>
+                            :
+                            <div class="row">
+                                <label htmlFor="times">Time: </label>
+                                <div class="col-3">
+                                    <select id="times" name="times" class="col-100" onChange={handleTimeChange} value={time}>
+                                        <option value="" disabled selected>Choose Time</option>
+                                        <option value="9:00am">9 am</option>
+                                        <option value="10:00am">10 am</option>
+                                        <option value="11:00am">11 am</option>
+                                    </select>
+                                </div>
+                            </div>
+                        }
+                        <div class="row">
+                            <label htmlFor="auditionPiece">Selection Piece: </label>
+                            <div class="col-3">
+                                <input autoComplete="off" id="selection" onChange={handleSelectionChange} name="selection" type="Text" value={selection}></input>
+                            </div>
+                        </div>
+                        {(role === "" || date === "" || time === "" || selection === "")
+                            ? <button className="btn btn-secondary" disabled>Add Audition</button>
+                            : <button className="btn btn-primary" type="submit">Add Audition</button>
+                        }
                     </div>
-                }
-                <div class="row">
-                    <label htmlFor="auditionPiece">Selection Piece: </label>
-                    <div class="col-3">
-                        <input autoComplete="off" id="selection" onChange={handleSelectionChange} name="selection" type="Text" value={selection}></input>
-                    </div>
-                </div>
-                {(role === "" || date === "" || time === "" || selection === "")
-                    ? <button className="btn btn-secondary" disabled>Add Audition</button>
-                    : <button className="btn btn-primary" type="submit">Add Audition</button>
-                }
-            </div>
-        </form>
-        : <></>}
+                </form>
+            }
+
+            {(error) ?
+
+                <h1>You already have an<br></br>audition scheduled.</h1>
+                :
+                <></>
+            }
+
         </div>
     );
 }

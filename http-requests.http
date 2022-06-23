@@ -2,7 +2,7 @@ GET http://localhost:8080/api/theater/audition HTTP/1.1
 
 ###
 
-GET  http://localhost:8080/api/theater/audition/1 HTTP/1.1
+GET  http://localhost:8080/api/theater/person HTTP/1.1
 
 
 ###
@@ -119,11 +119,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic
 # should return 204 with no content
 PUT http://localhost:8080/api/theater/auditionee/1 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiY0NvZHkiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImV4cCI6MTY1NTk1MzIzOH0.E70GhEjrxVmnoolKUVoVvJWAFlgo5tRaX5l0Lw6X-hE
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiZ29vZCIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjU2MDExMjk5fQ.pNJYsN-o1rpXSHAJd7ktC8vzttgoNOoI6fosWiqFU9g
 
 {
     "auditioneeId": 1,
-    "appUserId": 1,
+    "appUserId": 3,
     "partId": 2,
     "timeSlot": "2022-07-01 5:00pm",
     "selection": "Kristin Monologue"
