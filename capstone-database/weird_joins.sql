@@ -6,6 +6,12 @@ select * from auditions;
 
 select * from auditionee;
 
+delete from auditionee where auditionee_id = 2;
+
+delete from auditions where auditionee_id = 2;
+
+insert into auditions (auditionee_id, part_id) values
+	(1, 2);
 
 select * from app_user_role;
 

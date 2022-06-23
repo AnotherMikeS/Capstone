@@ -27,6 +27,8 @@ export default function Schedule() {
 
   const auditionDelete = (audition) => {
 
+    console.log(audition.auditioneeId);
+
     const deleteInit = {
       method: "DELETE",
       // headers: {
@@ -69,7 +71,7 @@ export default function Schedule() {
   const superDelete = async (audition) => {
     await auditionDelete(audition);
     await auditioneeDelete(audition);
-    getAuditions();
+    document.location.reload();
   }
 
   return (
