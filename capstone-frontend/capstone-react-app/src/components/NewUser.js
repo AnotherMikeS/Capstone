@@ -163,7 +163,7 @@ export default function NewUser(props) {
                 <div class="col-sm">
                     <div class="form-field">
                         <div class="form-field__control">
-                            <input id="firstname" type="text" class="form-field__input" placeholder=" " value={firstName} onChange={handleFirstName} />
+                            <input autoComplete="off" id="firstname" type="text" class="form-field__input" placeholder=" " value={firstName} onChange={handleFirstName} />
                             <label for="firstname" class="form-field__label">First name</label>
                             <div class="form-field__bar"></div>
                         </div>
@@ -172,7 +172,7 @@ export default function NewUser(props) {
                 <div class="col-sm">
                     <div class="form-field">
                         <div class="form-field__control">
-                            <input id="lastname" type="text" class="form-field__input" placeholder=" " value={lastName} onChange={handleLastName} />
+                            <input autoComplete="off" id="lastname" type="text" class="form-field__input" placeholder=" " value={lastName} onChange={handleLastName} />
                             <label for="lastname" class="form-field__label">Last name</label>
                             <div class="form-field__bar"></div>
                         </div>
@@ -183,7 +183,7 @@ export default function NewUser(props) {
                     <div class="col-sm">
                         <div class="form-field">
                             <div class="form-field__control">
-                                <input id="newUser" type="text" class="form-field__input" placeholder=" " onChange={(event) => setUsername(event.target.value)} />
+                                <input autoComplete="off" id="newUser" type="text" class="form-field__input" placeholder=" " onChange={(event) => setUsername(event.target.value)} />
                                 <label for="newUser" class="form-field__label">Username</label>
                                 <div class="form-field__bar"></div>
                             </div>
@@ -194,7 +194,7 @@ export default function NewUser(props) {
                     <div class="col-sm">
                         <div class="form-field">
                             <div class="form-field__control">
-                                <input id="newPass" type="password" class="form-field__input" placeholder=" " onChange={(event) => setPassword(event.target.value)} />
+                                <input autoComplete="off" id="newPass" type="password" class="form-field__input" placeholder=" " onChange={(event) => setPassword(event.target.value)} />
                                 <label for="newPass" class="form-field__label">Password</label>
                                 <div class="form-field__bar"></div>
                             </div>
