@@ -2,6 +2,7 @@ package learn.capstone.data;
 
 import learn.capstone.data.mappers.AuditionMapper;
 import learn.capstone.models.Audition;
+import learn.capstone.models.Auditionee;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -82,6 +83,19 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
             }
         }
 
+        int max = 1;
+        if (all.size() < 1) {
+            jdbcTemplate.update("alter table auditions auto_increment = 0;");
+        } else {
+            max = all.get(0).getAuditionId();
+            for (int i = 0; i < all.size(); i++) {
+                if (all.get(i).getAuditionId() > max) {
+                    max = all.get(i).getAuditionId();
+                }
+            }
+        }
+        jdbcTemplate.update("alter table auditions auto_increment = ?;", max);
+
         KeyHolder keyholder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -125,6 +139,14 @@ public class AuditionJdbcTemplateRepository implements AuditionRepository{
 
     @Override
     public boolean deleteById(int auditionId) {
-        return jdbcTemplate.update("delete from auditions where audition_id = ?", auditionId) > 0;
+        List<Audition> auditionList = findAll();
+        int max = auditionList.get(0).getAuditionId();
+        for (int i = 0; i < auditionList.size(); i++) {
+            if (auditionList.get(i).getAuditionId() > max) {
+                max = auditionList.get(i).getAuditionId();
+            }
+        }
+        jdbcTemplate.update("alter table auditions auto_increment = ?;", max);
+        return jdbcTemplate.update("delete from auditions where audition_id = ?;", auditionId) > 0;
     }
 }

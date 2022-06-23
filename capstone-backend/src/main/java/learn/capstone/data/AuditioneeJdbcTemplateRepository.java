@@ -1,6 +1,7 @@
 package learn.capstone.data;
 
 import learn.capstone.data.mappers.AuditioneeMapper;
+import learn.capstone.models.Audition;
 import learn.capstone.models.Auditionee;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -47,6 +48,20 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 
         String sql = "insert into auditionee (app_user_id, part_id, time_slot, selection) values (?,?,?,?);";
 
+        List<Auditionee> all = findAll();
+        int max = 1;
+        if (all.size() < 1) {
+            jdbcTemplate.update("alter table auditions auto_increment = 0;");
+        } else {
+            max = all.get(0).getAuditioneeId();
+            for (int i = 0; i < all.size(); i++) {
+                if (all.get(i).getAuditioneeId() > max) {
+                    max = all.get(i).getAuditioneeId();
+                }
+            }
+        }
+        jdbcTemplate.update("alter table auditionee auto_increment = ?;", max);
+
         GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update((conn) -> {
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -91,7 +106,14 @@ public class AuditioneeJdbcTemplateRepository implements AuditioneeRepository {
 //    @Transactional
     @Override
     public boolean deleteById(int auditioneeId) {
-       // jdbcTemplate.update("delete from auditionee where auditionee_id = ?;", auditioneeId);
+        List<Auditionee> auditioneeList = findAll();
+        int max = auditioneeList.get(0).getAuditioneeId();
+        for (int i = 0; i < auditioneeList.size(); i++) {
+            if (auditioneeList.get(i).getAuditioneeId() > max) {
+                max = auditioneeList.get(i).getAuditioneeId();
+            }
+        }
+        jdbcTemplate.update("alter table auditionee auto_increment = ?;", max);
         return jdbcTemplate.update("delete from auditionee where auditionee_id = ?;", auditioneeId) > 0;
     }
 

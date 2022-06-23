@@ -30,21 +30,18 @@ function SignUp(addAuditionee) {
             });
     }
 
-
-    // getAuditionees();
+    console.log(auditionees)
+;    var correctId;
     if (auditionees.length === 0) {
         correctId = 1;
-        console.log(correctId);
     } else {
-        var correctId;
-        var index = auditionees.length;
-        var tempAuditionee = auditionees[index - 1]
+        var index = auditionees.length - 1;
+        console.log(index);
+        var tempAuditionee = auditionees[index];
+        console.log(tempAuditionee);
         correctId = tempAuditionee.auditioneeId + 1;
-
-        console.log(correctId)
+        console.log(correctId);
     }
-
-
 
 
     const auditionPost = () => {
@@ -77,16 +74,12 @@ function SignUp(addAuditionee) {
     const auditioneePost = () => {
 
         const init = { // initialize the GET request
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            }
+            method: "GET"
         };
 
-        const userId = localStorage.getItem("id");
 
-        return fetch(`http://localhost:8080/api/theater/auditionee/${userId}`, init)
+
+        return fetch(`http://localhost:8080/api/theater/auditionee/${correctId}`, init)
             .then(response => {
                 if (response.status !== 200) { //No Auditionee in Database
                     var auditionee = {

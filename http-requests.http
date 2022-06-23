@@ -7,7 +7,6 @@ GET  http://localhost:8080/api/theater/audition/1 HTTP/1.1
 
 ###
 GET http://localhost:8080/api/theater/auditionee HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4iLCJleHAiOjE2NTUyMzQ3ODh9.P5OJpypdrbol-_Lj_fbdmjxCSmdDYa4V7tqvxL_EEPc
 
 ###
 
@@ -51,11 +50,11 @@ Content-Type: application/json
 ###
 POST http://localhost:8080/api/theater/audition HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiY0NvZHkiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImV4cCI6MTY1NTM0NjAyNH0.59S-VD3vi7uqIB97IUBjYOC0xXGBxnE3Dmqk3uCd9Xo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiZW1tYXpnIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NTU5NTYzNDh9.RB8Xf69mXRlTDC2ikftQg7OcxP4AtLtXUut3FF0i9y8
 
 {
-  "auditioneeId": 3,
-  "partId": 2
+  "auditioneeId": 2,
+  "partId": 1
 }
 
 ###
@@ -105,13 +104,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic
 # uses the USER privileges to ADD an auditionee
 POST http://localhost:8080/api/theater/auditionee HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoibXNtaXRoIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NTU3MzYxODN9.12g3OGq43mQOInt1y0NiJw4KGii6hTdIcPUdqmWUuhg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiZW1tYXpnIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NTU5NTYzNDh9.RB8Xf69mXRlTDC2ikftQg7OcxP4AtLtXUut3FF0i9y8
 
 {
-    "appUserId": 1,
-    "partId": 2,
-    "timeSlot": "2022-06-29 2:00pm",
-    "selection": "Sing A New Song"
+    "appUserId": 3,
+    "partId": 1,
+    "timeSlot": "2022-07-01 9:00am",
+    "selection": "Song 1"
 }
 
 ###
@@ -120,7 +119,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic
 # should return 204 with no content
 PUT http://localhost:8080/api/theater/auditionee/1 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoibXNtaXRoIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2NTU3MzYxODN9.12g3OGq43mQOInt1y0NiJw4KGii6hTdIcPUdqmWUuhg
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic3ViIjoiY0NvZHkiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImV4cCI6MTY1NTk1MzIzOH0.E70GhEjrxVmnoolKUVoVvJWAFlgo5tRaX5l0Lw6X-hE
 
 {
     "auditioneeId": 1,
@@ -134,4 +133,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdG9uZS1iYWNrZW5kIiwic
 
 # uses ADMIN privileges to DELETE auditioneeId 3
 # should return 204 with no content
-DELETE http://localhost:8080/api/theater/auditionee/1 HTTP/1.1
+DELETE http://localhost:8080/api/theater/auditionee/2 HTTP/1.1

@@ -70,7 +70,7 @@ export default function Schedule() {
 
   const superDelete = async (audition) => {
     await auditionDelete(audition);
-    await auditioneeDelete(audition);
+    await auditioneeDelete(audition);  
     document.location.reload();
   }
 
@@ -99,7 +99,7 @@ export default function Schedule() {
                   <td>{audition.firstName}</td>
                   <td>{audition.lastName}</td>
                   <td>{audition.role}</td>
-                  <td><button type="button" onClick={(e) => { superDelete(audition) }}>Delete</button></td>
+                  <td><button type="button" className="btn" onClick={(e) => { superDelete(audition) }}>Delete</button></td>
                 </tr>)
               })}
             </tbody>
