@@ -36,7 +36,7 @@ export default function Schedule() {
       // }
     };
 
-    return fetch(`http://localhost:8080/api/theater/audition/${audition.auditioneeId}`, deleteInit)
+    return fetch(`http://localhost:8080/api/theater/audition/${audition.auditionId}`, deleteInit)
       .then(response => {
         if (response.status === 204) {
           

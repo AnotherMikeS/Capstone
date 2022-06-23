@@ -192,7 +192,7 @@ function SignUp(addAuditionee) {
                 <div class="row">
                     <label htmlFor="auditionPiece">Selection Piece: </label>
                     <div class="col-3">
-                        <input id="selection" onChange={handleSelectionChange} name="selection" type="Text" value={selection}></input>
+                        <input autoComplete="off" id="selection" onChange={handleSelectionChange} name="selection" type="Text" value={selection}></input>
                     </div>
                 </div>
                 {(role === "" || date === "" || time === "" || selection === "")

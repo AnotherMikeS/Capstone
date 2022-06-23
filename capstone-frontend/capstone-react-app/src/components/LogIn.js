@@ -63,8 +63,8 @@ export default function LogIn(props) {
                     <div class="col-sm">
                         <div class="form-field">
                             <div class="form-field__control">
-                                <input id="oldUser" type="text" class="form-field__input" placeholder=" " onChange={(event) => setUsername(event.target.value)} />
-                                <label for="oldUser" class="form-field__label">Username</label>
+                                <input autoComplete="off" id="oldUser" type="text" class="form-field__input" placeholder=" " onChange={(event) => setUsername(event.target.value)} />
+                                <label autoComplete="off" for="oldUser" class="form-field__label">Username</label>
                                 <div class="form-field__bar"></div>
                             </div>
                         </div>

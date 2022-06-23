@@ -202,8 +202,8 @@ export default function MyAccount() {
                             <td>{userInfo.firstName}</td>
                             <td>{userInfo.lastName}</td>
                             <td>{editMode ?
-                                <select select style={{ height: 40, width: 250, textAlign: 'center' }} name="timeSlot" id="timeSlot" onChange={handleChange}value={actualUser.timeSlot}>
-                                    <option value="" disabled selected>userInfo.timeSlot</option>
+                                <select select style={{ height: 40, width: 250, textAlign: 'center' }} name="timeSlot" id="timeSlot" onChange={handleChange}>
+                                    <option value={userInfo.timeSlot} disabled selected>{userInfo.timeSlot}</option>
                                     <option value="2022-07-01 12:00pm">2022-07-01 12:00pm</option>
                                     <option value="2022-07-02 12:00pm">2022-07-02 12:00pm</option>
                                     <option value="2022-07-03 12:00pm">2022-07-03 12:00pm</option>
@@ -211,15 +211,15 @@ export default function MyAccount() {
                                 : userInfo.timeSlot}</td>
 
                             <td>{editMode ?
-                                <input style={{ height: 40, width: 300 }} type="text" name="selection" id="selection" className="form-control_input" placeholder={userInfo.selection}
+                                <input autoComplete="off" style={{ height: 40, width: 300 }} type="text" name="selection" id="selection" className="form-control_input" placeholder={userInfo.selection}
                                     value={actualUser.selection} onChange={handleChange} />
                                 : userInfo.selection}</td>
                             <td>{editMode ?
                                 <div>
-                                    <select style={{ height: 40, width: 100, textAlign: 'center' }} id="part" onChange={handleChange} value={actualUser.part}>
-                                        <option value="" disabled selected>userInfo.part</option>
-                                        <option value="Acting">Acting</option>
-                                        <option value="Singing">Singing</option>
+                                    <select style={{ height: 40, width: 100, textAlign: 'center' }} name="part" id="part" onChange={handleChange}>
+                                        <option value={userInfo.part} disabled selected>{userInfo.part}</option>
+                                        <option value="1">Acting</option>
+                                        <option value="2">Singing</option>
                                     </select>
                                 </div>
 
