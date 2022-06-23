@@ -7,6 +7,7 @@ import Edit from "./components/Edit";
 import NavBar from "./components/NavBar";
 import UserForms from "./components/UserForms";
 import MyAccount from "./components/MyAccount";
+import NotFound from "./components/NotFound";
 import './CSS/App.css';
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
                 <Route path="/edit" element={<Edit />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/myaccount" element={<MyAccount />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );

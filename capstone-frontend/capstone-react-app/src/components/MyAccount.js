@@ -180,11 +180,12 @@ export default function MyAccount() {
     return (
 
         <div>
+            {true?
             <form>
                 <div>
-                    <h1>Your Audition</h1>
+                    <h1>Your Account</h1>
                 </div>
-
+            {(localStorage.getItem("id") !== "1") ?
                 <table>
                     <thead>
                         <tr>
@@ -201,7 +202,8 @@ export default function MyAccount() {
                             <td>{userInfo.firstName}</td>
                             <td>{userInfo.lastName}</td>
                             <td>{editMode ?
-                                <select select style={{ height: 40, width: 250, textAlign: 'center' }} name="timeSlot" id="timeSlot" onChange={handleChange}>
+                                <select select style={{ height: 40, width: 250, textAlign: 'center' }} name="timeSlot" id="timeSlot" onChange={handleChange}value={actualUser.timeSlot}>
+                                    <option value="" disabled selected>userInfo.timeSlot</option>
                                     <option value="2022-07-01 12:00pm">2022-07-01 12:00pm</option>
                                     <option value="2022-07-02 12:00pm">2022-07-02 12:00pm</option>
                                     <option value="2022-07-03 12:00pm">2022-07-03 12:00pm</option>
@@ -214,9 +216,10 @@ export default function MyAccount() {
                                 : userInfo.selection}</td>
                             <td>{editMode ?
                                 <div>
-                                    <select style={{ height: 40, width: 100, textAlign: 'center' }} id="part" onChange={handleChange}>
-                                        <option value="1">Acting</option>
-                                        <option value="2">Singing</option>
+                                    <select style={{ height: 40, width: 100, textAlign: 'center' }} id="part" onChange={handleChange} value={actualUser.part}>
+                                        <option value="" disabled selected>userInfo.part</option>
+                                        <option value="Acting">Acting</option>
+                                        <option value="Singing">Singing</option>
                                     </select>
                                 </div>
 
@@ -226,14 +229,18 @@ export default function MyAccount() {
                                 <tr>
                                     <td><button type="button" className="btn" onClick={toggleEdit}>{editMode ? "Cancel" : "Edit"}</button></td>
 
-                                    {(editMode) ? <td><button className="btn" onClick={handleUpdate}>Save</button></td> : <></>}
+                                    {(editMode && (actualUser.timeSlot != "" || actualUser.part != "")) ? <td><button className="btn" onClick={handleUpdate}>Save</button></td> : <></>}
 
                                 </tr>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                :
+                <h2>You are the System Admin!</h2>
+                }
             </form>
+            :<></>}
         </div>
     );
 }

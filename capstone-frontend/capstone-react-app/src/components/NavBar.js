@@ -21,16 +21,22 @@ export default function NavBar(props) {
         }}
       >
         <Link to="/home"><button className="btn">Home</button></Link> {" "}
+
         {(localStorage.getItem("token"))
-        ? (<button onClick={props.logout} className="btn">Logout</button>) 
-        : (<Link to="/forms"><button className="btn">Log In/Register</button></Link>)} {" "}
-        {localStorage.getItem("token") 
-        ? <Link to="/signup"><button className="btn">Sign Up</button></Link>
-        : <></>} {" "}
-        <Link to="/schedule"><button className="btn">Audition Schedule</button></Link> {/*Admin Only eventually*/}
-        {localStorage.getItem("token") 
-        ? <Link to="/myaccount"><button className="btn">My Account</button></Link>
-        : <></>}
+          ? (<button onClick={props.logout} className="btn">Logout</button>)
+          : (<Link to="/forms"><button className="btn">Log In/Register</button></Link>)} {" "}
+
+        {(localStorage.getItem("token") && (localStorage.getItem("id") !== "1"))
+          ? <Link to="/signup"><button className="btn">Sign Up</button></Link>
+          : <></>} {" "}
+
+        {(localStorage.getItem("token") && (localStorage.getItem("id") === "1"))
+          ? <Link to="/schedule"><button className="btn">Audition Schedule</button></Link>
+          : <></>} {" "}
+
+        {localStorage.getItem("token")
+          ? <Link to="/myaccount"><button className="btn">My Account</button></Link>
+          : <></>}
       </nav>
       <Outlet />
     </div>

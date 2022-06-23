@@ -7,10 +7,115 @@ function SignUp(addAuditionee) {
     const [date, setDate] = useState("");
     const [time, setTime] = useState("");
     const [selection, setSelectionPiece] = useState("");
+    const [auditionees, setAuditionees] = useState([]);
     const [allPeople, setPeople] = useState([]);
 
     const baseurl = window.API_URL + "/api/theater/auditionee";
 
+    useEffect(() => {
+        getAuditionees();
+    }, []);
+
+    const getAuditionees = () => {
+
+        fetch("http://localhost:8080/api/theater/auditionee", { method: "GET" })
+            .then(resp => {
+                if (resp.status !== 200) {
+                    return Promise.reject("response is not ok");
+                }
+                return resp.json();
+            })
+            .then(json => {
+                setAuditionees(json);
+            });
+    }
+
+    console.log(auditionees)
+;    var correctId;
+    if (auditionees.length === 0) {
+        correctId = 1;
+    } else {
+        var index = auditionees.length - 1;
+        console.log(index);
+        var tempAuditionee = auditionees[index];
+        console.log(tempAuditionee);
+        correctId = tempAuditionee.auditioneeId + 1;
+        console.log(correctId);
+    }
+
+
+    const auditionPost = () => {
+
+
+        const newAudition = { auditioneeId: correctId, partId: parseInt(role, 10) };
+
+        console.log(newAudition);
+
+        const auditionInit = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            },
+            body: JSON.stringify(newAudition)
+        };
+
+        return fetch("http://localhost:8080/api/theater/audition", auditionInit)
+            .then(response => {
+                console.log(response.status);
+                if (response.status === 201) {
+                } else {
+                    return Promise.reject("POST failed.")
+                }
+            })
+            .catch(console.error);
+    }
+
+    const auditioneePost = () => {
+
+        const init = { // initialize the GET request
+            method: "GET"
+        };
+
+
+
+        return fetch(`http://localhost:8080/api/theater/auditionee/${correctId}`, init)
+            .then(response => {
+                if (response.status !== 200) { //No Auditionee in Database
+                    var auditionee = {
+                        appUserId: parseInt(localStorage.getItem("id"), 10),
+                        partId: parseInt(role, 10),
+                        timeSlot: date + " " + time,
+                        selection: selection
+                    }
+
+                    console.log(auditionee);
+
+                    const anotherInit = {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + localStorage.getItem("token")
+                        },
+                        body: JSON.stringify(auditionee)
+                    };
+
+                    fetch(baseurl, anotherInit)
+                        .then(response => {
+                            console.log(response.status);
+                            if (response.status === 201) { // status CREATED
+                            } else {
+                                return Promise.reject("POST auditionee status was not 201.");
+                            }
+
+                        })
+                        .catch(console.error);
+                }
+                else {
+                    alert("There is already an audition for this user. Please edit it in the 'My Account' Section, or make a different user");
+                }
+            })
+    }
 
     const handleRoleChange = (evt) => {
         setRole(evt.target.value);
@@ -25,55 +130,11 @@ function SignUp(addAuditionee) {
         setSelectionPiece(evt.target.value);
     }
 
-    const handleSubmit = (evt) => {
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
 
-        const init = { // initialize the GET request
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("token")
-            }
-        };
-
-        const userId = localStorage.getItem("id");
-
-        fetch(window.API_URL + `/api/theater/auditionee/${userId}`, init)
-            .then(response => {
-                if(response.status !== 200){ //No Auditionee in Database
-                    var auditionee = {
-                        appUserId: parseInt(localStorage.getItem("id"), 10),
-                        partId: parseInt(role, 10),
-                        timeSlot: date + " " + time,
-                        selection: selection
-                    }
-            
-                    console.log(auditionee);
-            
-                    const anotherInit = { 
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": "Bearer " + localStorage.getItem("token")
-                        },
-                        body : JSON.stringify(auditionee)
-                    };
-            
-                    fetch(baseurl, anotherInit)
-                        .then(response => {
-                            console.log(response.status);
-                            if (response.status === 201) { // status CREATED
-                            } else {
-                                return Promise.reject("POST auditionee status was not 201.");
-                            }
-            
-                        })
-                        .catch(console.error);
-                }
-                else{
-                    alert("There is already an audition for this user. Please edit it in the 'My Account' Section, or make a different user");
-                }
-            })
+        await auditioneePost();
+        await auditionPost();
 
         //Set to blank
         setRole("");
@@ -82,7 +143,10 @@ function SignUp(addAuditionee) {
         setSelectionPiece("");
     };
 
+
     return (
+        <div>
+            {true? 
         <form onSubmit={handleSubmit}>
             <div class="container">
                 <div class="row">
@@ -135,10 +199,10 @@ function SignUp(addAuditionee) {
                     ? <button className="btn btn-secondary" disabled>Add Audition</button>
                     : <button className="btn btn-primary" type="submit">Add Audition</button>
                 }
-
             </div>
-
         </form>
+        : <></>}
+        </div>
     );
 }
 

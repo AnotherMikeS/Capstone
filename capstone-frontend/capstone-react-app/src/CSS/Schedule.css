@@ -1,39 +1,38 @@
-h1 {
-  justify-content: left;
-  font-weight: 700;
-  font-style: oblique;
-  margin-top: 3%;
-  margin-bottom: 2%;
-}
-
 h2 {
-    text-align: center;
     font-weight: 700;
     font-style: oblique;
     margin-top: 3%;
+    margin-left: 40%;
     margin-bottom: 2%;
-    margin-right: 40%;
-  }
-  
-  .center {
+}
+
+.center {
     margin-left: 8%;
-  }
-  
-  table {
+}
+
+table {
+    margin-left: 8%;
     width: auto;
-  }
-  
-  th {
+}
+
+thead {
     text-align: center;
     border-bottom: solid 1px;
     font-size: 18px;
     font-style: oblique;
-  }
-  
-  td {
+}
+
+th {
+    text-align: center;
+    border-bottom: solid 1px;
+    font-size: 18px;
+    font-style: oblique;
+}
+
+td {
     width: 400px;
     text-align: center;
     padding: 8px;
     font-size: 16px;
     justify-content: center;
-  }
+}
