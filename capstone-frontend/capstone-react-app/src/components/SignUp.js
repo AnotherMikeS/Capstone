@@ -30,11 +30,16 @@ function SignUp(addAuditionee) {
             });
     }
 
-    console.log(auditionees)
-;    var correctId;
+    console.log(auditionees);
+    var correctId;
+
     if (auditionees.length === 0) {
         correctId = 1;
-    } else {
+    }
+    else if(auditionees.length === 2){
+        correctId = 3;
+    } 
+    else {
         var index = auditionees.length - 1;
         console.log(index);
         var tempAuditionee = auditionees[index];

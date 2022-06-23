@@ -82,7 +82,7 @@ export default function NewUser(props) {
 
     // Fetch for Person
     const postPerson = () => {
-        const newPerson = { appUserId: (users.length + 1), firstName, lastName }; // How to get app_user_id ??
+        const newPerson = { appUserId: (users.length+1), firstName, lastName }; // How to get app_user_id ??
         const initPerson = { // Initialize POST request that will go to sql person
             method: "POST",
             headers: {
