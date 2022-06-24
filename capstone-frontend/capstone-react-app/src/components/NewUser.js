@@ -144,6 +144,37 @@ export default function NewUser(props) {
 
     }
 
+    var hasNum = false;
+    for (let i = 0; i < password.length; i++) {
+        if (password[i] === '1' || password[i] === '2' || password[i] === '3' || password[i] === '4' || password[i] === '5' || password[i] === '6' ||
+        password[i] === '7' || password[i] === '8' || password[i] === '9' || password[i] === '0') {
+            hasNum = true;
+        }
+    }
+
+    var hasLetter = false;
+    for (let i = 0; i < password.length; i++) {
+        password[i].toLowerCase();
+        if (password[i] === 'a' || password[i] === 'b' || password[i] === 'c' || password[i] === 'd' || password[i] === 'e' || password[i] === 'f' ||
+            password[i] === 'g' || password[i] === 'h' || password[i] === 'i' || password[i] === 'j' || password[i] === 'k' || password[i] === 'l' ||
+            password[i] === 'm' || password[i] === 'n' || password[i] === 'o' || password[i] === 'p' || password[i] === 'q' || password[i] === 'r' ||
+            password[i] === 's' || password[i] === 't' || password[i] === 'u' || password[i] === 'v' || password[i] === 'w' || password[i] === 'x' ||
+            password[i] === 'y' || password[i] === 'z') {
+            hasLetter = true;
+        }
+    }
+
+    var hasSymbol = false;
+    for (let i = 0; i < password.length; i++) {
+        if (password[i] === '`' || password[i] === '~' || password[i] === '!' || password[i] === '@' || password[i] === '#' || password[i] === '$' ||
+        password[i] === '%' || password[i] === '^' || password[i] === '&' || password[i] === '*' || password[i] === '(' || password[i] === ')' ||
+        password[i] === '-' || password[i] === '_' || password[i] === '=' || password[i] === '+' || password[i] === '[' || password[i] === ']' ||
+        password[i] === '{' || password[i] === '}' || password[i] === '|' || password[i] === ';' || password[i] === ':' || password[i] === '' ||
+        password[i] === ',' || password[i] === '<' || password[i] === '.' || password[i] === '>' || password[i] === '/' || password[i] === '?') {
+            hasSymbol = true;
+        }
+    }
+
     const handleAgain = () => {
         document.location.reload();
     }
@@ -200,6 +231,20 @@ export default function NewUser(props) {
                                 </div>
                             </div>
                         </div>
+
+                        {(password.length > 7) ?
+                            <p style={{ textDecoration: "line-through" }}>8 characters</p>
+                            : <p>8 characters</p>}
+                        {(hasNum) ?
+                            <p style={{ textDecoration: "line-through" }}>A Number</p>
+                            : <p>A Number</p>}
+                        {(hasLetter) ?
+                            <p style={{ textDecoration: "line-through" }}>A Letter</p>
+                            : <p>A Letter</p>}
+                        {(hasSymbol) ?
+                            <p style={{ textDecoration: "line-through" }}>A Symbol</p>
+                            : <p>A Symbol</p>}
+
                     </div>
                     <button onClick={handleSubmit} className="btn" type="submit">Submit</button>
 

@@ -18,13 +18,10 @@ export default function App() {
     };
 
     const logout = () => {
-        let confirmActin = window.confirm("Are you sure you want to log out?");
-        if (confirmActin) {
             localStorage.removeItem("token");
             localStorage.removeItem("id");
             setUserStatus((userStatus) => ({ ...userStatus, username: null, userId: 0 }));
             window.location = '/home';
-        }
     };
 
     return (

@@ -198,8 +198,8 @@ function SignUp(addAuditionee) {
                             </div>
                         </div>
                         {(role === "" || date === "" || time === "" || selection === "")
-                            ? <button className="btn btn-secondary" disabled>Add Audition</button>
-                            : <button className="btn btn-primary" type="submit">Add Audition</button>
+                            ? <button className="btn" disabled>Add Audition</button>
+                            : <button className="btn" type="submit">Add Audition</button>
                         }
                     </div>
                 </form>

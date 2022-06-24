@@ -38,6 +38,7 @@ public class AuditioneeService {
         for (int i = 0; i < all.size(); i++) {
             if (all.get(i).getAppUserId() == auditionee.getAppUserId()) {
                 result.addMessage("Cannot add duplicates.", ResultType.INVALID);
+                return result;
             }
         }
 
